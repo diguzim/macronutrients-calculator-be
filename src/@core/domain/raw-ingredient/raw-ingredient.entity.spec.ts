@@ -13,7 +13,7 @@ describe('RawIngredient', () => {
       });
 
       expect(rawIngredient).toBeInstanceOf(RawIngredient);
-      expect(rawIngredient.checkIfRatioSumIsOne()).toBe(true);
+      expect(rawIngredient.isRatioSumOne()).toBe(true);
     });
 
     it('should throw an error when protein ratio is less than zero', () => {
