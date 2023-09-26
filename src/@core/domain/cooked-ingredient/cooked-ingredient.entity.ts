@@ -6,11 +6,13 @@ import { RawIngredient } from '../raw-ingredient/raw-ingredient.entity';
 
 export type CookedIngredientProps = NutritionalEntityProps & {
   id?: string;
+  raw_ingredient_id?: string;
   name: string;
 };
 
 export class CookedIngredient extends NutritionalEntity {
   private _id?: string;
+  private _raw_ingredient_id?: string;
   private _name: string;
 
   private constructor(props: CookedIngredientProps) {
@@ -39,6 +41,7 @@ export class CookedIngredient extends NutritionalEntity {
     const kcal_per_gram = rawIngredient.kcal_per_gram * scalingFactor;
 
     const cookedIngredient = new CookedIngredient({
+      raw_ingredient_id: rawIngredient.id,
       name: `${rawIngredient.name} cooked`,
       protein_ratio,
       fat_ratio,
@@ -56,6 +59,14 @@ export class CookedIngredient extends NutritionalEntity {
 
   set id(value: string | undefined) {
     this._id = value;
+  }
+
+  get raw_ingredient_id(): string | undefined {
+    return this._raw_ingredient_id;
+  }
+
+  set raw_ingredient_id(value: string | undefined) {
+    this._raw_ingredient_id = value;
   }
 
   get name(): string {
