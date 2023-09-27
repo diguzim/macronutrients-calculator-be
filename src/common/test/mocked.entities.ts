@@ -1,8 +1,7 @@
 import { CookedIngredient } from '../../@core/domain/cooked-ingredient/cooked-ingredient.entity';
 import { RawIngredient } from '../../@core/domain/raw-ingredient/raw-ingredient.entity';
 
-export const MockedRawIngredient = RawIngredient.create({
-  id: '1',
+export const MockedRawIngredient = RawIngredient.createFromRatios({
   name: 'Some raw ingredient',
   protein_ratio: 0.2,
   fat_ratio: 0.3,

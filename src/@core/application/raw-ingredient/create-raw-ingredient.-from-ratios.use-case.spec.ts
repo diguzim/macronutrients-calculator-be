@@ -1,8 +1,8 @@
 import { mockedRawIngredientRepository } from '../../../common/test/repositories';
 import { RawIngredient } from '../../domain/raw-ingredient/raw-ingredient.entity';
-import { CreateRawIngredientUseCase } from './create-raw-ingredient.use-case';
+import { CreateRawIngredientFromRatiosUseCase } from './create-raw-ingredient-from-ratios.use-case';
 
-describe('CreateRawIngredientUseCase', () => {
+describe('CreateRawIngredientFromRatiosUseCase', () => {
   it('should create a raw ingredient', async () => {
     const repository = {
       ...mockedRawIngredientRepository,
@@ -12,7 +12,7 @@ describe('CreateRawIngredientUseCase', () => {
         }),
       ),
     };
-    const createRawIngredientUseCase = new CreateRawIngredientUseCase(
+    const createRawIngredientUseCase = new CreateRawIngredientFromRatiosUseCase(
       repository,
     );
 

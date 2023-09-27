@@ -1,7 +1,7 @@
 import { RawIngredient } from '../../domain/raw-ingredient/raw-ingredient.entity';
 import { IRawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
 
-type CreateRawIngredientInput = {
+type CreateRawIngredientFromRatiosInput = {
   name: string;
   protein_ratio: number;
   fat_ratio: number;
@@ -10,13 +10,15 @@ type CreateRawIngredientInput = {
   kcal_per_gram: number;
 };
 
-export class CreateRawIngredientUseCase {
+export class CreateRawIngredientFromRatiosUseCase {
   constructor(
     private readonly rawIngredientRepository: IRawIngredientRepository,
   ) {}
 
-  async execute(input: CreateRawIngredientInput): Promise<RawIngredient> {
-    const rawIngredient = RawIngredient.create(input);
+  async execute(
+    input: CreateRawIngredientFromRatiosInput,
+  ): Promise<RawIngredient> {
+    const rawIngredient = RawIngredient.createFromRatios(input);
 
     const rawIngredientCreated =
       await this.rawIngredientRepository.insert(rawIngredient);

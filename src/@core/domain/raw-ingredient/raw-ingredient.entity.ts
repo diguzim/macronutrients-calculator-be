@@ -8,6 +8,10 @@ export type RawIngredientProps = NutritionalEntityProps & {
   name: string;
 };
 
+export type CreateRawIngredientFromRatiosInput = NutritionalEntityProps & {
+  name: string;
+};
+
 export class RawIngredient extends NutritionalEntity {
   private _id?: string;
   private _name: string;
@@ -18,7 +22,9 @@ export class RawIngredient extends NutritionalEntity {
     this._name = props.name;
   }
 
-  public static create(props: RawIngredientProps): RawIngredient {
+  public static createFromRatios(
+    props: CreateRawIngredientFromRatiosInput,
+  ): RawIngredient {
     const rawIngredient = new RawIngredient(props);
     return rawIngredient;
   }

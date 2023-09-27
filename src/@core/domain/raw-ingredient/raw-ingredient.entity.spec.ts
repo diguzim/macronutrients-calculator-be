@@ -1,9 +1,9 @@
 import { RawIngredient } from './raw-ingredient.entity';
 
 describe('RawIngredient', () => {
-  describe('create', () => {
+  describe('createFromRatio', () => {
     it('should create a RawIngredient when ratios are valid', () => {
-      const rawIngredient = RawIngredient.create({
+      const rawIngredient = RawIngredient.createFromRatios({
         name: 'Raw Ingredient',
         protein_ratio: 0.3,
         fat_ratio: 0.3,
@@ -18,7 +18,7 @@ describe('RawIngredient', () => {
 
     it('should throw an error when protein ratio is less than zero', () => {
       expect(() =>
-        RawIngredient.create({
+        RawIngredient.createFromRatios({
           name: 'Raw Ingredient',
           protein_ratio: -0.1,
           fat_ratio: 0.3,
@@ -31,7 +31,7 @@ describe('RawIngredient', () => {
 
     it('should throw an error when fat ratio is less than zero', () => {
       expect(() =>
-        RawIngredient.create({
+        RawIngredient.createFromRatios({
           name: 'Raw Ingredient',
           protein_ratio: 0.3,
           fat_ratio: -0.1,
@@ -44,7 +44,7 @@ describe('RawIngredient', () => {
 
     it('should throw an error when carbohydrate ratio is less than zero', () => {
       expect(() =>
-        RawIngredient.create({
+        RawIngredient.createFromRatios({
           name: 'Raw Ingredient',
           protein_ratio: 0.3,
           fat_ratio: 0.3,
@@ -57,7 +57,7 @@ describe('RawIngredient', () => {
 
     it('should throw an error when fiber ratio is less than zero', () => {
       expect(() =>
-        RawIngredient.create({
+        RawIngredient.createFromRatios({
           name: 'Raw Ingredient',
           protein_ratio: 0.3,
           fat_ratio: 0.3,
@@ -70,7 +70,7 @@ describe('RawIngredient', () => {
 
     it('should throw an error when protein ratio is greater than one', () => {
       expect(() =>
-        RawIngredient.create({
+        RawIngredient.createFromRatios({
           name: 'Raw Ingredient',
           protein_ratio: 1.1,
           fat_ratio: 0.3,
@@ -83,7 +83,7 @@ describe('RawIngredient', () => {
 
     it('should throw an error when fat ratio is greater than one', () => {
       expect(() =>
-        RawIngredient.create({
+        RawIngredient.createFromRatios({
           name: 'Raw Ingredient',
           protein_ratio: 0.3,
           fat_ratio: 1.1,
@@ -96,7 +96,7 @@ describe('RawIngredient', () => {
 
     it('should throw an error when carbohydrate ratio is greater than one', () => {
       expect(() =>
-        RawIngredient.create({
+        RawIngredient.createFromRatios({
           name: 'Raw Ingredient',
           protein_ratio: 0.3,
           fat_ratio: 0.3,
@@ -109,7 +109,7 @@ describe('RawIngredient', () => {
 
     it('should throw an error when fiber ratio is greater than one', () => {
       expect(() =>
-        RawIngredient.create({
+        RawIngredient.createFromRatios({
           name: 'Raw Ingredient',
           protein_ratio: 0.3,
           fat_ratio: 0.3,
@@ -122,7 +122,7 @@ describe('RawIngredient', () => {
 
     it('should not throw an error when ratios do not sum up to one', () => {
       expect(() =>
-        RawIngredient.create({
+        RawIngredient.createFromRatios({
           name: 'Raw Ingredient',
           protein_ratio: 0.3,
           fat_ratio: 0.3,
