@@ -6,6 +6,14 @@ export type NutritionalEntityProps = {
   kcal_per_gram: number;
 };
 
+export type NutritionalSnapshot = {
+  protein: number;
+  fat: number;
+  carbohydrate: number;
+  fiber: number;
+  kcal: number;
+};
+
 export abstract class NutritionalEntity {
   private _protein_ratio: number;
   private _fat_ratio: number;
@@ -15,6 +23,22 @@ export abstract class NutritionalEntity {
 
   constructor(props: NutritionalEntityProps) {
     Object.assign(this, props);
+  }
+
+  calculateNutritionalSnapshot(weight: number): NutritionalSnapshot {
+    const protein = this.protein_ratio * weight;
+    const fat = this.fat_ratio * weight;
+    const carbohydrate = this.carbohydrate_ratio * weight;
+    const fiber = this.fiber_ratio * weight;
+    const kcal = this.kcal_per_gram * weight;
+
+    return {
+      protein,
+      fat,
+      carbohydrate,
+      fiber,
+      kcal,
+    };
   }
 
   get ratioSum(): number {

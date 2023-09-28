@@ -20,6 +20,17 @@ describe('NutritionalEntity', () => {
     });
 
     expect(nutritionalEntity).toBeInstanceOf(NutritionalEntity);
+
+    const nutritionalSnapshot =
+      nutritionalEntity.calculateNutritionalSnapshot(100);
+    expect(nutritionalSnapshot).toEqual({
+      protein: 30,
+      fat: 30,
+      carbohydrate: 30,
+      fiber: 10,
+      kcal: 400,
+    });
+
     expect(nutritionalEntity.isRatioSumOne()).toBe(true);
     expect(nutritionalEntity.isRatioSumMoreThanOne()).toBe(false);
     expect(nutritionalEntity.isRatioSumLessThanOne()).toBe(false);
