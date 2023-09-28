@@ -69,4 +69,20 @@ export class CookedDish extends NutritionalEntity {
 
     return cookedDish;
   }
+
+  get id(): string | undefined {
+    return this._id;
+  }
+
+  set id(value: string | undefined) {
+    this._id = value;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  set name(value: string) {
+    this._name = value;
+  }
 }
