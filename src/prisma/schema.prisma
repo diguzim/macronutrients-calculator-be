@@ -1,0 +1,18 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model RawIngredient {
+  id                  Int      @id @default(autoincrement())
+  name                String
+  protein_ratio       Float
+  fat_ratio           Float
+  carbohidrate_ratio  Float
+  fiber_ratio         Float
+  kcal_per_gram       Float
+}
