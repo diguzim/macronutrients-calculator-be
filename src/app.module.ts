@@ -8,6 +8,7 @@ import configuration from './config/configuration';
       isGlobal: true,
       load: [configuration],
     }),
+    // PrismaModule,
   ],
 })
 export class AppModule {}

@@ -4,7 +4,6 @@ export interface ICookedDishRepository {
   insert(rawIngredient: CookedDish): Promise<any>;
   findAll(): Promise<CookedDish[]>;
   findOne(id: string): Promise<CookedDish | null>;
-  findOneBy(params: Partial<CookedDish>): Promise<CookedDish | null>;
   update(rawIngredient: CookedDish): Promise<void>;
   delete(id: string): Promise<void>;
 }
