@@ -3,7 +3,7 @@ import {
   RawIngredientAmount,
 } from '../../domain/cooked-dish/cooked-dish.entity';
 import { ICookedDishRepository } from '../../domain/cooked-dish/cooked-dish.repository';
-import { IRawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
 
 type CreateCookedDishFromRawIngredientsInput = {
   name: string;
@@ -16,7 +16,7 @@ type CreateCookedDishFromRawIngredientsInput = {
 
 export class CreateCookedDishFromRawIngredientsUseCase {
   constructor(
-    private readonly rawIngredientRepository: IRawIngredientRepository,
+    private readonly rawIngredientRepository: RawIngredientRepository,
     private readonly cookedDishRepository: ICookedDishRepository,
   ) {}
 

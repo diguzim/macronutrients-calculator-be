@@ -1,5 +1,5 @@
 import { RawIngredient } from '../../domain/raw-ingredient/raw-ingredient.entity';
-import { IRawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
 
 type CreateRawIngredientFromRatiosInput = {
   name: string;
@@ -12,7 +12,7 @@ type CreateRawIngredientFromRatiosInput = {
 
 export class CreateRawIngredientFromRatiosUseCase {
   constructor(
-    private readonly rawIngredientRepository: IRawIngredientRepository,
+    private readonly rawIngredientRepository: RawIngredientRepository,
   ) {}
 
   async execute(

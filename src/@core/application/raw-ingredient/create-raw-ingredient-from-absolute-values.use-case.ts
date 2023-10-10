@@ -1,5 +1,6 @@
+import { Injectable } from '@nestjs/common';
 import { RawIngredient } from '../../domain/raw-ingredient/raw-ingredient.entity';
-import { IRawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
 
 type CreateRawIngredientFromAbsoluteValuesInput = {
   name: string;
@@ -11,15 +12,17 @@ type CreateRawIngredientFromAbsoluteValuesInput = {
   kcal: number;
 };
 
+@Injectable()
 export class CreateRawIngredientFromAbsoluteValuesUseCase {
   constructor(
-    private readonly rawIngredientRepository: IRawIngredientRepository,
+    private readonly rawIngredientRepository: RawIngredientRepository,
   ) {}
 
   async execute(
     input: CreateRawIngredientFromAbsoluteValuesInput,
   ): Promise<RawIngredient> {
     const rawIngredient = RawIngredient.createFromAbsoluteValues(input);
+    console.log('rawIngredientRepository', this.rawIngredientRepository);
 
     const rawIngredientCreated =
       await this.rawIngredientRepository.insert(rawIngredient);
