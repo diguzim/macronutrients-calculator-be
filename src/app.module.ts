@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { RawIngredientsModule } from './raw-ingredients/raw-ingredients.module';
 import environmentVariables from './utils/config/environment-variables';
 import { MongooseModule } from '@nestjs/mongoose';
+import { HttpModule } from './infra/http/http.module';
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       load: [environmentVariables],
     }),
     MongooseModule.forRoot('mongodb://localhost/nest'),
-    RawIngredientsModule,
+    HttpModule,
   ],
 })
 export class AppModule {}

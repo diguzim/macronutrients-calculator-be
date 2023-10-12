@@ -7,10 +7,7 @@ import { RawIngredient } from '../../../../@core/domain/raw-ingredient/raw-ingre
 export class PrismaRawIngredientRepository implements RawIngredientRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async insert(rawIngredient: RawIngredient): Promise<any> {
-    console.log('prismaService', this.prismaService);
-    console.log('insert on Repository');
-  }
+  async insert(rawIngredient: RawIngredient): Promise<any> {}
 
   async findAll(): Promise<RawIngredient[]> {
     return [];

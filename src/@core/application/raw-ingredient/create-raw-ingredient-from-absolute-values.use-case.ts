@@ -22,7 +22,6 @@ export class CreateRawIngredientFromAbsoluteValuesUseCase {
     input: CreateRawIngredientFromAbsoluteValuesInput,
   ): Promise<RawIngredient> {
     const rawIngredient = RawIngredient.createFromAbsoluteValues(input);
-    console.log('rawIngredientRepository', this.rawIngredientRepository);
 
     const rawIngredientCreated =
       await this.rawIngredientRepository.insert(rawIngredient);
