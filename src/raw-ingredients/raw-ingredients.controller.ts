@@ -1,6 +1,6 @@
 import { Controller, Post } from '@nestjs/common';
 import { CreateRawIngredientFromAbsoluteValuesUseCase } from '../@core/application/raw-ingredient/create-raw-ingredient-from-absolute-values.use-case';
-import { RawIngredientSerializer } from '../common/serializers/raw-ingredient.serializer';
+import { RawIngredientSerializer } from '../utils/serializers/raw-ingredient.serializer';
 
 @Controller('raw-ingredients')
 export class RawIngredientsController {
