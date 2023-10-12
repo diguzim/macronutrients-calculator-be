@@ -1,4 +1,4 @@
-import { MockedRawIngredient } from '../../../common/test/mocked.entities';
+import { MockedRawIngredient } from '../../../utils/test/mocked.entities';
 import { CookedIngredient } from './cooked-ingredient.entity';
 
 describe('CookedIngredient', () => {

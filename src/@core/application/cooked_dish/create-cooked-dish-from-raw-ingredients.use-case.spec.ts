@@ -1,4 +1,4 @@
-import { MockedRawIngredient } from '../../../common/test/mocked.entities';
+import { MockedRawIngredient } from '../../../utils/test/mocked.entities';
 import { CreateCookedDishFromRawIngredientsUseCase } from './create-cooked-dish-from-raw-ingredients.use-case';
 
 describe('CreateCookedDishFromRawIngredientsUseCase', () => {

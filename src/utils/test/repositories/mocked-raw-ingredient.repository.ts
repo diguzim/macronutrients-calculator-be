@@ -1,9 +1,24 @@
+import { RawIngredient } from '../../../@core/domain/raw-ingredient/raw-ingredient.entity';
 import { RawIngredientRepository } from '../../../@core/domain/raw-ingredient/raw-ingredient.repository';
 
-export const mockedRawIngredientRepository: RawIngredientRepository = {
-  insert: jest.fn(),
-  findAll: jest.fn(),
-  findOne: jest.fn(),
-  update: jest.fn(),
-  delete: jest.fn(),
-};
+export class mockedRawIngredientRepository implements RawIngredientRepository {
+  async insert(rawIngredient: RawIngredient): Promise<RawIngredient> {
+    return rawIngredient;
+  }
+
+  async findAll(): Promise<RawIngredient[]> {
+    return [];
+  }
+
+  async findOne(id: string): Promise<RawIngredient | null> {
+    return null;
+  }
+
+  async update(rawIngredient: RawIngredient): Promise<void> {
+    return;
+  }
+
+  async delete(id: string): Promise<void> {
+    return;
+  }
+}

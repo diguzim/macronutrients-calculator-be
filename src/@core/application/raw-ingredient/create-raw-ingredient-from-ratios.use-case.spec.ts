@@ -1,17 +1,17 @@
-import { mockedRawIngredientRepository } from '../../../common/test/repositories';
+import { MockedRawIngredient } from '../../../utils/test/mocked.entities';
+import { mockedRawIngredientRepository } from '../../../utils/test/repositories';
 import { RawIngredient } from '../../domain/raw-ingredient/raw-ingredient.entity';
 import { CreateRawIngredientFromRatiosUseCase } from './create-raw-ingredient-from-ratios.use-case';
 
 describe('CreateRawIngredientFromRatiosUseCase', () => {
   it('should create a raw ingredient', async () => {
-    const repository = {
-      ...mockedRawIngredientRepository,
-      insert: jest.fn(() =>
-        Promise.resolve({
-          id: 'some-id',
-        }),
-      ),
-    };
+    const repository = new mockedRawIngredientRepository();
+    repository.insert = jest.fn(() => {
+      const mockedRawIngredient = MockedRawIngredient;
+      mockedRawIngredient.id = 'some-id';
+      return Promise.resolve(mockedRawIngredient);
+    });
+
     const createRawIngredientUseCase = new CreateRawIngredientFromRatiosUseCase(
       repository,
     );
