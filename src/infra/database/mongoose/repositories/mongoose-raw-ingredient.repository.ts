@@ -1,6 +1,6 @@
 import { Model, ObjectId } from 'mongoose';
-import { RawIngredientRepository } from '../../../@core/domain/raw-ingredient/raw-ingredient.repository';
-import { RawIngredient } from '../../../@core/domain/raw-ingredient/raw-ingredient.entity';
+import { RawIngredientRepository } from '../../../../@core/domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredient } from '../../../../@core/domain/raw-ingredient/raw-ingredient.entity';
 
 export class MongooseRawIngredientRepository
   implements RawIngredientRepository

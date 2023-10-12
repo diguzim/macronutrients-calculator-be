@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { RawIngredientRepository } from '../../../@core/domain/raw-ingredient/raw-ingredient.repository';
-import { RawIngredient } from '../../../@core/domain/raw-ingredient/raw-ingredient.entity';
+import { RawIngredientRepository } from '../../../../@core/domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredient } from '../../../../@core/domain/raw-ingredient/raw-ingredient.entity';
 
 @Injectable()
 export class InMemoryRawIngredientRepository

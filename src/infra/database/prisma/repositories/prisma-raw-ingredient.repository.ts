@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { RawIngredient } from '../../../@core/domain/raw-ingredient/raw-ingredient.entity';
-import { RawIngredientRepository } from '../../../@core/domain/raw-ingredient/raw-ingredient.repository';
 import { PrismaService } from '../prisma.service';
+import { RawIngredientRepository } from '../../../../@core/domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredient } from '../../../../@core/domain/raw-ingredient/raw-ingredient.entity';
 
 @Injectable()
 export class PrismaRawIngredientRepository implements RawIngredientRepository {
