@@ -1,11 +1,11 @@
-import { MockedRawIngredient } from '../../../utils/test/mocked.entities';
+import { mockedRawIngredient } from '../../../utils/test/mocked.entities';
 import { CookedIngredient } from './cooked-ingredient.entity';
 
 describe('CookedIngredient', () => {
   describe('createFromRawIngredient', () => {
     beforeEach(() => jest.clearAllMocks());
     it('should create a CookedIngredient from a raw ingredient', () => {
-      const rawIngredient = MockedRawIngredient;
+      const rawIngredient = mockedRawIngredient;
       const initialWeightInGrams = 100;
       const finalWeightInGrams = 200;
 

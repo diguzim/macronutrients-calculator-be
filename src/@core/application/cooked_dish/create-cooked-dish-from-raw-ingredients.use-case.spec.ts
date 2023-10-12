@@ -1,4 +1,4 @@
-import { MockedRawIngredient } from '../../../utils/test/mocked.entities';
+import { mockedRawIngredient } from '../../../utils/test/mocked.entities';
 import { CreateCookedDishFromRawIngredientsUseCase } from './create-cooked-dish-from-raw-ingredients.use-case';
 
 describe('CreateCookedDishFromRawIngredientsUseCase', () => {
@@ -6,7 +6,7 @@ describe('CreateCookedDishFromRawIngredientsUseCase', () => {
     it('should create a cooked dish from raw ingredients', async () => {
       const rawIngredientRepository = {
         findOne: jest.fn(() => {
-          const result = MockedRawIngredient;
+          const result = mockedRawIngredient;
           result.id = 'id';
 
           return result;
