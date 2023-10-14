@@ -1,6 +1,7 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { CreateRawIngredientFromAbsoluteValuesUseCase } from '../../../../@core/application/raw-ingredient/create-raw-ingredient-from-absolute-values.use-case';
 import { RawIngredientSerializer } from '../../../../utils/serializers/raw-ingredient.serializer';
+import { CreateRawIngredientDto } from './dto/create.dto';
 
 @Controller('raw-ingredients')
 export class RawIngredientsController {
@@ -9,17 +10,11 @@ export class RawIngredientsController {
   ) {}
 
   @Post()
-  async create() {
+  async create(@Body() createRawIngredientDto: CreateRawIngredientDto) {
     const rawIngredient =
-      await this.createRawIngredientFromAbsoluteValuesUseCase.execute({
-        name: 'Raw ingredient name',
-        weight: 100,
-        protein: 10,
-        fat: 10,
-        carbohydrate: 10,
-        fiber: 10,
-        kcal: 10,
-      });
+      await this.createRawIngredientFromAbsoluteValuesUseCase.execute(
+        createRawIngredientDto,
+      );
 
     return RawIngredientSerializer.serialize(rawIngredient);
   }
