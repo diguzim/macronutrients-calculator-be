@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { CookedIngredient } from '../../domain/cooked-ingredient/cooked-ingredient.entity';
 import { CookedIngredientRepository } from '../../domain/cooked-ingredient/cooked-ingredient.repository';
 import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
@@ -9,6 +10,7 @@ type CreateCookedIngredientFromRawIngredientInput = {
   finalWeightInGrams: number;
 };
 
+@Injectable()
 export class CreateCookedIngredientFromRawIngredientUseCase {
   constructor(
     private readonly rawIngredientRepository: RawIngredientRepository,

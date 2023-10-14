@@ -1,6 +1,6 @@
-import { ICookedIngredientRepository } from '../../../@core/domain/cooked-ingredient/cooked-ingredient.repository';
+import { CookedIngredientRepository } from '../../../@core/domain/cooked-ingredient/cooked-ingredient.repository';
 
-export const mockedCookedIngredientRepository: ICookedIngredientRepository = {
+export const mockedCookedIngredientRepository: CookedIngredientRepository = {
   insert: jest.fn(),
   findAll: jest.fn(),
   findOne: jest.fn(),

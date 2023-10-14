@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import RawIngredientSchema from './mongoose/schemas/raw-ingredient.schema';
-import { MongooseRawIngredientRepository } from './mongoose/repositories/mongoose-raw-ingredient.repository';
 import { RawIngredient } from '../../@core/domain/raw-ingredient/raw-ingredient.entity';
 import { RawIngredientRepository } from '../../@core/domain/raw-ingredient/raw-ingredient.repository';
+import { InMemoryRawIngredientRepository } from './in-memory/repositories/in-memory-raw-ingredient.repository';
+import { CookedIngredientRepository } from '../../@core/domain/cooked-ingredient/cooked-ingredient.repository';
+import { InMemoryCookedIngredientRepository } from './in-memory/repositories/in-memory-cooked-ingredient.repository';
 
 @Module({
   imports: [
@@ -12,19 +14,23 @@ import { RawIngredientRepository } from '../../@core/domain/raw-ingredient/raw-i
     ]),
   ],
   providers: [
-    {
-      provide: RawIngredientRepository,
-      useFactory: (rawIngredientModel) =>
-        new MongooseRawIngredientRepository(rawIngredientModel),
-      inject: ['RawIngredientModel'],
-    },
-
-    // Uncomment this to use the in-memory repository
     // {
     //   provide: RawIngredientRepository,
-    //   useClass: InMemoryRawIngredientRepository,
+    //   useFactory: (rawIngredientModel) =>
+    //     new MongooseRawIngredientRepository(rawIngredientModel),
+    //   inject: ['RawIngredientModel'],
     // },
+
+    // Uncomment this to use the in-memory repository
+    {
+      provide: RawIngredientRepository,
+      useClass: InMemoryRawIngredientRepository,
+    },
+    {
+      provide: CookedIngredientRepository,
+      useClass: InMemoryCookedIngredientRepository,
+    },
   ],
-  exports: [RawIngredientRepository],
+  exports: [RawIngredientRepository, CookedIngredientRepository],
 })
 export class DatabaseModule {}
