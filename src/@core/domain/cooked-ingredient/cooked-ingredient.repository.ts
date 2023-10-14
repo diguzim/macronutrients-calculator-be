@@ -1,9 +1,9 @@
 import { CookedIngredient } from './cooked-ingredient.entity';
 
-export interface ICookedIngredientRepository {
-  insert(rawIngredient: CookedIngredient): Promise<any>;
-  findAll(): Promise<CookedIngredient[]>;
-  findOne(id: string): Promise<CookedIngredient | null>;
-  update(rawIngredient: CookedIngredient): Promise<void>;
-  delete(id: string): Promise<void>;
+export abstract class CookedIngredientRepository {
+  abstract insert(rawIngredient: CookedIngredient): Promise<any>;
+  abstract findAll(): Promise<CookedIngredient[]>;
+  abstract findOne(id: string): Promise<CookedIngredient | null>;
+  abstract update(rawIngredient: CookedIngredient): Promise<void>;
+  abstract delete(id: string): Promise<void>;
 }
