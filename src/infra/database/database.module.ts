@@ -6,6 +6,27 @@ import { RawIngredientRepository } from '../../@core/domain/raw-ingredient/raw-i
 import { InMemoryRawIngredientRepository } from './in-memory/repositories/in-memory-raw-ingredient.repository';
 import { CookedIngredientRepository } from '../../@core/domain/cooked-ingredient/cooked-ingredient.repository';
 import { InMemoryCookedIngredientRepository } from './in-memory/repositories/in-memory-cooked-ingredient.repository';
+import { MongooseRawIngredientRepository } from './mongoose/repositories/mongoose-raw-ingredient.repository';
+
+const inMemoryProviders = [
+  {
+    provide: RawIngredientRepository,
+    useClass: InMemoryRawIngredientRepository,
+  },
+  {
+    provide: CookedIngredientRepository,
+    useClass: InMemoryCookedIngredientRepository,
+  },
+];
+
+const mongooseProviders = [
+  {
+    provide: RawIngredientRepository,
+    useFactory: (rawIngredientModel) =>
+      new MongooseRawIngredientRepository(rawIngredientModel),
+    inject: ['RawIngredientModel'],
+  },
+];
 
 @Module({
   imports: [
@@ -14,22 +35,10 @@ import { InMemoryCookedIngredientRepository } from './in-memory/repositories/in-
     ]),
   ],
   providers: [
-    // {
-    //   provide: RawIngredientRepository,
-    //   useFactory: (rawIngredientModel) =>
-    //     new MongooseRawIngredientRepository(rawIngredientModel),
-    //   inject: ['RawIngredientModel'],
-    // },
+    // ...mongooseProviders,
 
     // Uncomment this to use the in-memory repository
-    {
-      provide: RawIngredientRepository,
-      useClass: InMemoryRawIngredientRepository,
-    },
-    {
-      provide: CookedIngredientRepository,
-      useClass: InMemoryCookedIngredientRepository,
-    },
+    ...inMemoryProviders,
   ],
   exports: [RawIngredientRepository, CookedIngredientRepository],
 })
