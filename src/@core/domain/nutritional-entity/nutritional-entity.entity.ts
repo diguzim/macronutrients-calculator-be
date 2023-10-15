@@ -1,3 +1,10 @@
+import { MacroNutrient } from '../../../utils/enums/macro-nutrients.enum';
+import {
+  MacroNutrientRatioGreaterThanOneError,
+  MacroNutrientRatioLessThanOneError,
+  NegativeCaloriesError,
+} from '../../../utils/errors';
+
 export type NutritionalEntityProps = {
   protein_ratio: number;
   fat_ratio: number;
@@ -90,9 +97,9 @@ export abstract class NutritionalEntity {
 
   set protein_ratio(value: number) {
     if (value < 0) {
-      throw new Error('Protein ratio cannot be less than 0');
+      throw new MacroNutrientRatioLessThanOneError(MacroNutrient.Protein);
     } else if (value > 1) {
-      throw new Error('Protein ratio cannot be greater than 1');
+      throw new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Protein);
     }
 
     this._protein_ratio = value;
@@ -104,9 +111,9 @@ export abstract class NutritionalEntity {
 
   set fat_ratio(value: number) {
     if (value < 0) {
-      throw new Error('Fat ratio cannot be less than 0');
+      throw new MacroNutrientRatioLessThanOneError(MacroNutrient.Fat);
     } else if (value > 1) {
-      throw new Error('Fat ratio cannot be greater than 1');
+      throw new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Fat);
     }
 
     this._fat_ratio = value;
@@ -118,9 +125,11 @@ export abstract class NutritionalEntity {
 
   set carbohydrate_ratio(value: number) {
     if (value < 0) {
-      throw new Error('Carbohydrate ratio cannot be less than 0');
+      throw new MacroNutrientRatioLessThanOneError(MacroNutrient.Carbohydrate);
     } else if (value > 1) {
-      throw new Error('Carbohydrate ratio cannot be greater than 1');
+      throw new MacroNutrientRatioGreaterThanOneError(
+        MacroNutrient.Carbohydrate,
+      );
     }
 
     this._carbohydrate_ratio = value;
@@ -132,9 +141,9 @@ export abstract class NutritionalEntity {
 
   set fiber_ratio(value: number) {
     if (value < 0) {
-      throw new Error('Fiber ratio cannot be less than 0');
+      throw new MacroNutrientRatioLessThanOneError(MacroNutrient.Fiber);
     } else if (value > 1) {
-      throw new Error('Fiber ratio cannot be greater than 1');
+      throw new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Fiber);
     }
 
     this._fiber_ratio = value;
@@ -146,7 +155,7 @@ export abstract class NutritionalEntity {
 
   set kcal_per_gram(value: number) {
     if (value < 0) {
-      throw new Error('Kcal per gram cannot be less than 0');
+      throw new NegativeCaloriesError();
     }
 
     this._kcal_per_gram = value;
