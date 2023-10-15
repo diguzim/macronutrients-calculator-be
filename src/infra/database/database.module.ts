@@ -35,9 +35,10 @@ const mongooseProviders = [
     ]),
   ],
   providers: [
+    // Have this uncommented to use the mongoose database
     // ...mongooseProviders,
 
-    // Uncomment this to use the in-memory repository
+    // Have this uncommented to use the in-memory database
     ...inMemoryProviders,
   ],
   exports: [RawIngredientRepository, CookedIngredientRepository],
