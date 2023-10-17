@@ -1,8 +1,9 @@
+import { Injectable } from '@nestjs/common';
 import {
   CookedDish,
   RawIngredientAmount,
 } from '../../domain/cooked-dish/cooked-dish.entity';
-import { ICookedDishRepository } from '../../domain/cooked-dish/cooked-dish.repository';
+import { CookedDishRepository } from '../../domain/cooked-dish/cooked-dish.repository';
 import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
 
 type CreateCookedDishFromRawIngredientsInput = {
@@ -14,15 +15,18 @@ type CreateCookedDishFromRawIngredientsInput = {
   finalWeightInGrams;
 };
 
+@Injectable()
 export class CreateCookedDishFromRawIngredientsUseCase {
   constructor(
     private readonly rawIngredientRepository: RawIngredientRepository,
-    private readonly cookedDishRepository: ICookedDishRepository,
+    private readonly cookedDishRepository: CookedDishRepository,
   ) {}
 
   async execute(
     input: CreateCookedDishFromRawIngredientsInput,
   ): Promise<CookedDish> {
+    console.log('input', input);
+
     const rawIngredients = await Promise.all(
       input.raw_ingredients_id_with_amount.map(async (rawIngredient) => {
         const rawIngredientFound = await this.rawIngredientRepository.findOne(

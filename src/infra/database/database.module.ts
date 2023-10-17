@@ -7,6 +7,8 @@ import { InMemoryRawIngredientRepository } from './in-memory/repositories/in-mem
 import { CookedIngredientRepository } from '../../@core/domain/cooked-ingredient/cooked-ingredient.repository';
 import { InMemoryCookedIngredientRepository } from './in-memory/repositories/in-memory-cooked-ingredient.repository';
 import { MongooseRawIngredientRepository } from './mongoose/repositories/mongoose-raw-ingredient.repository';
+import { CookedDishRepository } from '../../@core/domain/cooked-dish/cooked-dish.repository';
+import { InMemoryCookedDishRepository } from './in-memory/repositories/in-memory-cooked-dish.repository';
 
 const inMemoryProviders = [
   {
@@ -16,6 +18,10 @@ const inMemoryProviders = [
   {
     provide: CookedIngredientRepository,
     useClass: InMemoryCookedIngredientRepository,
+  },
+  {
+    provide: CookedDishRepository,
+    useClass: InMemoryCookedDishRepository,
   },
 ];
 
@@ -41,6 +47,10 @@ const mongooseProviders = [
     // Have this uncommented to use the in-memory database
     ...inMemoryProviders,
   ],
-  exports: [RawIngredientRepository, CookedIngredientRepository],
+  exports: [
+    RawIngredientRepository,
+    CookedIngredientRepository,
+    CookedDishRepository,
+  ],
 })
 export class DatabaseModule {}
