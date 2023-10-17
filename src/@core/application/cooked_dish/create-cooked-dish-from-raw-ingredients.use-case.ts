@@ -25,8 +25,6 @@ export class CreateCookedDishFromRawIngredientsUseCase {
   async execute(
     input: CreateCookedDishFromRawIngredientsInput,
   ): Promise<CookedDish> {
-    console.log('input', input);
-
     const rawIngredients = await Promise.all(
       input.raw_ingredients_id_with_amount.map(async (rawIngredient) => {
         const rawIngredientFound = await this.rawIngredientRepository.findOne(

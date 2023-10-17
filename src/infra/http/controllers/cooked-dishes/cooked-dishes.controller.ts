@@ -13,7 +13,6 @@ export class CookedDishesController {
     @Body()
     createCookedDishFromRawIngredientsDto: CreateCookedDishFromRawIngredientsDto,
   ) {
-    console.log('HELLO WORLD!');
     const cookedDish =
       await this.createCookedDishFromRawIngredientsUseCase.execute(
         createCookedDishFromRawIngredientsDto,
