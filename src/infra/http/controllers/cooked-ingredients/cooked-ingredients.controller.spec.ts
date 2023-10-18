@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CookedIngredientsController } from './cooked-ingredients.controller';
-import { CreateRawIngredientFromAbsoluteValuesUseCase } from '../../../../@core/application/raw-ingredient/create-raw-ingredient-from-absolute-values.use-case';
+import { CreateCookedIngredientFromRawIngredientUseCase } from '../../../../@core/application/cooked_ingredient/create-cooked-ingredient-from-raw-ingredient.use-case';
 
 describe('CookedIngredientsController', () => {
   let controller: CookedIngredientsController;
@@ -10,7 +10,7 @@ describe('CookedIngredientsController', () => {
       controllers: [CookedIngredientsController],
       providers: [
         {
-          provide: CreateRawIngredientFromAbsoluteValuesUseCase,
+          provide: CreateCookedIngredientFromRawIngredientUseCase,
           useValue: {},
         },
       ],

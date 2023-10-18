@@ -1,3 +1,8 @@
+import { MacroNutrient } from '../../../utils/enums/macro-nutrients.enum';
+import {
+  MacroNutrientRatioGreaterThanOneError,
+  MacroNutrientRatioLessThanOneError,
+} from '../../../utils/errors';
 import { RawIngredient } from './raw-ingredient.entity';
 
 describe('RawIngredient', () => {
@@ -26,7 +31,9 @@ describe('RawIngredient', () => {
           fiber_ratio: 0.1,
           kcal_per_gram: 4,
         }),
-      ).toThrowError('Protein ratio cannot be less than 0');
+      ).toThrowError(
+        new MacroNutrientRatioLessThanOneError(MacroNutrient.Protein),
+      );
     });
 
     it('should throw an error when fat ratio is less than zero', () => {
@@ -39,7 +46,7 @@ describe('RawIngredient', () => {
           fiber_ratio: 0.1,
           kcal_per_gram: 4,
         }),
-      ).toThrowError('Fat ratio cannot be less than 0');
+      ).toThrowError(new MacroNutrientRatioLessThanOneError(MacroNutrient.Fat));
     });
 
     it('should throw an error when carbohydrate ratio is less than zero', () => {
@@ -52,7 +59,9 @@ describe('RawIngredient', () => {
           fiber_ratio: 0.1,
           kcal_per_gram: 4,
         }),
-      ).toThrowError('Carbohydrate ratio cannot be less than 0');
+      ).toThrowError(
+        new MacroNutrientRatioLessThanOneError(MacroNutrient.Carbohydrate),
+      );
     });
 
     it('should throw an error when fiber ratio is less than zero', () => {
@@ -65,7 +74,9 @@ describe('RawIngredient', () => {
           fiber_ratio: -0.1,
           kcal_per_gram: 4,
         }),
-      ).toThrowError('Fiber ratio cannot be less than 0');
+      ).toThrowError(
+        new MacroNutrientRatioLessThanOneError(MacroNutrient.Fiber),
+      );
     });
 
     it('should throw an error when protein ratio is greater than one', () => {
@@ -78,7 +89,9 @@ describe('RawIngredient', () => {
           fiber_ratio: 0.1,
           kcal_per_gram: 4,
         }),
-      ).toThrowError('Protein ratio cannot be greater than 1');
+      ).toThrowError(
+        new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Protein),
+      );
     });
 
     it('should throw an error when fat ratio is greater than one', () => {
@@ -91,7 +104,9 @@ describe('RawIngredient', () => {
           fiber_ratio: 0.1,
           kcal_per_gram: 4,
         }),
-      ).toThrowError('Fat ratio cannot be greater than 1');
+      ).toThrowError(
+        new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Fat),
+      );
     });
 
     it('should throw an error when carbohydrate ratio is greater than one', () => {
@@ -104,7 +119,9 @@ describe('RawIngredient', () => {
           fiber_ratio: 0.1,
           kcal_per_gram: 4,
         }),
-      ).toThrowError('Carbohydrate ratio cannot be greater than 1');
+      ).toThrowError(
+        new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Carbohydrate),
+      );
     });
 
     it('should throw an error when fiber ratio is greater than one', () => {
@@ -117,7 +134,9 @@ describe('RawIngredient', () => {
           fiber_ratio: 1.1,
           kcal_per_gram: 4,
         }),
-      ).toThrowError('Fiber ratio cannot be greater than 1');
+      ).toThrowError(
+        new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Fiber),
+      );
     });
 
     it('should not throw an error when ratios do not sum up to one', () => {
@@ -161,7 +180,9 @@ describe('RawIngredient', () => {
           fiber: 10,
           kcal: 400,
         }),
-      ).toThrowError('Protein ratio cannot be less than 0');
+      ).toThrowError(
+        new MacroNutrientRatioLessThanOneError(MacroNutrient.Protein),
+      );
     });
 
     it('should throw an error when fat is less than zero', () => {
@@ -175,7 +196,7 @@ describe('RawIngredient', () => {
           fiber: 10,
           kcal: 400,
         }),
-      ).toThrowError('Fat ratio cannot be less than 0');
+      ).toThrowError(new MacroNutrientRatioLessThanOneError(MacroNutrient.Fat));
     });
 
     it('should throw an error when carbohydrate is less than zero', () => {
@@ -189,7 +210,9 @@ describe('RawIngredient', () => {
           fiber: 10,
           kcal: 400,
         }),
-      ).toThrowError('Carbohydrate ratio cannot be less than 0');
+      ).toThrowError(
+        new MacroNutrientRatioLessThanOneError(MacroNutrient.Carbohydrate),
+      );
     });
 
     it('should throw an error when fiber is less than zero', () => {
@@ -203,7 +226,9 @@ describe('RawIngredient', () => {
           fiber: -1,
           kcal: 400,
         }),
-      ).toThrowError('Fiber ratio cannot be less than 0');
+      ).toThrowError(
+        new MacroNutrientRatioLessThanOneError(MacroNutrient.Fiber),
+      );
     });
 
     it('should throw an error when protein is greater than weight', () => {
@@ -217,7 +242,9 @@ describe('RawIngredient', () => {
           fiber: 10,
           kcal: 400,
         }),
-      ).toThrowError('Protein ratio cannot be greater than 1');
+      ).toThrowError(
+        new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Protein),
+      );
     });
 
     it('should throw an error when fat is greater than weight', () => {
@@ -231,7 +258,9 @@ describe('RawIngredient', () => {
           fiber: 10,
           kcal: 400,
         }),
-      ).toThrowError('Fat ratio cannot be greater than 1');
+      ).toThrowError(
+        new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Fat),
+      );
     });
 
     it('should throw an error when carbohydrate is greater than weight', () => {
@@ -245,7 +274,9 @@ describe('RawIngredient', () => {
           fiber: 10,
           kcal: 400,
         }),
-      ).toThrowError('Carbohydrate ratio cannot be greater than 1');
+      ).toThrowError(
+        new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Carbohydrate),
+      );
     });
 
     it('should throw an error when fiber is greater than weight', () => {
@@ -259,7 +290,9 @@ describe('RawIngredient', () => {
           fiber: 101,
           kcal: 400,
         }),
-      ).toThrowError('Fiber ratio cannot be greater than 1');
+      ).toThrowError(
+        new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Fiber),
+      );
     });
   });
 });
