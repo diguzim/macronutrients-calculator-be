@@ -10,7 +10,7 @@ import { HttpModule } from './infra/http/http.module';
       isGlobal: true,
       load: [environmentVariables],
     }),
-    MongooseModule.forRoot('mongodb://localhost/nest'),
+    MongooseModule.forRoot(process.env.MONGO_URL),
     HttpModule,
   ],
 })
