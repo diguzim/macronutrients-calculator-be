@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { NutritionalEntityType } from '../../../utils/enums/nutritional-entity-type.enum';
 import { NutritionalEntityNotFoundError } from '../../../utils/errors';
 import { CookedDishRepository } from '../../domain/cooked-dish/cooked-dish.repository';
@@ -14,6 +15,7 @@ type CalculateNutritionalValuesInput = {
   weight: number;
 };
 
+@Injectable()
 export class CalculateNutritionalValuesUseCase {
   constructor(
     private readonly rawIngredientRepository: RawIngredientRepository,

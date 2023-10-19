@@ -18,7 +18,7 @@ export class CookedDish extends NutritionalEntity {
   private _id?: string;
   private _name: string;
 
-  private constructor(props: CookedDishProps) {
+  constructor(props: CookedDishProps) {
     super(props);
     this._id = props.id;
     this._name = props.name;
