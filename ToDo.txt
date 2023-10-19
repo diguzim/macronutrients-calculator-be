@@ -1,2 +1,1 @@
-- Create DTO to be used at existing controllers
-- Create raw ingredient resource method should use DTO
+- Create a swagger
