@@ -1,2 +1,5 @@
+- Add missing serializer to some controller methods
 - Review entity constructors
 - Create a swagger
+- Improve README
+- Improve observability
