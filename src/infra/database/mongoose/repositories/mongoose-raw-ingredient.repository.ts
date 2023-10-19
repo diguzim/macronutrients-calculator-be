@@ -29,7 +29,22 @@ export class MongooseRawIngredientRepository
   }
 
   async findOne(id: string): Promise<RawIngredient | null> {
-    return await this.rawIngredientModel.findById(id).exec();
+    const queryResult: RawIngredient | null = await this.rawIngredientModel
+      .findById(id)
+      .exec();
+
+    if (!queryResult) {
+      return null;
+    }
+
+    return RawIngredient.createFromRatios({
+      name: queryResult.name,
+      protein_ratio: queryResult.protein_ratio,
+      fat_ratio: queryResult.fat_ratio,
+      carbohydrate_ratio: queryResult.carbohydrate_ratio,
+      fiber_ratio: queryResult.fiber_ratio,
+      kcal_per_gram: queryResult.kcal_per_gram,
+    });
   }
 
   async update(rawIngredient: RawIngredient): Promise<void> {
