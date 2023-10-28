@@ -1,5 +1,5 @@
 import { Body, Controller, Post, UseFilters } from '@nestjs/common';
-import { CalculateNutritionalValuesUseCase } from '../../../../@core/application/nutritional_values/calculate-nutritional-values.use-case';
+import { CalculateNutritionalValuesUseCase } from '../../../../@core/application/nutritional_entity/calculate-nutritional-values.use-case';
 import { CalculateNutritionalValuesDto } from './dto/create.dto';
 import {
   NutritionalValuesSerialized,
@@ -7,13 +7,13 @@ import {
 } from '../../../../utils/serializers/nutritional-values.serializer';
 import { NutritionalEntityNotFoundExceptionFilter } from '../../exception-filters';
 
-@Controller('calculate-nutritional-values')
-export class CalculateNutritionalValuesController {
+@Controller('nutritional-entities')
+export class NutritionalEntitiesController {
   constructor(
     private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
   ) {}
 
-  @Post()
+  @Post('calculate-nutritional-value')
   @UseFilters(NutritionalEntityNotFoundExceptionFilter)
   async create(
     @Body() calculateNutritionalValuesDto: CalculateNutritionalValuesDto,
