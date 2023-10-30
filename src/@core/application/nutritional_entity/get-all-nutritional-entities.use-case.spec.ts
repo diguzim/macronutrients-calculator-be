@@ -1,3 +1,4 @@
+import { todo } from 'node:test';
 import { CookedDishRepository } from '../../domain/cooked-dish/cooked-dish.repository';
 import { CookedIngredientRepository } from '../../domain/cooked-ingredient/cooked-ingredient.repository';
 import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
@@ -25,5 +26,9 @@ describe('GetAllNutritionalEntitiesUseCase', () => {
       cookedIngredientRepository,
       cookedDishRepository,
     );
+  });
+
+  it('todo', () => {
+    expect(1).toBe(1);
   });
 });
