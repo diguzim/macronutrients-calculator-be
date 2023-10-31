@@ -1,6 +1,6 @@
 import { Body, Controller, Post, UseFilters } from '@nestjs/common';
 import { CalculateNutritionalValuesUseCase } from '../../../../@core/application/nutritional_entity/calculate-nutritional-values.use-case';
-import { CalculateNutritionalValuesDto } from './dto/create.dto';
+import { CalculateNutritionalValuesSingleDto } from './dto/create.dto';
 import {
   NutritionalValuesSerialized,
   NutritionalValuesSerializer,
@@ -13,10 +13,11 @@ export class NutritionalEntitiesController {
     private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
   ) {}
 
-  @Post('calculate-nutritional-value')
+  @Post('calculate-nutritional-values')
   @UseFilters(NutritionalEntityNotFoundExceptionFilter)
   async create(
-    @Body() calculateNutritionalValuesDto: CalculateNutritionalValuesDto,
+    @Body()
+    calculateNutritionalValuesDto: CalculateNutritionalValuesSingleDto[],
   ): Promise<NutritionalValuesSerialized> {
     const nutritionalSnapshot =
       await this.calculateNutritionalValuesUseCase.execute(

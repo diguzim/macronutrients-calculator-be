@@ -1,27 +1,25 @@
 import { RawIngredient } from '../../@core/domain/raw-ingredient/raw-ingredient.entity';
+import {
+  NutritionalEntitySerialized,
+  NutritionalEntitySerializer,
+} from './nutritional-entity.serializer';
 
-export type RawIngredientSerialized = {
+export type RawIngredientSerialized = NutritionalEntitySerialized & {
   id: string;
   name: string;
-  protein_ratio: number;
-  fat_ratio: number;
-  carbohydrate_ratio: number;
-  fiber_ratio: number;
-  kcal_per_gram: number;
 };
 
-export class RawIngredientSerializer {
+export class RawIngredientSerializer extends NutritionalEntitySerializer {
   public static serialize(
     rawIngredient: RawIngredient,
   ): RawIngredientSerialized {
+    const nutritionalEntity = super.serialize(rawIngredient);
+    const { id, name } = rawIngredient;
+
     return {
-      id: rawIngredient.id,
-      name: rawIngredient.name,
-      protein_ratio: rawIngredient.protein_ratio,
-      fat_ratio: rawIngredient.fat_ratio,
-      carbohydrate_ratio: rawIngredient.carbohydrate_ratio,
-      fiber_ratio: rawIngredient.fiber_ratio,
-      kcal_per_gram: rawIngredient.kcal_per_gram,
+      id,
+      name,
+      ...nutritionalEntity,
     };
   }
 }
