@@ -1,7 +1,7 @@
 import { IsPositive, IsString, IsEnum } from 'class-validator';
 import { NutritionalEntityType } from '../../../../../utils/enums/nutritional-entity-type.enum';
 
-export class CalculateNutritionalValuesDto {
+export class CalculateNutritionalValuesSingleDto {
   @IsString()
   @IsEnum(NutritionalEntityType)
   type: NutritionalEntityType;
