@@ -13,7 +13,7 @@ type CalculateNutritionalValuesInput = {
   type: NutritionalEntityType;
   id: string;
   weight: number;
-};
+}[];
 
 @Injectable()
 export class CalculateNutritionalValuesUseCase {
@@ -27,24 +27,50 @@ export class CalculateNutritionalValuesUseCase {
     input: CalculateNutritionalValuesInput,
   ): Promise<NutritionalSnapshot> {
     let nutritionalEntity: NutritionalEntity;
-    const { type, id, weight } = input;
+    const entries = await Promise.all(
+      input.map(async (input) => {
+        const { type, id, weight } = input;
 
-    switch (type) {
-      case NutritionalEntityType.RawIngredient:
-        nutritionalEntity = await this.rawIngredientRepository.findOne(id);
-        break;
-      case NutritionalEntityType.CookedIngredient:
-        nutritionalEntity = await this.cookedIngredientRepository.findOne(id);
-        break;
-      case NutritionalEntityType.CookedDish:
-        nutritionalEntity = await this.cookedDishRepository.findOne(id);
-        break;
-    }
+        switch (type) {
+          case NutritionalEntityType.RawIngredient:
+            nutritionalEntity = await this.rawIngredientRepository.findOne(id);
+            break;
+          case NutritionalEntityType.CookedIngredient:
+            nutritionalEntity =
+              await this.cookedIngredientRepository.findOne(id);
+            break;
+          case NutritionalEntityType.CookedDish:
+            nutritionalEntity = await this.cookedDishRepository.findOne(id);
+            break;
+        }
 
-    if (!nutritionalEntity) {
-      throw new NutritionalEntityNotFoundError(type, id);
-    }
+        if (!nutritionalEntity) {
+          throw new NutritionalEntityNotFoundError(type, id);
+        }
 
-    return nutritionalEntity.calculateNutritionalSnapshot(weight);
+        return nutritionalEntity.calculateNutritionalSnapshot(weight);
+      }),
+    );
+
+    const nutritionalSnapshot = entries.reduce(
+      (acc, curr) => {
+        acc.protein += curr.protein;
+        acc.fat += curr.fat;
+        acc.carbohydrate += curr.carbohydrate;
+        acc.fiber += curr.fiber;
+        acc.kcal += curr.kcal;
+
+        return acc;
+      },
+      {
+        protein: 0,
+        fat: 0,
+        carbohydrate: 0,
+        fiber: 0,
+        kcal: 0,
+      },
+    );
+
+    return nutritionalSnapshot;
   }
 }

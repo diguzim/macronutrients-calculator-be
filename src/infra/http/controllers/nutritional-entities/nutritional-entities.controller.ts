@@ -13,10 +13,10 @@ export class NutritionalEntitiesController {
     private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
   ) {}
 
-  @Post('calculate-nutritional-value')
+  @Post('calculate-nutritional-values')
   @UseFilters(NutritionalEntityNotFoundExceptionFilter)
   async create(
-    @Body() calculateNutritionalValuesDto: CalculateNutritionalValuesDto,
+    @Body() calculateNutritionalValuesDto: CalculateNutritionalValuesDto[],
   ): Promise<NutritionalValuesSerialized> {
     const nutritionalSnapshot =
       await this.calculateNutritionalValuesUseCase.execute(
