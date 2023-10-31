@@ -38,11 +38,13 @@ describe('CalculateNutritionalValuesUseCase', () => {
       );
 
     const nutritionalSnapshot = await calculateNutritionalValuesUseCase.execute(
-      {
-        type,
-        id,
-        weight,
-      },
+      [
+        {
+          type,
+          id,
+          weight,
+        },
+      ],
     );
 
     expect(rawIngredientRepository.findOne).toHaveBeenCalledWith(id);
@@ -89,11 +91,13 @@ describe('CalculateNutritionalValuesUseCase', () => {
       );
 
     const nutritionalSnapshot = await calculateNutritionalValuesUseCase.execute(
-      {
-        type,
-        id,
-        weight,
-      },
+      [
+        {
+          type,
+          id,
+          weight,
+        },
+      ],
     );
 
     expect(cookedIngredientRepository.findOne).toHaveBeenCalledWith(id);
@@ -140,11 +144,13 @@ describe('CalculateNutritionalValuesUseCase', () => {
       );
 
     const nutritionalSnapshot = await calculateNutritionalValuesUseCase.execute(
-      {
-        type,
-        id,
-        weight,
-      },
+      [
+        {
+          type,
+          id,
+          weight,
+        },
+      ],
     );
 
     expect(cookedDishRepository.findOne).toHaveBeenCalledWith(id);
@@ -172,11 +178,13 @@ describe('CalculateNutritionalValuesUseCase', () => {
       );
 
     await expect(
-      calculateNutritionalValuesUseCase.execute({
-        type,
-        id,
-        weight,
-      }),
+      calculateNutritionalValuesUseCase.execute([
+        {
+          type,
+          id,
+          weight,
+        },
+      ]),
     ).rejects.toThrowError(new NutritionalEntityNotFoundError(type, id));
 
     expect(rawIngredientRepository.findOne).toHaveBeenCalledWith(id);
