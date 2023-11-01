@@ -1,4 +1,7 @@
 import { NutritionalEntityType } from '../../../utils/enums/nutritional-entity-type.enum';
+import { CookedDishSerializer } from '../../../utils/serializers/cooked-dish.serializer';
+import { CookedIngredientSerializer } from '../../../utils/serializers/cooked-ingredient.serializer';
+import { RawIngredientSerializer } from '../../../utils/serializers/raw-ingredient.serializer';
 import { CookedDishRepository } from '../../domain/cooked-dish/cooked-dish.repository';
 import { CookedIngredientRepository } from '../../domain/cooked-ingredient/cooked-ingredient.repository';
 import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
@@ -16,15 +19,21 @@ export class GetAllNutritionalEntitiesUseCase {
     return [
       {
         type: NutritionalEntityType.RawIngredient,
-        values: rawIngredients,
+        values: rawIngredients.map((rawIngredient) =>
+          RawIngredientSerializer.serialize(rawIngredient),
+        ),
       },
       {
         type: NutritionalEntityType.CookedIngredient,
-        values: cookedIngredients,
+        values: cookedIngredients.map((cookedIngredient) =>
+          CookedIngredientSerializer.serialize(cookedIngredient),
+        ),
       },
       {
         type: NutritionalEntityType.CookedDish,
-        values: cookedDishes,
+        values: cookedDishes.map((cookedDish) =>
+          CookedDishSerializer.serialize(cookedDish),
+        ),
       },
     ];
   }
