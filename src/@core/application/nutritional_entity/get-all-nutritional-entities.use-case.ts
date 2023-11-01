@@ -16,6 +16,7 @@ export class GetAllNutritionalEntitiesUseCase {
     const rawIngredients = await this.rawIngredientRepository.findAll();
     const cookedIngredients = await this.cookedIngredientRepository.findAll();
     const cookedDishes = await this.cookedDishRepository.findAll();
+
     return [
       {
         type: NutritionalEntityType.RawIngredient,
