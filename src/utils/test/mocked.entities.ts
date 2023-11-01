@@ -1,4 +1,3 @@
-import { CookedIngredient } from '../../@core/domain/cooked-ingredient/cooked-ingredient.entity';
 import { RawIngredient } from '../../@core/domain/raw-ingredient/raw-ingredient.entity';
 
 export const mockedRawIngredient = RawIngredient.createFromRatios({
@@ -9,9 +8,3 @@ export const mockedRawIngredient = RawIngredient.createFromRatios({
   fiber_ratio: 0.1,
   kcal_per_gram: 1,
 });
-
-export const mockedCookedIngredient = CookedIngredient.createFromRawIngredient(
-  mockedRawIngredient,
-  100,
-  200,
-);

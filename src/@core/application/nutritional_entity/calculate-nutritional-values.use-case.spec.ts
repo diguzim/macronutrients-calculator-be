@@ -1,7 +1,6 @@
 import { NutritionalEntityType } from '../../../utils/enums/nutritional-entity-type.enum';
 import { NutritionalEntityNotFoundError } from '../../../utils/errors';
 import { CookedDish } from '../../domain/cooked-dish/cooked-dish.entity';
-import { CookedIngredient } from '../../domain/cooked-ingredient/cooked-ingredient.entity';
 import { RawIngredient } from '../../domain/raw-ingredient/raw-ingredient.entity';
 import { CalculateNutritionalValuesUseCase } from './calculate-nutritional-values.use-case';
 
@@ -34,7 +33,6 @@ describe('CalculateNutritionalValuesUseCase', () => {
       new CalculateNutritionalValuesUseCase(
         rawIngredientRepository as any,
         null as any,
-        null as any,
       );
 
     const nutritionalSnapshot = await calculateNutritionalValuesUseCase.execute(
@@ -54,59 +52,6 @@ describe('CalculateNutritionalValuesUseCase', () => {
       carbohydrate: 40,
       fiber: 10,
       kcal: 100,
-    });
-  });
-
-  it('should calculate nutritional values for a cooked ingredient', async () => {
-    type = NutritionalEntityType.CookedIngredient;
-
-    const cookedIngredientRepository = {
-      findOne: jest.fn(() => {
-        const rawIngredient = RawIngredient.createFromRatios({
-          name: 'Raw ingredient',
-          protein_ratio: 0.2,
-          fat_ratio: 0.3,
-          carbohydrate_ratio: 0.4,
-          fiber_ratio: 0.1,
-          kcal_per_gram: 1,
-        });
-
-        const cookedIngredient = CookedIngredient.createFromRawIngredient(
-          rawIngredient,
-          100,
-          200,
-        );
-
-        cookedIngredient.id = id;
-
-        return Promise.resolve(cookedIngredient);
-      }),
-    };
-
-    const calculateNutritionalValuesUseCase =
-      new CalculateNutritionalValuesUseCase(
-        null as any,
-        cookedIngredientRepository as any,
-        null as any,
-      );
-
-    const nutritionalSnapshot = await calculateNutritionalValuesUseCase.execute(
-      [
-        {
-          type,
-          id,
-          weight,
-        },
-      ],
-    );
-
-    expect(cookedIngredientRepository.findOne).toHaveBeenCalledWith(id);
-    expect(nutritionalSnapshot).toStrictEqual({
-      protein: 10,
-      fat: 15,
-      carbohydrate: 20,
-      fiber: 5,
-      kcal: 50,
     });
   });
 
@@ -138,7 +83,6 @@ describe('CalculateNutritionalValuesUseCase', () => {
 
     const calculateNutritionalValuesUseCase =
       new CalculateNutritionalValuesUseCase(
-        null as any,
         null as any,
         cookedDishRepository as any,
       );
@@ -173,7 +117,6 @@ describe('CalculateNutritionalValuesUseCase', () => {
     const calculateNutritionalValuesUseCase =
       new CalculateNutritionalValuesUseCase(
         rawIngredientRepository as any,
-        null as any,
         null as any,
       );
 

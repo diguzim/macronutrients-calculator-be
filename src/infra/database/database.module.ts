@@ -4,8 +4,6 @@ import RawIngredientSchema from './mongoose/schemas/raw-ingredient.schema';
 import { RawIngredient } from '../../@core/domain/raw-ingredient/raw-ingredient.entity';
 import { RawIngredientRepository } from '../../@core/domain/raw-ingredient/raw-ingredient.repository';
 import { InMemoryRawIngredientRepository } from './in-memory/repositories/in-memory-raw-ingredient.repository';
-import { CookedIngredientRepository } from '../../@core/domain/cooked-ingredient/cooked-ingredient.repository';
-import { InMemoryCookedIngredientRepository } from './in-memory/repositories/in-memory-cooked-ingredient.repository';
 import { MongooseRawIngredientRepository } from './mongoose/repositories/mongoose-raw-ingredient.repository';
 import { CookedDishRepository } from '../../@core/domain/cooked-dish/cooked-dish.repository';
 import { InMemoryCookedDishRepository } from './in-memory/repositories/in-memory-cooked-dish.repository';
@@ -19,10 +17,6 @@ const inMemoryProviders: Provider[] = [
     useClass: InMemoryRawIngredientRepository,
   },
   {
-    provide: CookedIngredientRepository,
-    useClass: InMemoryCookedIngredientRepository,
-  },
-  {
     provide: CookedDishRepository,
     useClass: InMemoryCookedDishRepository,
   },
@@ -34,11 +28,6 @@ const mongooseProviders: Provider[] = [
     useFactory: (rawIngredientModel) =>
       new MongooseRawIngredientRepository(rawIngredientModel),
     inject: ['RawIngredientModel'],
-  },
-  {
-    // TODO: implement
-    provide: CookedIngredientRepository,
-    useClass: InMemoryCookedIngredientRepository,
   },
   {
     provide: CookedDishRepository,
@@ -62,10 +51,6 @@ const mongooseProviders: Provider[] = [
     // Have this uncommented to use the in-memory database
     // ...inMemoryProviders,
   ],
-  exports: [
-    RawIngredientRepository,
-    CookedIngredientRepository,
-    CookedDishRepository,
-  ],
+  exports: [RawIngredientRepository, CookedDishRepository],
 })
 export class DatabaseModule {}

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { NutritionalEntityType } from '../../../utils/enums/nutritional-entity-type.enum';
 import { NutritionalEntityNotFoundError } from '../../../utils/errors';
 import { CookedDishRepository } from '../../domain/cooked-dish/cooked-dish.repository';
-import { CookedIngredientRepository } from '../../domain/cooked-ingredient/cooked-ingredient.repository';
 import {
   NutritionalEntity,
   NutritionalSnapshot,
@@ -19,7 +18,6 @@ type CalculateNutritionalValuesInput = {
 export class CalculateNutritionalValuesUseCase {
   constructor(
     private readonly rawIngredientRepository: RawIngredientRepository,
-    private readonly cookedIngredientRepository: CookedIngredientRepository,
     private readonly cookedDishRepository: CookedDishRepository,
   ) {}
 
@@ -34,10 +32,6 @@ export class CalculateNutritionalValuesUseCase {
         switch (type) {
           case NutritionalEntityType.RawIngredient:
             nutritionalEntity = await this.rawIngredientRepository.findOne(id);
-            break;
-          case NutritionalEntityType.CookedIngredient:
-            nutritionalEntity =
-              await this.cookedIngredientRepository.findOne(id);
             break;
           case NutritionalEntityType.CookedDish:
             nutritionalEntity = await this.cookedDishRepository.findOne(id);
