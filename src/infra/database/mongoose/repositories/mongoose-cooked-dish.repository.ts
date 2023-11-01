@@ -22,8 +22,20 @@ export class MongooseCookedDishRepository implements CookedDishRepository {
   }
 
   async findAll(): Promise<CookedDish[]> {
-    // TODO: implement
-    return [];
+    const queryResult: CookedDish[] = await this.cookedDishModel.find().exec();
+
+    return queryResult.map(
+      (cookedDish) =>
+        new CookedDish({
+          id: cookedDish.id,
+          name: cookedDish.name,
+          protein_ratio: cookedDish.protein_ratio,
+          fat_ratio: cookedDish.fat_ratio,
+          carbohydrate_ratio: cookedDish.carbohydrate_ratio,
+          fiber_ratio: cookedDish.fiber_ratio,
+          kcal_per_gram: cookedDish.kcal_per_gram,
+        }),
+    );
   }
 
   async findOne(id: string): Promise<CookedDish | null> {

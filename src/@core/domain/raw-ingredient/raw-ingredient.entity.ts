@@ -26,7 +26,7 @@ export class RawIngredient extends NutritionalEntity {
   private _id?: string;
   private _name: string;
 
-  private constructor(props: RawIngredientProps) {
+  constructor(props: RawIngredientProps) {
     super(props);
     this._id = props.id;
     this._name = props.name;

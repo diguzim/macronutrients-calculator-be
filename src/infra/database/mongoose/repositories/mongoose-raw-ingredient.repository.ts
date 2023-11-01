@@ -24,8 +24,22 @@ export class MongooseRawIngredientRepository
   }
 
   async findAll(): Promise<RawIngredient[]> {
-    // TODO: implement
-    return [];
+    const queryResult: RawIngredient[] = await this.rawIngredientModel
+      .find()
+      .exec();
+
+    return queryResult.map(
+      (rawIngredient) =>
+        new RawIngredient({
+          id: rawIngredient.id,
+          name: rawIngredient.name,
+          protein_ratio: rawIngredient.protein_ratio,
+          fat_ratio: rawIngredient.fat_ratio,
+          carbohydrate_ratio: rawIngredient.carbohydrate_ratio,
+          fiber_ratio: rawIngredient.fiber_ratio,
+          kcal_per_gram: rawIngredient.kcal_per_gram,
+        }),
+    );
   }
 
   async findOne(id: string): Promise<RawIngredient | null> {

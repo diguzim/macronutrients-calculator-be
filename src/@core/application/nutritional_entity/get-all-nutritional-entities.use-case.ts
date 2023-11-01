@@ -1,7 +1,9 @@
+import { Injectable } from '@nestjs/common';
 import { NutritionalEntityType } from '../../../utils/enums/nutritional-entity-type.enum';
 import { CookedDishRepository } from '../../domain/cooked-dish/cooked-dish.repository';
 import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
 
+@Injectable()
 export class GetAllNutritionalEntitiesUseCase {
   constructor(
     private readonly rawIngredientRepository: RawIngredientRepository,
