@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import {
   CookedDish,
-  RawIngredientAmount,
+  RawIngredientWithAmount,
 } from '../../domain/cooked-dish/cooked-dish.entity';
 import { CookedDishRepository } from '../../domain/cooked-dish/cooked-dish.repository';
 import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
@@ -38,11 +38,11 @@ export class CreateCookedDishFromRawIngredientsUseCase {
         return {
           raw_ingredient: rawIngredientFound,
           amount_in_grams: rawIngredient.amount_in_grams,
-        } as RawIngredientAmount;
+        } as RawIngredientWithAmount;
       }),
     );
 
-    const cookedDish = CookedDish.createFromRawIngredients(
+    const cookedDish = CookedDish.createFromRawIngredientsAmounts(
       input.name,
       rawIngredients,
       input.finalWeightInGrams,

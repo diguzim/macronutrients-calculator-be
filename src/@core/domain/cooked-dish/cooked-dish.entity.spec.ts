@@ -29,7 +29,7 @@ describe('CookedDish', () => {
         },
       ];
 
-      const cookedDish = CookedDish.createFromRawIngredients(
+      const cookedDish = CookedDish.createFromRawIngredientsAmounts(
         'cooked dish',
         rawIngredients,
         600,

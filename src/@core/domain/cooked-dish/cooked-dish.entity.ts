@@ -4,7 +4,7 @@ import {
 } from '../nutritional-entity/nutritional-entity.entity';
 import { RawIngredient } from '../raw-ingredient/raw-ingredient.entity';
 
-export type RawIngredientAmount = {
+export type RawIngredientWithAmount = {
   raw_ingredient: RawIngredient;
   amount_in_grams: number;
 };
@@ -24,9 +24,9 @@ export class CookedDish extends NutritionalEntity {
     this._name = props.name;
   }
 
-  public static createFromRawIngredients(
+  public static createFromRawIngredientsAmounts(
     name: string,
-    rawIngredients: RawIngredientAmount[],
+    rawIngredientsWithAmounts: RawIngredientWithAmount[],
     finalWeightInGrams: number,
   ): CookedDish {
     let totalProtein = 0;
@@ -35,21 +35,22 @@ export class CookedDish extends NutritionalEntity {
     let totalFiber = 0;
     let totalKcal = 0;
 
-    rawIngredients.forEach((rawIngredient) => {
+    rawIngredientsWithAmounts.forEach((rawIngredientWithAmount) => {
       totalProtein +=
-        rawIngredient.raw_ingredient.protein_ratio *
-        rawIngredient.amount_in_grams;
+        rawIngredientWithAmount.raw_ingredient.protein_ratio *
+        rawIngredientWithAmount.amount_in_grams;
       totalFat +=
-        rawIngredient.raw_ingredient.fat_ratio * rawIngredient.amount_in_grams;
+        rawIngredientWithAmount.raw_ingredient.fat_ratio *
+        rawIngredientWithAmount.amount_in_grams;
       totalCarbohydrate +=
-        rawIngredient.raw_ingredient.carbohydrate_ratio *
-        rawIngredient.amount_in_grams;
+        rawIngredientWithAmount.raw_ingredient.carbohydrate_ratio *
+        rawIngredientWithAmount.amount_in_grams;
       totalFiber +=
-        rawIngredient.raw_ingredient.fiber_ratio *
-        rawIngredient.amount_in_grams;
+        rawIngredientWithAmount.raw_ingredient.fiber_ratio *
+        rawIngredientWithAmount.amount_in_grams;
       totalKcal +=
-        rawIngredient.raw_ingredient.kcal_per_gram *
-        rawIngredient.amount_in_grams;
+        rawIngredientWithAmount.raw_ingredient.kcal_per_gram *
+        rawIngredientWithAmount.amount_in_grams;
     });
 
     const protein_ratio = totalProtein / finalWeightInGrams;

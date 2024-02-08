@@ -13,7 +13,7 @@ describe('CookedDishSerializer', () => {
         fiber_ratio: 0.4,
         kcal_per_gram: 0.5,
       });
-      const cookedDish = CookedDish.createFromRawIngredients(
+      const cookedDish = CookedDish.createFromRawIngredientsAmounts(
         'some cooked dish',
         [
           {

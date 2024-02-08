@@ -25,7 +25,7 @@ describe('GetAllNutritionalEntitiesUseCase', () => {
       });
       rawIngredient.id = '1';
 
-      const cookedDish = CookedDish.createFromRawIngredients(
+      const cookedDish = CookedDish.createFromRawIngredientsAmounts(
         'CookedDish',
         [
           {
