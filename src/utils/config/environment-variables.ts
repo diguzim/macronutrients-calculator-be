@@ -1,8 +1,14 @@
 export default () => ({
-  env: process.env.APP_ENV,
-  port: parseInt(process.env.PORT),
+  env: process.env.ENV,
+  port: parseInt(process.env.PORT || '', 10),
   database: {
-    url: process.env.DATABASE_URL,
-    mongoUrl: process.env.MONGO_URL,
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT || '', 10),
+    name: process.env.DB_NAME,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+  },
+  mongo: {
+    url: process.env.MONGO_URL,
   },
 });

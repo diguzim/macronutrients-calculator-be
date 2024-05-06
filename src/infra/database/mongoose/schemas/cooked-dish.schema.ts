@@ -8,5 +8,3 @@ const CookedDishSchema = new Schema({
   fiber_ratio: Number,
   kcal_per_gram: Number,
 });
-
-export default CookedDishSchema;

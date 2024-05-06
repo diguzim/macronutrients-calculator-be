@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import environmentVariables from './utils/config/environment-variables';
 import { MongooseModule } from '@nestjs/mongoose';
 import { HttpModule } from './infra/http/http.module';
-import { environmentVariablesValidationSchema } from './config/environment-variables-validation-schema';
+import { environmentVariablesValidationSchema } from './utils/config/environment-variables-validation-schema';
+import environmentVariables from './utils/config/environment-variables';
 
 @Module({
   imports: [
