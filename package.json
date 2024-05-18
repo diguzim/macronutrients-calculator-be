@@ -17,7 +17,13 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "db:create": "npx ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:create -d src/infra/database/typeorm/data-source.ts --synchronize=no",
+    "db:drop": "npx ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:drop -d src/infra/database/typeorm/data-source.ts",
+    "db:migrate": "npx typeorm-ts-node-commonjs migration:run -d src/infra/database/typeorm/data-source.ts",
+    "db:rollback": "npx typeorm-ts-node-commonjs migration:revert -d src/infra/database/typeorm/data-source.ts",
+    "db:generate-migration": "npx typeorm-ts-node-commonjs migration:generate -d src/infra/database/typeorm/data-source.ts",
+    "db:create-migration": "npx typeorm-ts-node-commonjs migration:create"
   },
   "dependencies": {
     "@nestjs/common": "^10.2.7",
@@ -57,6 +63,7 @@
     "ts-loader": "^9.5.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
+    "typeorm-extension": "^3.5.1",
     "typescript": "^5.2.2"
   },
   "jest": {
