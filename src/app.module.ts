@@ -16,7 +16,7 @@ import environmentVariables from './utils/config/environment-variables';
         abortEarly: true,
       },
     }),
-    MongooseModule.forRoot(process.env.MONGO_URL),
+    // MongooseModule.forRoot(process.env.MONGO_URL),
     HttpModule,
   ],
 })

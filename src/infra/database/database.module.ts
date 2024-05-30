@@ -72,7 +72,7 @@ const typeormProviders: Provider[] = [
         database: configService.getOrThrow('database.name'),
         username: configService.getOrThrow('database.username'),
         password: configService.getOrThrow('database.password'),
-        synchronize: true,
+        synchronize: false,
         entities: [RawIngredientSchema, CookedDishSchema],
       }),
       inject: [ConfigService],
