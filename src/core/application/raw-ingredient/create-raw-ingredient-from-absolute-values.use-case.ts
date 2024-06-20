@@ -21,10 +21,11 @@ export class CreateRawIngredientFromAbsoluteValuesUseCase {
   async execute(
     input: CreateRawIngredientFromAbsoluteValuesInput,
   ): Promise<RawIngredient> {
+    console.log('input:', input);
     const rawIngredient = RawIngredient.createFromAbsoluteValues(input);
 
     const rawIngredientCreated =
-      await this.rawIngredientRepository.insert(rawIngredient);
+      await this.rawIngredientRepository.create(rawIngredient);
 
     rawIngredient.id = rawIngredientCreated.id;
 

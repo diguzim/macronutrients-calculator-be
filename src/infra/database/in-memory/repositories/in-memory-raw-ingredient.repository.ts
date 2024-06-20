@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { RawIngredientRepository } from '../../../../@core/domain/raw-ingredient/raw-ingredient.repository';
-import { RawIngredient } from '../../../../@core/domain/raw-ingredient/raw-ingredient.entity';
+import { RawIngredientRepository } from '../../../../core/domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredient } from '../../../../core/domain/raw-ingredient/raw-ingredient.entity';
 
 @Injectable()
 export class InMemoryRawIngredientRepository
@@ -8,7 +8,7 @@ export class InMemoryRawIngredientRepository
 {
   private readonly rawIngredients: RawIngredient[] = [];
 
-  async insert(rawIngredient: RawIngredient): Promise<RawIngredient> {
+  async create(rawIngredient: RawIngredient): Promise<RawIngredient> {
     rawIngredient.id = (this.rawIngredients.length + 1).toString();
     this.rawIngredients.push(rawIngredient);
 

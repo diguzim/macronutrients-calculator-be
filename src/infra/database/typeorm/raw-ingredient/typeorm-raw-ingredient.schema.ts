@@ -1,8 +1,9 @@
 import { EntitySchema } from 'typeorm';
-import { RawIngredient } from '../../../../@core/domain/raw-ingredient/raw-ingredient.entity';
+import { RawIngredient } from '../../../../core/domain/raw-ingredient/raw-ingredient.entity';
 
 export const RawIngredientSchema = new EntitySchema<RawIngredient>({
   name: 'RawIngredient',
+  tableName: 'raw_ingredients',
   columns: {
     id: {
       type: String,
@@ -12,20 +13,28 @@ export const RawIngredientSchema = new EntitySchema<RawIngredient>({
     name: {
       type: String,
     },
-    protein_ratio: {
+    proteinRatio: {
       type: Number,
     },
-    fat_ratio: {
+    fatRatio: {
       type: Number,
     },
-    carbohydrate_ratio: {
+    carbohydrateRatio: {
       type: Number,
     },
-    fiber_ratio: {
+    fiberRatio: {
       type: Number,
     },
-    kcal_per_gram: {
+    kcalPerGram: {
       type: Number,
+    },
+    createdAt: {
+      type: Date,
+      createDate: true,
+    },
+    updatedAt: {
+      type: Date,
+      updateDate: true,
     },
   },
 });

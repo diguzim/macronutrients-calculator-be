@@ -1,4 +1,4 @@
-import { RawIngredient } from '../../@core/domain/raw-ingredient/raw-ingredient.entity';
+import { RawIngredient } from '../../core/domain/raw-ingredient/raw-ingredient.entity';
 import { RawIngredientSerializer } from './raw-ingredient.serializer';
 
 describe('RawIngredientSerializer', () => {

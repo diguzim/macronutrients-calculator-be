@@ -1,22 +1,22 @@
 import { Model, ObjectId } from 'mongoose';
-import { RawIngredientRepository } from '../../../../@core/domain/raw-ingredient/raw-ingredient.repository';
-import { RawIngredient } from '../../../../@core/domain/raw-ingredient/raw-ingredient.entity';
+import { RawIngredientRepository } from '../../../../core/domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredient } from '../../../../core/domain/raw-ingredient/raw-ingredient.entity';
 
 export class MongooseRawIngredientRepository
   implements RawIngredientRepository
 {
   constructor(private readonly rawIngredientModel: Model<RawIngredient>) {}
 
-  async insert(rawIngredient: RawIngredient): Promise<RawIngredient> {
+  async create(rawIngredient: RawIngredient): Promise<RawIngredient> {
     const result = await this.rawIngredientModel.create({
       name: rawIngredient.name,
-      protein_ratio: rawIngredient.protein_ratio,
-      fat_ratio: rawIngredient.fat_ratio,
-      carbohydrate_ratio: rawIngredient.carbohydrate_ratio,
-      fiber_ratio: rawIngredient.fiber_ratio,
-      kcal_per_gram: rawIngredient.kcal_per_gram,
+      proteinRatio: rawIngredient.proteinRatio,
+      fatRatio: rawIngredient.fatRatio,
+      carbohydrateRatio: rawIngredient.carbohydrateRatio,
+      fiberRatio: rawIngredient.fiberRatio,
+      kcalPerGram: rawIngredient.kcalPerGram,
     });
-    const id = (result['_id'] as ObjectId).toString();
+    const id = (result['_id'] as any).toString();
 
     rawIngredient.id = id;
 
@@ -33,11 +33,11 @@ export class MongooseRawIngredientRepository
         new RawIngredient({
           id: rawIngredient.id,
           name: rawIngredient.name,
-          protein_ratio: rawIngredient.protein_ratio,
-          fat_ratio: rawIngredient.fat_ratio,
-          carbohydrate_ratio: rawIngredient.carbohydrate_ratio,
-          fiber_ratio: rawIngredient.fiber_ratio,
-          kcal_per_gram: rawIngredient.kcal_per_gram,
+          proteinRatio: rawIngredient.proteinRatio,
+          fatRatio: rawIngredient.fatRatio,
+          carbohydrateRatio: rawIngredient.carbohydrateRatio,
+          fiberRatio: rawIngredient.fiberRatio,
+          kcalPerGram: rawIngredient.kcalPerGram,
         }),
     );
   }
@@ -51,13 +51,13 @@ export class MongooseRawIngredientRepository
       return null;
     }
 
-    return RawIngredient.createFromRatios({
+    return new RawIngredient({
       name: queryResult.name,
-      protein_ratio: queryResult.protein_ratio,
-      fat_ratio: queryResult.fat_ratio,
-      carbohydrate_ratio: queryResult.carbohydrate_ratio,
-      fiber_ratio: queryResult.fiber_ratio,
-      kcal_per_gram: queryResult.kcal_per_gram,
+      proteinRatio: queryResult.proteinRatio,
+      fatRatio: queryResult.fatRatio,
+      carbohydrateRatio: queryResult.carbohydrateRatio,
+      fiberRatio: queryResult.fiberRatio,
+      kcalPerGram: queryResult.kcalPerGram,
     });
   }
 

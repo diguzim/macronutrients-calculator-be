@@ -1,4 +1,4 @@
-import { NutritionalEntity } from '../../@core/domain/nutritional-entity/nutritional-entity.entity';
+import { NutritionalEntity } from '../../core/domain/nutritional-entity/nutritional-entity.entity';
 import { NutritionalEntitySerializer } from './nutritional-entity.serializer';
 
 describe('NutritionalEntitySerializer', () => {

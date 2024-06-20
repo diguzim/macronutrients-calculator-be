@@ -1,5 +1,5 @@
-import { CookedDish } from '../../@core/domain/cooked-dish/cooked-dish.entity';
-import { RawIngredient } from '../../@core/domain/raw-ingredient/raw-ingredient.entity';
+import { CookedDish } from '../../core/domain/cooked-dish/cooked-dish.entity';
+import { RawIngredient } from '../../core/domain/raw-ingredient/raw-ingredient.entity';
 import { CookedDishSerializer } from './cooked-dish.serializer';
 
 describe('CookedDishSerializer', () => {

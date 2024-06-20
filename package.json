@@ -22,6 +22,7 @@
     "db:drop": "npx ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:drop -d src/infra/database/typeorm/data-source.ts",
     "db:migrate": "npx typeorm-ts-node-commonjs migration:run -d src/infra/database/typeorm/data-source.ts",
     "db:rollback": "npx typeorm-ts-node-commonjs migration:revert -d src/infra/database/typeorm/data-source.ts",
+    "db:reset": "npm run db:drop && npm run db:create && npm run db:migrate",
     "db:generate-migration": "npx typeorm-ts-node-commonjs migration:generate -d src/infra/database/typeorm/data-source.ts",
     "db:create-migration": "npx typeorm-ts-node-commonjs migration:create"
   },

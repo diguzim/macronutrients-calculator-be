@@ -18,32 +18,32 @@ export class CreateRawIngredients1716066881765 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'protein_ratio',
+            name: 'proteinRatio',
             type: 'float',
           },
           {
-            name: 'fat_ratio',
+            name: 'fatRatio',
             type: 'float',
           },
           {
-            name: 'carbohydrate_ratio',
+            name: 'carbohydrateRatio',
             type: 'float',
           },
           {
-            name: 'fiber_ratio',
+            name: 'fiberRatio',
             type: 'float',
           },
           {
-            name: 'kcal_per_gram',
+            name: 'kcalPerGram',
             type: 'float',
           },
           {
-            name: 'created_at',
+            name: 'createdAt',
             type: 'timestamp',
             default: 'now()',
           },
           {
-            name: 'updated_at',
+            name: 'updatedAt',
             type: 'timestamp',
             default: 'now()',
           },

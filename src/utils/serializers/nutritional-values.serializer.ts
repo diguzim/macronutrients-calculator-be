@@ -1,4 +1,4 @@
-import { NutritionalSnapshot } from '../../@core/domain/nutritional-entity/nutritional-entity.entity';
+import { NutritionalSnapshot } from '../../core/domain/nutritional-entity/nutritional-entity.entity';
 
 export type NutritionalValuesSerialized = {
   protein: number;

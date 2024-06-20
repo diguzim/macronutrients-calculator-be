@@ -1,4 +1,4 @@
-import { CookedDish } from '../../@core/domain/cooked-dish/cooked-dish.entity';
+import { CookedDish } from '../../core/domain/cooked-dish/cooked-dish.entity';
 import {
   NutritionalEntitySerialized,
   NutritionalEntitySerializer,

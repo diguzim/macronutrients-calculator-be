@@ -1,6 +1,6 @@
 import { Model, ObjectId } from 'mongoose';
-import { CookedDishRepository } from '../../../../@core/domain/cooked-dish/cooked-dish.repository';
-import { CookedDish } from '../../../../@core/domain/cooked-dish/cooked-dish.entity';
+import { CookedDishRepository } from '../../../../core/domain/cooked-dish/cooked-dish.repository';
+import { CookedDish } from '../../../../core/domain/cooked-dish/cooked-dish.entity';
 
 export class MongooseCookedDishRepository implements CookedDishRepository {
   constructor(private readonly cookedDishModel: Model<CookedDish>) {}
@@ -8,11 +8,11 @@ export class MongooseCookedDishRepository implements CookedDishRepository {
   async insert(cookedDish: CookedDish): Promise<CookedDish> {
     const result = await this.cookedDishModel.create({
       name: cookedDish.name,
-      protein_ratio: cookedDish.protein_ratio,
-      fat_ratio: cookedDish.fat_ratio,
-      carbohydrate_ratio: cookedDish.carbohydrate_ratio,
-      fiber_ratio: cookedDish.fiber_ratio,
-      kcal_per_gram: cookedDish.kcal_per_gram,
+      proteinRatio: cookedDish.proteinRatio,
+      fatRatio: cookedDish.fatRatio,
+      carbohydrateRatio: cookedDish.carbohydrateRatio,
+      fiberRatio: cookedDish.fiberRatio,
+      kcalPerGram: cookedDish.kcalPerGram,
     });
     const id = (result['_id'] as ObjectId).toString();
 
@@ -29,11 +29,11 @@ export class MongooseCookedDishRepository implements CookedDishRepository {
         new CookedDish({
           id: cookedDish.id,
           name: cookedDish.name,
-          protein_ratio: cookedDish.protein_ratio,
-          fat_ratio: cookedDish.fat_ratio,
-          carbohydrate_ratio: cookedDish.carbohydrate_ratio,
-          fiber_ratio: cookedDish.fiber_ratio,
-          kcal_per_gram: cookedDish.kcal_per_gram,
+          proteinRatio: cookedDish.proteinRatio,
+          fatRatio: cookedDish.fatRatio,
+          carbohydrateRatio: cookedDish.carbohydrateRatio,
+          fiberRatio: cookedDish.fiberRatio,
+          kcalPerGram: cookedDish.kcalPerGram,
         }),
     );
   }
@@ -50,11 +50,11 @@ export class MongooseCookedDishRepository implements CookedDishRepository {
     return new CookedDish({
       id: queryResult.id,
       name: queryResult.name,
-      protein_ratio: queryResult.protein_ratio,
-      fat_ratio: queryResult.fat_ratio,
-      carbohydrate_ratio: queryResult.carbohydrate_ratio,
-      fiber_ratio: queryResult.fiber_ratio,
-      kcal_per_gram: queryResult.kcal_per_gram,
+      proteinRatio: queryResult.proteinRatio,
+      fatRatio: queryResult.fatRatio,
+      carbohydrateRatio: queryResult.carbohydrateRatio,
+      fiberRatio: queryResult.fiberRatio,
+      kcalPerGram: queryResult.kcalPerGram,
     });
   }
 

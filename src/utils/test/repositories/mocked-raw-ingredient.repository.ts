@@ -1,8 +1,8 @@
-import { RawIngredient } from '../../../@core/domain/raw-ingredient/raw-ingredient.entity';
-import { RawIngredientRepository } from '../../../@core/domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredient } from '../../../core/domain/raw-ingredient/raw-ingredient.entity';
+import { RawIngredientRepository } from '../../../core/domain/raw-ingredient/raw-ingredient.repository';
 
 export class mockedRawIngredientRepository implements RawIngredientRepository {
-  async insert(rawIngredient: RawIngredient): Promise<RawIngredient> {
+  async create(rawIngredient: RawIngredient): Promise<RawIngredient> {
     return rawIngredient;
   }
 

@@ -6,7 +6,7 @@ import { RawIngredient } from '../raw-ingredient/raw-ingredient.entity';
 
 export type RawIngredientWithAmount = {
   raw_ingredient: RawIngredient;
-  amount_in_grams: number;
+  amount_inGrams: number;
 };
 
 export type CookedDishProps = NutritionalEntityProps & {
@@ -37,35 +37,35 @@ export class CookedDish extends NutritionalEntity {
 
     rawIngredientsWithAmounts.forEach((rawIngredientWithAmount) => {
       totalProtein +=
-        rawIngredientWithAmount.raw_ingredient.protein_ratio *
-        rawIngredientWithAmount.amount_in_grams;
+        rawIngredientWithAmount.raw_ingredient.proteinRatio *
+        rawIngredientWithAmount.amount_inGrams;
       totalFat +=
-        rawIngredientWithAmount.raw_ingredient.fat_ratio *
-        rawIngredientWithAmount.amount_in_grams;
+        rawIngredientWithAmount.raw_ingredient.fatRatio *
+        rawIngredientWithAmount.amount_inGrams;
       totalCarbohydrate +=
-        rawIngredientWithAmount.raw_ingredient.carbohydrate_ratio *
-        rawIngredientWithAmount.amount_in_grams;
+        rawIngredientWithAmount.raw_ingredient.carbohydrateRatio *
+        rawIngredientWithAmount.amount_inGrams;
       totalFiber +=
-        rawIngredientWithAmount.raw_ingredient.fiber_ratio *
-        rawIngredientWithAmount.amount_in_grams;
+        rawIngredientWithAmount.raw_ingredient.fiberRatio *
+        rawIngredientWithAmount.amount_inGrams;
       totalKcal +=
-        rawIngredientWithAmount.raw_ingredient.kcal_per_gram *
-        rawIngredientWithAmount.amount_in_grams;
+        rawIngredientWithAmount.raw_ingredient.kcalPerGram *
+        rawIngredientWithAmount.amount_inGrams;
     });
 
-    const protein_ratio = totalProtein / finalWeightInGrams;
-    const fat_ratio = totalFat / finalWeightInGrams;
-    const carbohydrate_ratio = totalCarbohydrate / finalWeightInGrams;
-    const fiber_ratio = totalFiber / finalWeightInGrams;
-    const kcal_per_gram = totalKcal / finalWeightInGrams;
+    const proteinRatio = totalProtein / finalWeightInGrams;
+    const fatRatio = totalFat / finalWeightInGrams;
+    const carbohydrateRatio = totalCarbohydrate / finalWeightInGrams;
+    const fiberRatio = totalFiber / finalWeightInGrams;
+    const kcalPerGram = totalKcal / finalWeightInGrams;
 
     const cookedDish = new CookedDish({
       name,
-      protein_ratio,
-      fat_ratio,
-      carbohydrate_ratio,
-      fiber_ratio,
-      kcal_per_gram,
+      proteinRatio,
+      fatRatio,
+      carbohydrateRatio,
+      fiberRatio,
+      kcalPerGram,
     });
 
     return cookedDish;

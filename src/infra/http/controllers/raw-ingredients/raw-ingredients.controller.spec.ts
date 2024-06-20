@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RawIngredientsController } from './raw-ingredients.controller';
-import { CreateRawIngredientFromAbsoluteValuesUseCase } from '../../../../@core/application/raw-ingredient/create-raw-ingredient-from-absolute-values.use-case';
+import { CreateRawIngredientFromAbsoluteValuesUseCase } from '../../../../core/application/raw-ingredient/create-raw-ingredient-from-absolute-values.use-case';
 
 describe('RawIngredientsController', () => {
   let controller: RawIngredientsController;

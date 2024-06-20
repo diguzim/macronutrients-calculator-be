@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { RawIngredientRepository } from '../../../../@core/domain/raw-ingredient/raw-ingredient.repository';
-import { RawIngredient } from '../../../../@core/domain/raw-ingredient/raw-ingredient.entity';
+import { RawIngredientRepository } from '../../../../core/domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredient } from '../../../../core/domain/raw-ingredient/raw-ingredient.entity';
 
 @Injectable()
 export class PrismaRawIngredientRepository implements RawIngredientRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async insert(rawIngredient: RawIngredient): Promise<any> {}
+  async create(rawIngredient: RawIngredient): Promise<any> {}
 
   async findAll(): Promise<RawIngredient[]> {
     return [];

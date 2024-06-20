@@ -1,14 +1,14 @@
 version: '3.1'
 
 services:
-  mongo:
-    image: mongo
-    container_name: macal-mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: username
-      MONGO_INITDB_ROOT_PASSWORD: password
-    ports:
-      - 27017:27017
+  # mongo:
+  #   image: mongo
+  #   container_name: macal-mongo
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: username
+  #     MONGO_INITDB_ROOT_PASSWORD: password
+  #   ports:
+  #     - 27017:27017
   postgres:
     image: postgres
     container_name: macal-postgres

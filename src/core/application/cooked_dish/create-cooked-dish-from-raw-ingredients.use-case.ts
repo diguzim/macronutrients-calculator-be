@@ -38,7 +38,7 @@ export class CreateCookedDishFromRawIngredientsUseCase {
         return {
           raw_ingredient: rawIngredientFound,
           amount_in_grams: rawIngredient.amount_in_grams,
-        } as RawIngredientWithAmount;
+        } as any;
       }),
     );
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CookedDishRepository } from '../../../../@core/domain/cooked-dish/cooked-dish.repository';
-import { CookedDish } from '../../../../@core/domain/cooked-dish/cooked-dish.entity';
+import { CookedDishRepository } from '../../../../core/domain/cooked-dish/cooked-dish.repository';
+import { CookedDish } from '../../../../core/domain/cooked-dish/cooked-dish.entity';
 
 @Injectable()
 export class InMemoryCookedDishRepository implements CookedDishRepository {

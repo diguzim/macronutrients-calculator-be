@@ -1,11 +1,11 @@
 import { approximatelyParseFloat } from '../../../utils/math-utils/floating-point';
 
 export type NutritionalEntityProps = {
-  protein_ratio: number;
-  fat_ratio: number;
-  carbohydrate_ratio: number;
-  fiber_ratio: number;
-  kcal_per_gram: number;
+  proteinRatio: number;
+  fatRatio: number;
+  carbohydrateRatio: number;
+  fiberRatio: number;
+  kcalPerGram: number;
 };
 
 export type NutritionalSnapshot = {
@@ -17,22 +17,22 @@ export type NutritionalSnapshot = {
 };
 
 export abstract class NutritionalEntity {
-  protein_ratio: number;
-  fat_ratio: number;
-  carbohydrate_ratio: number;
-  fiber_ratio: number;
-  kcal_per_gram: number;
+  proteinRatio: number;
+  fatRatio: number;
+  carbohydrateRatio: number;
+  fiberRatio: number;
+  kcalPerGram: number;
 
   constructor(props: NutritionalEntityProps) {
     Object.assign(this, props);
   }
 
   calculateNutritionalSnapshot(weight: number): NutritionalSnapshot {
-    const protein = this.protein_ratio * weight;
-    const fat = this.fat_ratio * weight;
-    const carbohydrate = this.carbohydrate_ratio * weight;
-    const fiber = this.fiber_ratio * weight;
-    const kcal = this.kcal_per_gram * weight;
+    const protein = this.proteinRatio * weight;
+    const fat = this.fatRatio * weight;
+    const carbohydrate = this.carbohydrateRatio * weight;
+    const fiber = this.fiberRatio * weight;
+    const kcal = this.kcalPerGram * weight;
 
     return {
       protein,
@@ -45,10 +45,10 @@ export abstract class NutritionalEntity {
 
   ratioSum(): number {
     const sum =
-      this.protein_ratio +
-      this.fat_ratio +
-      this.carbohydrate_ratio +
-      this.fiber_ratio;
+      this.proteinRatio +
+      this.fatRatio +
+      this.carbohydrateRatio +
+      this.fiberRatio;
 
     return approximatelyParseFloat(sum);
   }

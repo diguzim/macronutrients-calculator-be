@@ -4,11 +4,11 @@ describe('NutritionalEntity', () => {
   const nutritionalEntity = new (class extends NutritionalEntity {
     constructor() {
       super({
-        protein_ratio: 0.1,
-        fat_ratio: 0.2,
-        carbohydrate_ratio: 0.3,
-        fiber_ratio: 0.4,
-        kcal_per_gram: 10,
+        proteinRatio: 0.1,
+        fatRatio: 0.2,
+        carbohydrateRatio: 0.3,
+        fiberRatio: 0.4,
+        kcalPerGram: 10,
       });
     }
   })();

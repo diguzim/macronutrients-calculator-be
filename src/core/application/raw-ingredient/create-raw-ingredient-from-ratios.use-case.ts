@@ -3,11 +3,11 @@ import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredi
 
 type CreateRawIngredientFromRatiosInput = {
   name: string;
-  protein_ratio: number;
-  fat_ratio: number;
-  carbohydrate_ratio: number;
-  fiber_ratio: number;
-  kcal_per_gram: number;
+  proteinRatio: number;
+  fatRatio: number;
+  carbohydrateRatio: number;
+  fiberRatio: number;
+  kcalPerGram: number;
 };
 
 export class CreateRawIngredientFromRatiosUseCase {
@@ -18,10 +18,10 @@ export class CreateRawIngredientFromRatiosUseCase {
   async execute(
     input: CreateRawIngredientFromRatiosInput,
   ): Promise<RawIngredient> {
-    const rawIngredient = RawIngredient.createFromRatios(input);
+    const rawIngredient = new RawIngredient(input);
 
     const rawIngredientCreated =
-      await this.rawIngredientRepository.insert(rawIngredient);
+      await this.rawIngredientRepository.create(rawIngredient);
 
     rawIngredient.id = rawIngredientCreated.id;
 

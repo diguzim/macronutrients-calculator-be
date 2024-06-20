@@ -1,3 +1,4 @@
+import { approximatelyParseFloat } from '../../../utils/math-utils/floating-point';
 import {
   NutritionalEntity,
   NutritionalEntityProps,
@@ -6,10 +7,8 @@ import {
 export type RawIngredientProps = NutritionalEntityProps & {
   id?: string;
   name: string;
-};
-
-export type CreateRawIngredientFromRatiosInput = NutritionalEntityProps & {
-  name: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type CreateFromAbsoluteValuesInput = {
@@ -23,20 +22,17 @@ export type CreateFromAbsoluteValuesInput = {
 };
 
 export class RawIngredient extends NutritionalEntity {
-  private _id?: string;
-  private _name: string;
+  id?: string;
+  name: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 
   constructor(props: RawIngredientProps) {
     super(props);
-    this._id = props.id;
-    this._name = props.name;
-  }
-
-  public static createFromRatios(
-    props: CreateRawIngredientFromRatiosInput,
-  ): RawIngredient {
-    const rawIngredient = new RawIngredient(props);
-    return rawIngredient;
+    this.id = props.id;
+    this.name = props.name;
+    this.createdAt = props.createdAt;
+    this.updatedAt = props.updatedAt;
   }
 
   public static createFromAbsoluteValues(
@@ -44,29 +40,15 @@ export class RawIngredient extends NutritionalEntity {
   ): RawIngredient {
     const rawIngredient = new RawIngredient({
       name: props.name,
-      protein_ratio: props.protein / props.weight,
-      fat_ratio: props.fat / props.weight,
-      carbohydrate_ratio: props.carbohydrate / props.weight,
-      fiber_ratio: props.fiber / props.weight,
-      kcal_per_gram: props.kcal / props.weight,
+      proteinRatio: approximatelyParseFloat(props.protein / props.weight),
+      fatRatio: approximatelyParseFloat(props.fat / props.weight),
+      carbohydrateRatio: approximatelyParseFloat(
+        props.carbohydrate / props.weight,
+      ),
+      fiberRatio: approximatelyParseFloat(props.fiber / props.weight),
+      kcalPerGram: approximatelyParseFloat(props.kcal / props.weight),
     });
 
     return rawIngredient;
-  }
-
-  get id(): string | undefined {
-    return this._id;
-  }
-
-  set id(value: string | undefined) {
-    this._id = value;
-  }
-
-  get name(): string {
-    return this._name;
-  }
-
-  set name(value: string) {
-    this._name = value;
   }
 }
