@@ -1,9 +1,4 @@
-import { MacroNutrient } from '../../../utils/enums/macro-nutrients.enum';
-import {
-  MacroNutrientRatioGreaterThanOneError,
-  MacroNutrientRatioLessThanOneError,
-  NegativeCaloriesError,
-} from '../../../utils/errors';
+import { approximatelyParseFloat } from '../../../utils/math-utils/floating-point';
 
 export type NutritionalEntityProps = {
   protein_ratio: number;
@@ -22,11 +17,11 @@ export type NutritionalSnapshot = {
 };
 
 export abstract class NutritionalEntity {
-  private _protein_ratio: number;
-  private _fat_ratio: number;
-  private _carbohydrate_ratio: number;
-  private _fiber_ratio: number;
-  private _kcal_per_gram: number;
+  protein_ratio: number;
+  fat_ratio: number;
+  carbohydrate_ratio: number;
+  fiber_ratio: number;
+  kcal_per_gram: number;
 
   constructor(props: NutritionalEntityProps) {
     Object.assign(this, props);
@@ -48,116 +43,13 @@ export abstract class NutritionalEntity {
     };
   }
 
-  get ratioSum(): number {
+  ratioSum(): number {
     const sum =
-      this._protein_ratio +
-      this._fat_ratio +
-      this._carbohydrate_ratio +
-      this._fiber_ratio;
+      this.protein_ratio +
+      this.fat_ratio +
+      this.carbohydrate_ratio +
+      this.fiber_ratio;
 
-    return sum;
-  }
-
-  isRatioSumOne(): boolean {
-    const result = this.approximatelyEqual(this.ratioSum, 1.0);
-    return result;
-  }
-
-  isRatioSumMoreThanOne(): boolean {
-    return this.aproximatelyGreaterThan(this.ratioSum, 1.0);
-  }
-
-  isRatioSumLessThanOne(): boolean {
-    return this.approximatelyLessThan(this.ratioSum, 1.0);
-  }
-
-  private approximatelyEqual(a: number, b: number, tolerance: number = 0.0001) {
-    return Math.abs(a - b) < tolerance;
-  }
-
-  private aproximatelyGreaterThan(
-    a: number,
-    b: number,
-    tolerance: number = 0.0001,
-  ) {
-    return a - b > tolerance;
-  }
-
-  private approximatelyLessThan(
-    a: number,
-    b: number,
-    tolerance: number = 0.0001,
-  ) {
-    return b - a > tolerance;
-  }
-
-  get protein_ratio(): number {
-    return this._protein_ratio;
-  }
-
-  set protein_ratio(value: number) {
-    if (value < 0) {
-      throw new MacroNutrientRatioLessThanOneError(MacroNutrient.Protein);
-    } else if (value > 1) {
-      throw new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Protein);
-    }
-
-    this._protein_ratio = value;
-  }
-
-  get fat_ratio(): number {
-    return this._fat_ratio;
-  }
-
-  set fat_ratio(value: number) {
-    if (value < 0) {
-      throw new MacroNutrientRatioLessThanOneError(MacroNutrient.Fat);
-    } else if (value > 1) {
-      throw new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Fat);
-    }
-
-    this._fat_ratio = value;
-  }
-
-  get carbohydrate_ratio(): number {
-    return this._carbohydrate_ratio;
-  }
-
-  set carbohydrate_ratio(value: number) {
-    if (value < 0) {
-      throw new MacroNutrientRatioLessThanOneError(MacroNutrient.Carbohydrate);
-    } else if (value > 1) {
-      throw new MacroNutrientRatioGreaterThanOneError(
-        MacroNutrient.Carbohydrate,
-      );
-    }
-
-    this._carbohydrate_ratio = value;
-  }
-
-  get fiber_ratio(): number {
-    return this._fiber_ratio;
-  }
-
-  set fiber_ratio(value: number) {
-    if (value < 0) {
-      throw new MacroNutrientRatioLessThanOneError(MacroNutrient.Fiber);
-    } else if (value > 1) {
-      throw new MacroNutrientRatioGreaterThanOneError(MacroNutrient.Fiber);
-    }
-
-    this._fiber_ratio = value;
-  }
-
-  get kcal_per_gram(): number {
-    return this._kcal_per_gram;
-  }
-
-  set kcal_per_gram(value: number) {
-    if (value < 0) {
-      throw new NegativeCaloriesError();
-    }
-
-    this._kcal_per_gram = value;
+    return approximatelyParseFloat(sum);
   }
 }

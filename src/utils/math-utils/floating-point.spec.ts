@@ -2,6 +2,7 @@ import {
   approximatelyGreaterThan,
   approximatelyLessThan,
   approximatelyEqual,
+  approximatelyParseFloat,
 } from './floating-point';
 
 describe('Floating Point', () => {
@@ -168,6 +169,26 @@ describe('Floating Point', () => {
       describe('when decimalPlaces is undefined', () => {
         it('returns true', () => {
           expect(approximatelyEqual(0.00001, 0.00001)).toBe(true);
+        });
+      });
+    });
+  });
+
+  describe('approximatelyParseFloat', () => {
+    describe('when a is 0.00001', () => {
+      describe('when decimalPlaces is 0', () => {
+        it('returns 0', () => {
+          expect(approximatelyParseFloat(0.00001, 0)).toBe(0);
+        });
+      });
+      describe('when decimalPlaces is 5', () => {
+        it('returns 0.00001', () => {
+          expect(approximatelyParseFloat(0.00001, 5)).toBe(0.00001);
+        });
+      });
+      describe('when decimalPlaces is undefined', () => {
+        it('returns 0.00001', () => {
+          expect(approximatelyParseFloat(0.00001)).toBe(0.00001);
         });
       });
     });
