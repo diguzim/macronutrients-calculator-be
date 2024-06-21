@@ -6,6 +6,7 @@ import { CookedDishesController } from './controllers/cooked-dishes/cooked-dishe
 import { CreateCookedDishFromRawIngredientsUseCase } from '../../core/application/cooked_dish/create-cooked-dish-from-raw-ingredients.use-case';
 import { NutritionalEntitiesController } from './controllers/nutritional-entities/nutritional-entities.controller';
 import { GetAllNutritionalEntitiesUseCase } from '../../core/application/nutritional_entity/get-all-nutritional-entities.use-case';
+import { CalculateNutritionalValuesUseCase } from '../../core/application/nutritional_entity/calculate-nutritional-values.use-case';
 
 @Module({
   imports: [DatabaseModule],
@@ -18,6 +19,7 @@ import { GetAllNutritionalEntitiesUseCase } from '../../core/application/nutriti
     CreateRawIngredientFromAbsoluteValuesUseCase,
     CreateCookedDishFromRawIngredientsUseCase,
     GetAllNutritionalEntitiesUseCase,
+    CalculateNutritionalValuesUseCase,
   ],
 })
 export class HttpModule {}

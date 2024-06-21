@@ -12,14 +12,22 @@ export class TypeormRawIngredientRepository implements RawIngredientRepository {
   }
 
   async findBy(params: Partial<RawIngredient>): Promise<RawIngredient | null> {
-    return this.rawIngredientRepository.findOne({
+    const result = await this.rawIngredientRepository.findOne({
       where: params as FindOptionsWhere<RawIngredient>,
     });
+
+    return result ? this.toEntity(result) : null;
   }
 
   async findAllBy(params: Partial<RawIngredient>): Promise<RawIngredient[]> {
-    return this.rawIngredientRepository.find({
+    const result = await this.rawIngredientRepository.find({
       where: params as FindOptionsWhere<RawIngredient>,
     });
+
+    return result.map(this.toEntity);
+  }
+
+  private toEntity(rawIngredient: RawIngredient): RawIngredient {
+    return new RawIngredient(rawIngredient);
   }
 }

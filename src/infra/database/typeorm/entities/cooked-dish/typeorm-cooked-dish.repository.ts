@@ -10,14 +10,22 @@ export class TypeormCookedDishRepository implements CookedDishRepository {
   }
 
   async findBy(params: Partial<CookedDish>): Promise<CookedDish | null> {
-    return this.cookedDishRepository.findOne({
+    const result = await this.cookedDishRepository.findOne({
       where: params as FindOptionsWhere<CookedDish>,
     });
+
+    return result ? this.toEntity(result) : null;
   }
 
   async findAllBy(params: Partial<CookedDish>): Promise<CookedDish[]> {
-    return this.cookedDishRepository.find({
+    const result = await this.cookedDishRepository.find({
       where: params as FindOptionsWhere<CookedDish>,
     });
+
+    return result.map(this.toEntity);
+  }
+
+  private toEntity(cookedDish: CookedDish): CookedDish {
+    return new CookedDish(cookedDish);
   }
 }

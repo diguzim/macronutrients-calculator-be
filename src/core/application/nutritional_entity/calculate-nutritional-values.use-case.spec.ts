@@ -1,7 +1,9 @@
 import { NutritionalEntityType } from '../../../utils/enums/nutritional-entity-type.enum';
 import { NutritionalEntityNotFoundError } from '../../../utils/errors';
 import { CookedDish } from '../../domain/cooked-dish/cooked-dish.entity';
+import { CookedDishRepository } from '../../domain/cooked-dish/cooked-dish.repository';
 import { RawIngredient } from '../../domain/raw-ingredient/raw-ingredient.entity';
+import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
 import { CalculateNutritionalValuesUseCase } from './calculate-nutritional-values.use-case';
 
 describe('CalculateNutritionalValuesUseCase', () => {
@@ -13,7 +15,7 @@ describe('CalculateNutritionalValuesUseCase', () => {
     type = NutritionalEntityType.RawIngredient;
 
     const rawIngredientRepository = {
-      findOne: jest.fn(() => {
+      findBy: jest.fn(() => {
         const rawIngredient = new RawIngredient({
           name: 'Raw ingredient',
           proteinRatio: 0.2,
@@ -45,7 +47,7 @@ describe('CalculateNutritionalValuesUseCase', () => {
       ],
     );
 
-    expect(rawIngredientRepository.findOne).toHaveBeenCalledWith(id);
+    expect(rawIngredientRepository.findBy).toHaveBeenCalledWith({ id });
     expect(nutritionalSnapshot).toStrictEqual({
       protein: 20,
       fat: 30,
@@ -59,7 +61,7 @@ describe('CalculateNutritionalValuesUseCase', () => {
     type = NutritionalEntityType.CookedDish;
 
     const cookedDishRepository = {
-      findOne: jest.fn(() => {
+      findBy: jest.fn(() => {
         const rawIngredient = new RawIngredient({
           name: 'Raw ingredient',
           proteinRatio: 0.2,
@@ -79,13 +81,10 @@ describe('CalculateNutritionalValuesUseCase', () => {
 
         return Promise.resolve(cookedDish);
       }),
-    };
+    } as unknown as CookedDishRepository;
 
     const calculateNutritionalValuesUseCase =
-      new CalculateNutritionalValuesUseCase(
-        null as any,
-        cookedDishRepository as any,
-      );
+      new CalculateNutritionalValuesUseCase(null as any, cookedDishRepository);
 
     const nutritionalSnapshot = await calculateNutritionalValuesUseCase.execute(
       [
@@ -97,7 +96,7 @@ describe('CalculateNutritionalValuesUseCase', () => {
       ],
     );
 
-    expect(cookedDishRepository.findOne).toHaveBeenCalledWith(id);
+    expect(cookedDishRepository.findBy).toHaveBeenCalledWith({ id });
     expect(nutritionalSnapshot).toStrictEqual({
       protein: 10,
       fat: 15,
@@ -111,12 +110,12 @@ describe('CalculateNutritionalValuesUseCase', () => {
     type = NutritionalEntityType.RawIngredient;
 
     const rawIngredientRepository = {
-      findOne: jest.fn(() => Promise.resolve(null)),
-    };
+      findBy: jest.fn(() => Promise.resolve(null)),
+    } as unknown as RawIngredientRepository;
 
     const calculateNutritionalValuesUseCase =
       new CalculateNutritionalValuesUseCase(
-        rawIngredientRepository as any,
+        rawIngredientRepository,
         null as any,
       );
 
@@ -130,6 +129,6 @@ describe('CalculateNutritionalValuesUseCase', () => {
       ]),
     ).rejects.toThrowError(new NutritionalEntityNotFoundError(type, id));
 
-    expect(rawIngredientRepository.findOne).toHaveBeenCalledWith(id);
+    expect(rawIngredientRepository.findBy).toHaveBeenCalledWith({ id });
   });
 });

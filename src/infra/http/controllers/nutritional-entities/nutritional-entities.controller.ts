@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
-// import { CalculateNutritionalValuesUseCase } from '../../../../core/application/nutritional_entity/calculate-nutritional-values.use-case';
-// import { CalculateNutritionalValuesSingleDto } from './dto/create.dto';
-// import {
-//   NutritionalValuesSerialized,
-//   NutritionalValuesSerializer,
-// } from '../../../../utils/serializers/nutritional-values.serializer';
+import { CalculateNutritionalValuesUseCase } from '../../../../core/application/nutritional_entity/calculate-nutritional-values.use-case';
+import { CalculateNutritionalValuesSingleDto } from './dto/create.dto';
+import {
+  NutritionalValuesSerialized,
+  NutritionalValuesSerializer,
+} from '../../../../utils/serializers/nutritional-values.serializer';
 import { NutritionalEntityNotFoundExceptionFilter } from '../../exception-filters';
 import { GetAllNutritionalEntitiesUseCase } from '../../../../core/application/nutritional_entity/get-all-nutritional-entities.use-case';
 import { NutritionalEntityType } from '../../../../utils/enums/nutritional-entity-type.enum';
@@ -20,7 +20,7 @@ type GetAllReturnType = {
 @Controller('nutritional-entities')
 export class NutritionalEntitiesController {
   constructor(
-    // private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
+    private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
     private getAllNutritionalEntitiesUseCase: GetAllNutritionalEntitiesUseCase,
   ) {}
 
@@ -44,17 +44,17 @@ export class NutritionalEntitiesController {
     });
   }
 
-  // @Post('calculate-nutritional-values')
-  // @UseFilters(NutritionalEntityNotFoundExceptionFilter)
-  // async create(
-  //   @Body()
-  //   calculateNutritionalValuesDto: CalculateNutritionalValuesSingleDto[],
-  // ): Promise<NutritionalValuesSerialized> {
-  //   const nutritionalSnapshot =
-  //     await this.calculateNutritionalValuesUseCase.execute(
-  //       calculateNutritionalValuesDto,
-  //     );
+  @Post('calculate-nutritional-values')
+  @UseFilters(NutritionalEntityNotFoundExceptionFilter)
+  async create(
+    @Body()
+    calculateNutritionalValuesDto: CalculateNutritionalValuesSingleDto[],
+  ): Promise<NutritionalValuesSerialized> {
+    const nutritionalSnapshot =
+      await this.calculateNutritionalValuesUseCase.execute(
+        calculateNutritionalValuesDto,
+      );
 
-  //   return NutritionalValuesSerializer.serialize(nutritionalSnapshot);
-  // }
+    return NutritionalValuesSerializer.serialize(nutritionalSnapshot);
+  }
 }
