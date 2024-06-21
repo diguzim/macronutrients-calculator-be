@@ -41,8 +41,6 @@ export class CreateCookedDishFromRawIngredientsUseCase {
       }),
     );
 
-    console.log('rawIngredientsWithAmounts:', rawIngredientsWithAmounts);
-
     const cookedDish = CookedDish.createFromRawIngredientsAmounts(
       name,
       rawIngredientsWithAmounts,

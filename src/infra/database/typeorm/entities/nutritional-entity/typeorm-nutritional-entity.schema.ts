@@ -2,18 +2,18 @@ import { EntitySchemaColumnOptions } from 'typeorm';
 
 export const NutritionalEntitySchemaPart = {
   proteinRatio: {
-    type: Number,
+    type: 'float',
   } as EntitySchemaColumnOptions,
   fatRatio: {
-    type: Number,
+    type: 'float',
   } as EntitySchemaColumnOptions,
   carbohydrateRatio: {
-    type: Number,
+    type: 'float',
   } as EntitySchemaColumnOptions,
   fiberRatio: {
-    type: Number,
+    type: 'float',
   } as EntitySchemaColumnOptions,
   kcalPerGram: {
-    type: Number,
+    type: 'float',
   } as EntitySchemaColumnOptions,
 };
