@@ -17,7 +17,7 @@ describe('CookedDishSerializer', () => {
         'some cooked dish',
         [
           {
-            raw_ingredient: rawIngredient,
+            rawIngredient: rawIngredient,
             amount_in_grams: 100,
           },
         ],

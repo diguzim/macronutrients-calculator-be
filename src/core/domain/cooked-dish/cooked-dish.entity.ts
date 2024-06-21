@@ -5,8 +5,8 @@ import {
 import { RawIngredient } from '../raw-ingredient/raw-ingredient.entity';
 
 export type RawIngredientWithAmount = {
-  raw_ingredient: RawIngredient;
-  amount_inGrams: number;
+  rawIngredient: RawIngredient;
+  amountInGrams: number;
 };
 
 export type CookedDishProps = NutritionalEntityProps & {
@@ -15,13 +15,12 @@ export type CookedDishProps = NutritionalEntityProps & {
 };
 
 export class CookedDish extends NutritionalEntity {
-  private _id?: string;
-  private _name: string;
+  id?: string;
+  name: string;
 
   constructor(props: CookedDishProps) {
     super(props);
-    this._id = props.id;
-    this._name = props.name;
+    Object.assign(this, props);
   }
 
   public static createFromRawIngredientsAmounts(
@@ -37,20 +36,20 @@ export class CookedDish extends NutritionalEntity {
 
     rawIngredientsWithAmounts.forEach((rawIngredientWithAmount) => {
       totalProtein +=
-        rawIngredientWithAmount.raw_ingredient.proteinRatio *
-        rawIngredientWithAmount.amount_inGrams;
+        rawIngredientWithAmount.rawIngredient.proteinRatio *
+        rawIngredientWithAmount.amountInGrams;
       totalFat +=
-        rawIngredientWithAmount.raw_ingredient.fatRatio *
-        rawIngredientWithAmount.amount_inGrams;
+        rawIngredientWithAmount.rawIngredient.fatRatio *
+        rawIngredientWithAmount.amountInGrams;
       totalCarbohydrate +=
-        rawIngredientWithAmount.raw_ingredient.carbohydrateRatio *
-        rawIngredientWithAmount.amount_inGrams;
+        rawIngredientWithAmount.rawIngredient.carbohydrateRatio *
+        rawIngredientWithAmount.amountInGrams;
       totalFiber +=
-        rawIngredientWithAmount.raw_ingredient.fiberRatio *
-        rawIngredientWithAmount.amount_inGrams;
+        rawIngredientWithAmount.rawIngredient.fiberRatio *
+        rawIngredientWithAmount.amountInGrams;
       totalKcal +=
-        rawIngredientWithAmount.raw_ingredient.kcalPerGram *
-        rawIngredientWithAmount.amount_inGrams;
+        rawIngredientWithAmount.rawIngredient.kcalPerGram *
+        rawIngredientWithAmount.amountInGrams;
     });
 
     const proteinRatio = totalProtein / finalWeightInGrams;
@@ -69,21 +68,5 @@ export class CookedDish extends NutritionalEntity {
     });
 
     return cookedDish;
-  }
-
-  get id(): string | undefined {
-    return this._id;
-  }
-
-  set id(value: string | undefined) {
-    this._id = value;
-  }
-
-  get name(): string {
-    return this._name;
-  }
-
-  set name(value: string) {
-    this._name = value;
   }
 }

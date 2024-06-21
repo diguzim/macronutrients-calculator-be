@@ -71,7 +71,7 @@ describe('CalculateNutritionalValuesUseCase', () => {
 
         const cookedDish = CookedDish.createFromRawIngredientsAmounts(
           'Cooked dish',
-          [{ raw_ingredient: rawIngredient, amount_in_grams: 100 }],
+          [{ rawIngredient: rawIngredient, amount_in_grams: 100 }],
           200,
         );
 

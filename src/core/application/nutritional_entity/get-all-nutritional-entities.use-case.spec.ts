@@ -29,7 +29,7 @@ describe('GetAllNutritionalEntitiesUseCase', () => {
         'CookedDish',
         [
           {
-            raw_ingredient: rawIngredient,
+            rawIngredient: rawIngredient,
             amount_in_grams: 100,
           },
         ],
