@@ -9,19 +9,7 @@ export class PrismaRawIngredientRepository implements RawIngredientRepository {
 
   async create(rawIngredient: RawIngredient): Promise<any> {}
 
-  async findAll(): Promise<RawIngredient[]> {
-    return [];
-  }
-
-  async findOne(id: string): Promise<RawIngredient | null> {
+  async findBy(params: Partial<RawIngredient>): Promise<RawIngredient | null> {
     return null;
-  }
-
-  async update(rawIngredient: RawIngredient): Promise<void> {
-    return;
-  }
-
-  async delete(id: string): Promise<void> {
-    return;
   }
 }

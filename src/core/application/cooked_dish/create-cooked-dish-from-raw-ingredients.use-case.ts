@@ -27,9 +27,9 @@ export class CreateCookedDishFromRawIngredientsUseCase {
   ): Promise<CookedDish> {
     const rawIngredients = await Promise.all(
       input.raw_ingredients_id_with_amount.map(async (rawIngredient) => {
-        const rawIngredientFound = await this.rawIngredientRepository.findOne(
-          rawIngredient.raw_ingredient_id,
-        );
+        const rawIngredientFound = await this.rawIngredientRepository.findBy({
+          id: rawIngredient.raw_ingredient_id,
+        });
 
         if (!rawIngredientFound) {
           throw new Error('Raw ingredient not found');

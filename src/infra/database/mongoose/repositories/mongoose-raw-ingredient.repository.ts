@@ -1,4 +1,4 @@
-import { Model, ObjectId } from 'mongoose';
+import { Model } from 'mongoose';
 import { RawIngredientRepository } from '../../../../core/domain/raw-ingredient/raw-ingredient.repository';
 import { RawIngredient } from '../../../../core/domain/raw-ingredient/raw-ingredient.entity';
 
@@ -23,29 +23,9 @@ export class MongooseRawIngredientRepository
     return rawIngredient;
   }
 
-  async findAll(): Promise<RawIngredient[]> {
-    const queryResult: RawIngredient[] = await this.rawIngredientModel
-      .find()
-      .exec();
-
-    return queryResult.map(
-      (rawIngredient) =>
-        new RawIngredient({
-          id: rawIngredient.id,
-          name: rawIngredient.name,
-          proteinRatio: rawIngredient.proteinRatio,
-          fatRatio: rawIngredient.fatRatio,
-          carbohydrateRatio: rawIngredient.carbohydrateRatio,
-          fiberRatio: rawIngredient.fiberRatio,
-          kcalPerGram: rawIngredient.kcalPerGram,
-        }),
-    );
-  }
-
-  async findOne(id: string): Promise<RawIngredient | null> {
-    const queryResult: RawIngredient | null = await this.rawIngredientModel
-      .findById(id)
-      .exec();
+  async findBy(params: Partial<RawIngredient>): Promise<RawIngredient | null> {
+    const queryResult: RawIngredient | null =
+      await this.rawIngredientModel.findOne(params);
 
     if (!queryResult) {
       return null;
@@ -59,15 +39,5 @@ export class MongooseRawIngredientRepository
       fiberRatio: queryResult.fiberRatio,
       kcalPerGram: queryResult.kcalPerGram,
     });
-  }
-
-  async update(rawIngredient: RawIngredient): Promise<void> {
-    // TODO: implement
-    return;
-  }
-
-  async delete(id: string): Promise<void> {
-    // TODO: implement
-    return;
   }
 }

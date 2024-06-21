@@ -15,27 +15,11 @@ export class InMemoryRawIngredientRepository
     return rawIngredient;
   }
 
-  async findAll(): Promise<RawIngredient[]> {
-    return this.rawIngredients;
-  }
-
-  async findOne(id: string): Promise<RawIngredient | null> {
-    return this.rawIngredients.find((rawIngredient) => rawIngredient.id === id);
-  }
-
-  async update(rawIngredient: RawIngredient): Promise<void> {
-    this.rawIngredients.forEach((ri, index) => {
-      if (ri.id === rawIngredient.id) {
-        this.rawIngredients[index] = rawIngredient;
-      }
-    });
-  }
-
-  async delete(id: string): Promise<void> {
-    this.rawIngredients.forEach((ri, index) => {
-      if (ri.id === id) {
-        this.rawIngredients.splice(index, 1);
-      }
-    });
+  async findBy(params: Partial<RawIngredient>): Promise<RawIngredient | null> {
+    return this.rawIngredients.find((rawIngredient) =>
+      Object.entries(params).every(
+        ([key, value]) => rawIngredient[key] === value,
+      ),
+    );
   }
 }

@@ -6,19 +6,7 @@ export class mockedRawIngredientRepository implements RawIngredientRepository {
     return rawIngredient;
   }
 
-  async findAll(): Promise<RawIngredient[]> {
-    return [];
-  }
-
-  async findOne(id: string): Promise<RawIngredient | null> {
+  async findBy(params: Partial<RawIngredient>): Promise<RawIngredient | null> {
     return null;
-  }
-
-  async update(rawIngredient: RawIngredient): Promise<void> {
-    return;
-  }
-
-  async delete(id: string): Promise<void> {
-    return;
   }
 }

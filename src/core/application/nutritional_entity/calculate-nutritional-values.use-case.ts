@@ -31,7 +31,9 @@ export class CalculateNutritionalValuesUseCase {
 
         switch (type) {
           case NutritionalEntityType.RawIngredient:
-            nutritionalEntity = await this.rawIngredientRepository.findOne(id);
+            nutritionalEntity = await this.rawIngredientRepository.findBy({
+              id,
+            });
             break;
           case NutritionalEntityType.CookedDish:
             nutritionalEntity = await this.cookedDishRepository.findOne(id);
