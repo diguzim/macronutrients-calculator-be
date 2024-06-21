@@ -25,7 +25,7 @@ export class CalculateNutritionalValuesUseCase {
     input: CalculateNutritionalValuesInput,
   ): Promise<NutritionalSnapshot> {
     let nutritionalEntity: NutritionalEntity;
-    const entries = await Promise.all(
+    const nutritionalSnapshots = await Promise.all(
       input.map(async (input) => {
         const { type, id, weight } = input;
 
@@ -48,7 +48,7 @@ export class CalculateNutritionalValuesUseCase {
       }),
     );
 
-    const nutritionalSnapshot = entries.reduce(
+    const summedNutritionalSnapshot = nutritionalSnapshots.reduce(
       (acc, curr) => {
         acc.protein += curr.protein;
         acc.fat += curr.fat;
@@ -67,6 +67,14 @@ export class CalculateNutritionalValuesUseCase {
       },
     );
 
-    return nutritionalSnapshot;
+    return {
+      protein: parseFloat(summedNutritionalSnapshot.protein.toFixed(1)),
+      fat: parseFloat(summedNutritionalSnapshot.fat.toFixed(1)),
+      carbohydrate: parseFloat(
+        summedNutritionalSnapshot.carbohydrate.toFixed(1),
+      ),
+      fiber: parseFloat(summedNutritionalSnapshot.fiber.toFixed(1)),
+      kcal: parseFloat(summedNutritionalSnapshot.kcal.toFixed(1)),
+    };
   }
 }
