@@ -1,7 +1,6 @@
 import { FindOptionsWhere, Repository } from 'typeorm';
-
-import { RawIngredient } from '../../../../core/domain/raw-ingredient/raw-ingredient.entity';
-import { RawIngredientRepository } from '../../../../core/domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredientRepository } from '../../../../../core/domain/raw-ingredient/raw-ingredient.repository';
+import { RawIngredient } from '../../../../../core/domain/raw-ingredient/raw-ingredient.entity';
 
 export class TypeormRawIngredientRepository implements RawIngredientRepository {
   constructor(

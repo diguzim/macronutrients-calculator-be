@@ -5,9 +5,9 @@ import { CookedDishRepository } from '../../core/domain/cooked-dish/cooked-dish.
 import { InMemoryCookedDishRepository } from './in-memory/repositories/in-memory-cooked-dish.repository';
 import { getDataSourceToken, TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeormRawIngredientRepository } from './typeorm/raw-ingredient/typeorm-raw-ingredient.repository';
+import { RawIngredientSchema } from './typeorm/entities/raw-ingredient/typeorm-raw-ingredient.schema';
+import { TypeormRawIngredientRepository } from './typeorm/entities/raw-ingredient/typeorm-raw-ingredient.repository';
 // import { TypeormCookedDishRepository } from './typeorm/cooked-dish/typeorm-cooked-dish.repository';
-import { RawIngredientSchema } from './typeorm/raw-ingredient/typeorm-raw-ingredient.schema';
 // import { CookedDishSchema } from './typeorm/cooked-dish/typeorm-cooked-dish.schema';
 
 const inMemoryProviders: Provider[] = [

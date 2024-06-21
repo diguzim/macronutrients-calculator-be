@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
-import { RawIngredientSchema } from '../raw-ingredient/typeorm-raw-ingredient.schema';
 import { RawIngredient } from '../../../../core/domain/raw-ingredient/raw-ingredient.entity';
+import { RawIngredientSchema } from '../entities/raw-ingredient/typeorm-raw-ingredient.schema';
 
 export default class RawIngredientSeeder implements Seeder {
   public async run(dataSource: DataSource): Promise<void> {

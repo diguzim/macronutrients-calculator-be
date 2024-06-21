@@ -1,5 +1,5 @@
 import { EntitySchema } from 'typeorm';
-import { RawIngredient } from '../../../../core/domain/raw-ingredient/raw-ingredient.entity';
+import { RawIngredient } from '../../../../../core/domain/raw-ingredient/raw-ingredient.entity';
 
 export const RawIngredientSchema = new EntitySchema<RawIngredient>({
   name: 'RawIngredient',
