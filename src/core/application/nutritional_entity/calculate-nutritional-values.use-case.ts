@@ -36,7 +36,7 @@ export class CalculateNutritionalValuesUseCase {
             });
             break;
           case NutritionalEntityType.CookedDish:
-            nutritionalEntity = await this.cookedDishRepository.findOne(id);
+            nutritionalEntity = await this.cookedDishRepository.findBy({ id });
             break;
         }
 

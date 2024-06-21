@@ -11,7 +11,7 @@ export class GetAllNutritionalEntitiesUseCase {
   ) {}
   async execute() {
     const rawIngredients = await this.rawIngredientRepository.findAllBy({});
-    const cookedDishes = await this.cookedDishRepository.findAll();
+    const cookedDishes = await this.cookedDishRepository.findAllBy({});
 
     return [
       {

@@ -1,8 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {
-  CookedDish,
-  RawIngredientWithAmount,
-} from '../../domain/cooked-dish/cooked-dish.entity';
+import { CookedDish } from '../../domain/cooked-dish/cooked-dish.entity';
 import { CookedDishRepository } from '../../domain/cooked-dish/cooked-dish.repository';
 import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredient.repository';
 
@@ -49,7 +46,7 @@ export class CreateCookedDishFromRawIngredientsUseCase {
     );
 
     const cookedDishCreated =
-      await this.cookedDishRepository.insert(cookedDish);
+      await this.cookedDishRepository.create(cookedDish);
 
     cookedDish.id = cookedDishCreated.id;
 
