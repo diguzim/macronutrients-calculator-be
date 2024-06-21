@@ -9,4 +9,8 @@ export class mockedRawIngredientRepository implements RawIngredientRepository {
   async findBy(params: Partial<RawIngredient>): Promise<RawIngredient | null> {
     return null;
   }
+
+  async findAllBy(params: Partial<RawIngredient>): Promise<RawIngredient[]> {
+    return [];
+  }
 }

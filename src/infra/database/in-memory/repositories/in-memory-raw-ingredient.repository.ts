@@ -22,4 +22,12 @@ export class InMemoryRawIngredientRepository
       ),
     );
   }
+
+  async findAllBy(params: Partial<RawIngredient>): Promise<RawIngredient[]> {
+    return this.rawIngredients.filter((rawIngredient) =>
+      Object.entries(params).every(
+        ([key, value]) => rawIngredient[key] === value,
+      ),
+    );
+  }
 }

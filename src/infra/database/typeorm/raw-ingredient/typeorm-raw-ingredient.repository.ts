@@ -17,4 +17,10 @@ export class TypeormRawIngredientRepository implements RawIngredientRepository {
       where: params as FindOptionsWhere<RawIngredient>,
     });
   }
+
+  async findAllBy(params: Partial<RawIngredient>): Promise<RawIngredient[]> {
+    return this.rawIngredientRepository.find({
+      where: params as FindOptionsWhere<RawIngredient>,
+    });
+  }
 }

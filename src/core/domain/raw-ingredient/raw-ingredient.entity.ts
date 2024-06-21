@@ -29,10 +29,7 @@ export class RawIngredient extends NutritionalEntity {
 
   constructor(props: RawIngredientProps) {
     super(props);
-    this.id = props.id;
-    this.name = props.name;
-    this.createdAt = props.createdAt;
-    this.updatedAt = props.updatedAt;
+    Object.assign(this, props);
   }
 
   public static createFromAbsoluteValues(

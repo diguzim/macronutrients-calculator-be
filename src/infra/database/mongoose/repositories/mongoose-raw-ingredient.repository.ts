@@ -40,4 +40,20 @@ export class MongooseRawIngredientRepository
       kcalPerGram: queryResult.kcalPerGram,
     });
   }
+
+  async findAllBy(params: Partial<RawIngredient>): Promise<RawIngredient[]> {
+    const queryResult: RawIngredient[] =
+      await this.rawIngredientModel.find(params);
+
+    return queryResult.map((rawIngredient) => {
+      return new RawIngredient({
+        name: rawIngredient.name,
+        proteinRatio: rawIngredient.proteinRatio,
+        fatRatio: rawIngredient.fatRatio,
+        carbohydrateRatio: rawIngredient.carbohydrateRatio,
+        fiberRatio: rawIngredient.fiberRatio,
+        kcalPerGram: rawIngredient.kcalPerGram,
+      });
+    });
+  }
 }

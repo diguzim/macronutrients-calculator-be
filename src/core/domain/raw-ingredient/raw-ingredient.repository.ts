@@ -5,4 +5,5 @@ export abstract class RawIngredientRepository {
   abstract findBy(
     params: Partial<RawIngredient>,
   ): Promise<RawIngredient | null>;
+  abstract findAllBy(params: Partial<RawIngredient>): Promise<RawIngredient[]>;
 }

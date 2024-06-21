@@ -10,8 +10,7 @@ export class GetAllNutritionalEntitiesUseCase {
     private readonly cookedDishRepository: CookedDishRepository,
   ) {}
   async execute() {
-    // const rawIngredients = await this.rawIngredientRepository.findAll();
-    const rawIngredients = [];
+    const rawIngredients = await this.rawIngredientRepository.findAllBy({});
     const cookedDishes = await this.cookedDishRepository.findAll();
 
     return [
