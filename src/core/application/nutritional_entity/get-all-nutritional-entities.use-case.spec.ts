@@ -30,7 +30,7 @@ describe('GetAllNutritionalEntitiesUseCase', () => {
         [
           {
             rawIngredient: rawIngredient,
-            amount_in_grams: 100,
+            amountInGrams: 100,
           },
         ],
         300,
@@ -49,10 +49,10 @@ describe('GetAllNutritionalEntitiesUseCase', () => {
       ];
 
       rawIngredientRepository = {
-        findAll: jest.fn(() => Promise.resolve([rawIngredient])),
+        findAllBy: jest.fn(() => Promise.resolve([rawIngredient])),
       } as any;
       cookedDishRepository = {
-        findAll: jest.fn(() => Promise.resolve([cookedDish])),
+        findAllBy: jest.fn(() => Promise.resolve([cookedDish])),
       } as any;
 
       getAllNutritionalEntitiesUseCase = new GetAllNutritionalEntitiesUseCase(
