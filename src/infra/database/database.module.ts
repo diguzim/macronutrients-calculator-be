@@ -9,7 +9,10 @@ import { RawIngredientSchema } from './typeorm/entities/raw-ingredient/typeorm-r
 import { TypeormRawIngredientRepository } from './typeorm/entities/raw-ingredient/typeorm-raw-ingredient.repository';
 import { CookedDishSchema } from './typeorm/entities/cooked-dish/typeorm-cooked-dish.schema';
 import { TypeormCookedDishRepository } from './typeorm/entities/cooked-dish/typeorm-cooked-dish.repository';
+import { MongooseRawIngredientRepository } from './mongoose/repositories/mongoose-raw-ingredient.repository';
+import { MongooseCookedDishRepository } from './mongoose/repositories/mongoose-cooked-dish.repository';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const inMemoryProviders: Provider[] = [
   {
     provide: RawIngredientRepository,
@@ -21,20 +24,21 @@ const inMemoryProviders: Provider[] = [
   },
 ];
 
-// const mongooseProviders: Provider[] = [
-//   {
-//     provide: RawIngredientRepository,
-//     useFactory: (rawIngredientModel) =>
-//       new MongooseRawIngredientRepository(rawIngredientModel),
-//     inject: ['RawIngredientModel'],
-//   },
-//   {
-//     provide: CookedDishRepository,
-//     useFactory: (cookedDishModel) =>
-//       new MongooseCookedDishRepository(cookedDishModel),
-//     inject: ['CookedDishModel'],
-//   },
-// ];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const mongooseProviders: Provider[] = [
+  {
+    provide: RawIngredientRepository,
+    useFactory: (rawIngredientModel) =>
+      new MongooseRawIngredientRepository(rawIngredientModel),
+    inject: ['RawIngredientModel'],
+  },
+  {
+    provide: CookedDishRepository,
+    useFactory: (cookedDishModel) =>
+      new MongooseCookedDishRepository(cookedDishModel),
+    inject: ['CookedDishModel'],
+  },
+];
 
 const typeormProviders: Provider[] = [
   {

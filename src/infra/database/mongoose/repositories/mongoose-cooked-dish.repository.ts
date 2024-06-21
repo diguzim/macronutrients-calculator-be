@@ -1,4 +1,4 @@
-import { Model, ObjectId } from 'mongoose';
+import { Model } from 'mongoose';
 import { CookedDishRepository } from '../../../../core/domain/cooked-dish/cooked-dish.repository';
 import { CookedDish } from '../../../../core/domain/cooked-dish/cooked-dish.entity';
 

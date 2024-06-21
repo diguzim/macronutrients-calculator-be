@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-const RawIngredientSchema = new Schema({
+export const RawIngredientSchema = new Schema({
   name: String,
   proteinRatio: Number,
   fatRatio: Number,
