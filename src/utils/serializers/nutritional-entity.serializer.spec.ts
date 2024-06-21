@@ -11,11 +11,11 @@ describe('NutritionalEntitySerializer', () => {
       }
 
       const ratios = {
-        protein_ratio: 0.1,
-        fat_ratio: 0.2,
-        carbohydrate_ratio: 0.3,
-        fiber_ratio: 0.4,
-        kcal_per_gram: 0.5,
+        proteinRatio: 0.1,
+        fatRatio: 0.2,
+        carbohydrateRatio: 0.3,
+        fiberRatio: 0.4,
+        kcalPerGram: 0.5,
       };
 
       const nutritionalEntity = new ConcreteNutritionalEntity(ratios);
@@ -23,11 +23,11 @@ describe('NutritionalEntitySerializer', () => {
       const serializedNutritionalEntity =
         NutritionalEntitySerializer.serialize(nutritionalEntity);
       expect(serializedNutritionalEntity).toEqual({
-        protein_ratio: 0.1,
-        fat_ratio: 0.2,
-        carbohydrate_ratio: 0.3,
-        fiber_ratio: 0.4,
-        kcal_per_gram: 0.5,
+        proteinRatio: 0.1,
+        fatRatio: 0.2,
+        carbohydrateRatio: 0.3,
+        fiberRatio: 0.4,
+        kcalPerGram: 0.5,
       });
     });
   });

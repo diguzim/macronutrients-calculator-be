@@ -12,11 +12,15 @@ export type RawIngredientWithAmount = {
 export type CookedDishProps = NutritionalEntityProps & {
   id?: string;
   name: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export class CookedDish extends NutritionalEntity {
   id?: string;
   name: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 
   constructor(props: CookedDishProps) {
     super(props);

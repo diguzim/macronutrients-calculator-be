@@ -4,13 +4,13 @@ import { RawIngredientSerializer } from './raw-ingredient.serializer';
 describe('RawIngredientSerializer', () => {
   describe('serialize', () => {
     it('should serialize a raw ingredient', () => {
-      const rawIngredient = RawIngredient.createFromRatios({
+      const rawIngredient = new RawIngredient({
         name: 'name',
-        protein_ratio: 0.1,
-        fat_ratio: 0.2,
-        carbohydrate_ratio: 0.3,
-        fiber_ratio: 0.4,
-        kcal_per_gram: 0.5,
+        proteinRatio: 0.1,
+        fatRatio: 0.2,
+        carbohydrateRatio: 0.3,
+        fiberRatio: 0.4,
+        kcalPerGram: 0.5,
       });
       rawIngredient.id = '1';
 
@@ -19,11 +19,11 @@ describe('RawIngredientSerializer', () => {
       expect(serializedRawIngredient).toEqual({
         id: '1',
         name: 'name',
-        protein_ratio: 0.1,
-        fat_ratio: 0.2,
-        carbohydrate_ratio: 0.3,
-        fiber_ratio: 0.4,
-        kcal_per_gram: 0.5,
+        proteinRatio: 0.1,
+        fatRatio: 0.2,
+        carbohydrateRatio: 0.3,
+        fiberRatio: 0.4,
+        kcalPerGram: 0.5,
       });
     });
   });

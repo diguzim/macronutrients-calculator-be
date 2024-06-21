@@ -5,11 +5,11 @@ describe('RawIngredient', () => {
     it('should create a RawIngredient using constructor', () => {
       const rawIngredient = new RawIngredient({
         name: 'Raw Ingredient',
-        protein_ratio: 0.3,
-        fat_ratio: 0.3,
-        carbohydrate_ratio: 0.3,
-        fiber_ratio: 0.1,
-        kcal_per_gram: 4,
+        proteinRatio: 0.3,
+        fatRatio: 0.3,
+        carbohydrateRatio: 0.3,
+        fiberRatio: 0.1,
+        kcalPerGram: 4,
       });
 
       expect(rawIngredient).toBeInstanceOf(RawIngredient);

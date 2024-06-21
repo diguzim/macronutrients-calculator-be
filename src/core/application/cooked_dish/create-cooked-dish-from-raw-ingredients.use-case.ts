@@ -5,9 +5,9 @@ import { RawIngredientRepository } from '../../domain/raw-ingredient/raw-ingredi
 
 type CreateCookedDishFromRawIngredientsInput = {
   name: string;
-  raw_ingredients_id_with_amount: {
-    raw_ingredient_id: string;
-    amount_in_grams: number;
+  rawIngredientIdWithAmount: {
+    rawIngredientId: string;
+    amountInGrams: number;
   }[];
   finalWeightInGrams;
 };
@@ -22,10 +22,12 @@ export class CreateCookedDishFromRawIngredientsUseCase {
   async execute(
     input: CreateCookedDishFromRawIngredientsInput,
   ): Promise<CookedDish> {
-    const rawIngredients = await Promise.all(
-      input.raw_ingredients_id_with_amount.map(async (rawIngredient) => {
+    const { name, rawIngredientIdWithAmount, finalWeightInGrams } = input;
+
+    const rawIngredientsWithAmounts = await Promise.all(
+      rawIngredientIdWithAmount.map(async (rawIngredient) => {
         const rawIngredientFound = await this.rawIngredientRepository.findBy({
-          id: rawIngredient.raw_ingredient_id,
+          id: rawIngredient.rawIngredientId,
         });
 
         if (!rawIngredientFound) {
@@ -33,16 +35,18 @@ export class CreateCookedDishFromRawIngredientsUseCase {
         }
 
         return {
-          raw_ingredient: rawIngredientFound,
-          amount_in_grams: rawIngredient.amount_in_grams,
-        } as any;
+          rawIngredient: rawIngredientFound,
+          amountInGrams: rawIngredient.amountInGrams,
+        };
       }),
     );
 
+    console.log('rawIngredientsWithAmounts:', rawIngredientsWithAmounts);
+
     const cookedDish = CookedDish.createFromRawIngredientsAmounts(
-      input.name,
-      rawIngredients,
-      input.finalWeightInGrams,
+      name,
+      rawIngredientsWithAmounts,
+      finalWeightInGrams,
     );
 
     const cookedDishCreated =

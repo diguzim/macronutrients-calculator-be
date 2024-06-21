@@ -5,9 +5,9 @@ export class CreateCookedDishFromRawIngredientsDto {
   name: string;
 
   @ArrayMinSize(1)
-  raw_ingredients_id_with_amount: {
-    raw_ingredient_id: string;
-    amount_in_grams: number;
+  rawIngredientIdWithAmount: {
+    rawIngredientId: string;
+    amountInGrams: number;
   }[];
 
   @Min(0)

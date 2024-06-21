@@ -7,8 +7,8 @@ import { getDataSourceToken, TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { RawIngredientSchema } from './typeorm/entities/raw-ingredient/typeorm-raw-ingredient.schema';
 import { TypeormRawIngredientRepository } from './typeorm/entities/raw-ingredient/typeorm-raw-ingredient.repository';
-// import { TypeormCookedDishRepository } from './typeorm/cooked-dish/typeorm-cooked-dish.repository';
-// import { CookedDishSchema } from './typeorm/cooked-dish/typeorm-cooked-dish.schema';
+import { CookedDishSchema } from './typeorm/entities/cooked-dish/typeorm-cooked-dish.schema';
+import { TypeormCookedDishRepository } from './typeorm/entities/cooked-dish/typeorm-cooked-dish.repository';
 
 const inMemoryProviders: Provider[] = [
   {
@@ -45,6 +45,14 @@ const typeormProviders: Provider[] = [
     },
     inject: [getDataSourceToken()],
   },
+  {
+    provide: CookedDishRepository,
+    useFactory: (dataSource) => {
+      const repository = dataSource.getRepository(CookedDishSchema);
+      return new TypeormCookedDishRepository(repository);
+    },
+    inject: [getDataSourceToken()],
+  },
 ];
 
 @Module({
@@ -63,7 +71,7 @@ const typeormProviders: Provider[] = [
         username: configService.getOrThrow('database.username'),
         password: configService.getOrThrow('database.password'),
         synchronize: false,
-        entities: [RawIngredientSchema],
+        entities: [RawIngredientSchema, CookedDishSchema],
       }),
       inject: [ConfigService],
     }),
@@ -75,6 +83,6 @@ const typeormProviders: Provider[] = [
     // Have this uncommented to use the in-memory database
     // ...inMemoryProviders,
   ],
-  exports: [RawIngredientRepository],
+  exports: [RawIngredientRepository, CookedDishRepository],
 })
 export class DatabaseModule {}

@@ -6,7 +6,7 @@ import { CreateRawIngredientFromAbsoluteValuesUseCase } from './create-raw-ingre
 describe('CreateRawIngredientFromAbsoluteValuesUseCase', () => {
   it('should create a raw ingredient', async () => {
     const repository = new mockedRawIngredientRepository();
-    repository.insert = jest.fn(() => {
+    repository.create = jest.fn(() => {
       mockedRawIngredient.id = 'some-id';
       return Promise.resolve(mockedRawIngredient);
     });
@@ -28,12 +28,12 @@ describe('CreateRawIngredientFromAbsoluteValuesUseCase', () => {
     expect(rawIngredient).toBeDefined();
     expect(rawIngredient.id).toBeDefined();
     expect(rawIngredient.name).toBe('Raw ingredient');
-    expect(rawIngredient.protein_ratio).toBe(0.2);
-    expect(rawIngredient.fat_ratio).toBe(0.3);
-    expect(rawIngredient.carbohydrate_ratio).toBe(0.4);
-    expect(rawIngredient.fiber_ratio).toBe(0.1);
-    expect(rawIngredient.kcal_per_gram).toBe(4);
+    expect(rawIngredient.proteinRatio).toBe(0.2);
+    expect(rawIngredient.fatRatio).toBe(0.3);
+    expect(rawIngredient.carbohydrateRatio).toBe(0.4);
+    expect(rawIngredient.fiberRatio).toBe(0.1);
+    expect(rawIngredient.kcalPerGram).toBe(4);
 
-    expect(repository.insert).toHaveBeenCalledTimes(1);
+    expect(repository.create).toHaveBeenCalledTimes(1);
   });
 });

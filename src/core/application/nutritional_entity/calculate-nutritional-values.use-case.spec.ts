@@ -14,13 +14,13 @@ describe('CalculateNutritionalValuesUseCase', () => {
 
     const rawIngredientRepository = {
       findOne: jest.fn(() => {
-        const rawIngredient = RawIngredient.createFromRatios({
+        const rawIngredient = new RawIngredient({
           name: 'Raw ingredient',
-          protein_ratio: 0.2,
-          fat_ratio: 0.3,
-          carbohydrate_ratio: 0.4,
-          fiber_ratio: 0.1,
-          kcal_per_gram: 1,
+          proteinRatio: 0.2,
+          fatRatio: 0.3,
+          carbohydrateRatio: 0.4,
+          fiberRatio: 0.1,
+          kcalPerGram: 1,
         });
 
         rawIngredient.id = id;
@@ -60,18 +60,18 @@ describe('CalculateNutritionalValuesUseCase', () => {
 
     const cookedDishRepository = {
       findOne: jest.fn(() => {
-        const rawIngredient = RawIngredient.createFromRatios({
+        const rawIngredient = new RawIngredient({
           name: 'Raw ingredient',
-          protein_ratio: 0.2,
-          fat_ratio: 0.3,
-          carbohydrate_ratio: 0.4,
-          fiber_ratio: 0.1,
-          kcal_per_gram: 1,
+          proteinRatio: 0.2,
+          fatRatio: 0.3,
+          carbohydrateRatio: 0.4,
+          fiberRatio: 0.1,
+          kcalPerGram: 1,
         });
 
         const cookedDish = CookedDish.createFromRawIngredientsAmounts(
           'Cooked dish',
-          [{ rawIngredient: rawIngredient, amount_in_grams: 100 }],
+          [{ rawIngredient: rawIngredient, amountInGrams: 100 }],
           200,
         );
 

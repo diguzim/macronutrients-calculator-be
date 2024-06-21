@@ -2,9 +2,9 @@ import { Schema } from 'mongoose';
 
 const CookedDishSchema = new Schema({
   name: String,
-  protein_ratio: Number,
-  fat_ratio: Number,
-  carbohydrate_ratio: Number,
-  fiber_ratio: Number,
-  kcal_per_gram: Number,
+  proteinRatio: Number,
+  fatRatio: Number,
+  carbohydrateRatio: Number,
+  fiberRatio: Number,
+  kcalPerGram: Number,
 });
