@@ -7,6 +7,8 @@ import { CreateCookedDishFromRawIngredientsUseCase } from '../../core/applicatio
 import { NutritionalEntitiesController } from './controllers/nutritional-entities/nutritional-entities.controller';
 import { GetAllNutritionalEntitiesUseCase } from '../../core/application/nutritional_entity/get-all-nutritional-entities.use-case';
 import { CalculateNutritionalValuesUseCase } from '../../core/application/nutritional_entity/calculate-nutritional-values.use-case';
+import { ItemsController } from './controllers/items/items.controller';
+import { CreateItemFromRatiosUseCase } from '../../core/application/item/create-item-from-ratios.use-case';
 
 @Module({
   imports: [DatabaseModule],
@@ -14,12 +16,14 @@ import { CalculateNutritionalValuesUseCase } from '../../core/application/nutrit
     RawIngredientsController,
     CookedDishesController,
     NutritionalEntitiesController,
+    ItemsController,
   ],
   providers: [
     CreateRawIngredientFromAbsoluteValuesUseCase,
     CreateCookedDishFromRawIngredientsUseCase,
     GetAllNutritionalEntitiesUseCase,
     CalculateNutritionalValuesUseCase,
+    CreateItemFromRatiosUseCase,
   ],
 })
 export class HttpModule {}

@@ -16,9 +16,9 @@ type CreateItemFromRatiosInput = {
 export class CreateItemFromRatiosUseCase {
   constructor(private readonly itemRepository: ItemRepository) {}
 
-  async execute(input: CreateItemFromRatiosInput): Promise<void> {
+  async execute(input: CreateItemFromRatiosInput): Promise<Item> {
     const item = new Item(input);
 
-    await this.itemRepository.create(item);
+    return await this.itemRepository.create(item);
   }
 }
