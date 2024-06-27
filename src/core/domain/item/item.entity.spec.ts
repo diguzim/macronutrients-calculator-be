@@ -1,4 +1,4 @@
-import { Item } from './item.entity';
+import { Item, ItemType } from './item.entity';
 
 describe('Item', () => {
   describe('constructor', () => {
@@ -8,6 +8,7 @@ describe('Item', () => {
       const item = new Item({
         id: '1',
         name: 'item',
+        type: ItemType.RAW,
         proteinRatio: 0.1,
         fatRatio: 0.2,
         carbohydrateRatio: 0.3,
@@ -33,6 +34,7 @@ describe('Item', () => {
     it('creates an instance of Item without id, createdAt, updatedAt', () => {
       const item = new Item({
         name: 'item',
+        type: ItemType.RECIPE,
         proteinRatio: 0.1,
         fatRatio: 0.2,
         carbohydrateRatio: 0.3,
@@ -48,6 +50,7 @@ describe('Item', () => {
     it('creates an instance of Item with correct ratios', () => {
       const item = Item.createFromAbsoluteValues({
         name: 'item',
+        type: ItemType.RAW,
         weight: 100,
         protein: 10,
         fat: 20,
@@ -59,6 +62,7 @@ describe('Item', () => {
       expect(item).toBeInstanceOf(Item);
 
       expect(item.name).toBe('item');
+      expect(item.type).toBe(ItemType.RAW);
       expect(item.proteinRatio).toBe(0.1);
       expect(item.fatRatio).toBe(0.2);
       expect(item.carbohydrateRatio).toBe(0.3);

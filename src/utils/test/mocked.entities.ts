@@ -1,4 +1,4 @@
-import { Item } from '../../core/domain/item/item.entity';
+import { Item, ItemType } from '../../core/domain/item/item.entity';
 import { RawIngredient } from '../../core/domain/raw-ingredient/raw-ingredient.entity';
 
 export const mockedRawIngredient = new RawIngredient({
@@ -12,6 +12,7 @@ export const mockedRawIngredient = new RawIngredient({
 
 export const mockedItem = new Item({
   name: 'Some item',
+  type: ItemType.RAW,
   proteinRatio: 0.2,
   fatRatio: 0.3,
   carbohydrateRatio: 0.4,

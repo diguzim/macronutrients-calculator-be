@@ -1,5 +1,5 @@
 import { mockedItem } from '../../../utils/test/mocked.entities';
-import { Item } from '../../domain/item/item.entity';
+import { Item, ItemType } from '../../domain/item/item.entity';
 import { ItemRepository } from '../../domain/item/item.repository';
 import { CreateItemFromRatiosUseCase } from './create-item-from-ratios.use-case';
 
@@ -13,6 +13,7 @@ describe('CreateItemFromRatiosUseCase', () => {
 
     const props = {
       name: 'Item',
+      type: ItemType.RAW,
       proteinRatio: 0.1,
       fatRatio: 0.2,
       carbohydrateRatio: 0.3,

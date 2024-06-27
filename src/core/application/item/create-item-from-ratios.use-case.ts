@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Item } from '../../domain/item/item.entity';
+import { Item, ItemType } from '../../domain/item/item.entity';
 import { ItemRepository } from '../../domain/item/item.repository';
 
 type CreateItemFromRatiosInput = {
   name: string;
+  type: ItemType;
   proteinRatio: number;
   fatRatio: number;
   carbohydrateRatio: number;

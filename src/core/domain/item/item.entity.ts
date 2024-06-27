@@ -1,8 +1,14 @@
 import { approximatelyParseFloat } from '../../../utils/math-utils/floating-point';
 
+export enum ItemType {
+  RAW = 'raw',
+  RECIPE = 'recipe',
+}
+
 export type ItemProps = {
   id?: string;
   name: string;
+  type: ItemType;
   proteinRatio: number;
   fatRatio: number;
   carbohydrateRatio: number;
@@ -14,6 +20,7 @@ export type ItemProps = {
 
 export type CreateFromAbsoluteValuesInput = {
   name: string;
+  type: ItemType;
   weight: number;
   protein: number;
   fat: number;
@@ -25,6 +32,7 @@ export type CreateFromAbsoluteValuesInput = {
 export class Item {
   id?: string;
   name: string;
+  type: ItemType;
   proteinRatio: number;
   fatRatio: number;
   carbohydrateRatio: number;
@@ -40,15 +48,17 @@ export class Item {
   public static createFromAbsoluteValues(
     props: CreateFromAbsoluteValuesInput,
   ): Item {
+    const { name, type, protein, fat, carbohydrate, fiber, kcal, weight } =
+      props;
+
     const rawIngredient = new Item({
-      name: props.name,
-      proteinRatio: approximatelyParseFloat(props.protein / props.weight),
-      fatRatio: approximatelyParseFloat(props.fat / props.weight),
-      carbohydrateRatio: approximatelyParseFloat(
-        props.carbohydrate / props.weight,
-      ),
-      fiberRatio: approximatelyParseFloat(props.fiber / props.weight),
-      kcalPerGram: approximatelyParseFloat(props.kcal / props.weight),
+      name: name,
+      type: type,
+      proteinRatio: approximatelyParseFloat(protein / weight),
+      fatRatio: approximatelyParseFloat(fat / weight),
+      carbohydrateRatio: approximatelyParseFloat(carbohydrate / weight),
+      fiberRatio: approximatelyParseFloat(fiber / weight),
+      kcalPerGram: approximatelyParseFloat(kcal / weight),
     });
 
     return rawIngredient;
