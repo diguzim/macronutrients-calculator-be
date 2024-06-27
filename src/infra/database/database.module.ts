@@ -11,6 +11,9 @@ import { CookedDishSchema } from './typeorm/entities/cooked-dish/typeorm-cooked-
 import { TypeormCookedDishRepository } from './typeorm/entities/cooked-dish/typeorm-cooked-dish.repository';
 import { MongooseRawIngredientRepository } from './mongoose/repositories/mongoose-raw-ingredient.repository';
 import { MongooseCookedDishRepository } from './mongoose/repositories/mongoose-cooked-dish.repository';
+import { ItemSchema } from './typeorm/entities/item/typeorm-item.schema';
+import { ItemRepository } from '../../core/domain/item/item.repository';
+import { TypeormItemRepository } from './typeorm/entities/item/typeorm-item.repository';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const inMemoryProviders: Provider[] = [
@@ -57,6 +60,14 @@ const typeormProviders: Provider[] = [
     },
     inject: [getDataSourceToken()],
   },
+  {
+    provide: ItemRepository,
+    useFactory: (dataSource) => {
+      const repository = dataSource.getRepository(ItemSchema);
+      return new TypeormItemRepository(repository);
+    },
+    inject: [getDataSourceToken()],
+  },
 ];
 
 @Module({
@@ -75,7 +86,7 @@ const typeormProviders: Provider[] = [
         username: configService.getOrThrow('database.username'),
         password: configService.getOrThrow('database.password'),
         synchronize: false,
-        entities: [RawIngredientSchema, CookedDishSchema],
+        entities: [RawIngredientSchema, CookedDishSchema, ItemSchema],
       }),
       inject: [ConfigService],
     }),
@@ -87,6 +98,6 @@ const typeormProviders: Provider[] = [
     // Have this uncommented to use the in-memory database
     // ...inMemoryProviders,
   ],
-  exports: [RawIngredientRepository, CookedDishRepository],
+  exports: [RawIngredientRepository, CookedDishRepository, ItemRepository],
 })
 export class DatabaseModule {}
