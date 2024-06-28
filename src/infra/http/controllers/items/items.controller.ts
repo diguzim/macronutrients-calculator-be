@@ -7,14 +7,13 @@ import { ItemSerializer } from '../../../../utils/serializers/item.serializer';
 @Controller('items')
 export class ItemsController {
   constructor(
-    private createItemFromAbsoluteValuesUseCase: CreateItemFromRatiosUseCase,
+    private createItemFromRatiosUseCase: CreateItemFromRatiosUseCase,
   ) {}
 
-  @Post()
+  @Post('create-from-ratios')
   @UseFilters(MacroNutrientRatioGreaterThanOneExceptionFilter)
-  async create(@Body() createItemDto: CreateItemFromRatiosDto) {
-    const item =
-      await this.createItemFromAbsoluteValuesUseCase.execute(createItemDto);
+  async createItemFromRatios(@Body() createItemDto: CreateItemFromRatiosDto) {
+    const item = await this.createItemFromRatiosUseCase.execute(createItemDto);
 
     return ItemSerializer.serialize(item);
   }
