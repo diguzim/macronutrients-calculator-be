@@ -9,6 +9,7 @@ import { GetAllNutritionalEntitiesUseCase } from '../../core/application/nutriti
 import { CalculateNutritionalValuesUseCase } from '../../core/application/nutritional_entity/calculate-nutritional-values.use-case';
 import { ItemsController } from './controllers/items/items.controller';
 import { CreateItemFromRatiosUseCase } from '../../core/application/item/create-item-from-ratios.use-case';
+import { CreateItemFromAbsoluteValuesUseCase } from '../../core/application/item/create-item-from-absolute-values.use-case';
 
 @Module({
   imports: [DatabaseModule],
@@ -24,6 +25,7 @@ import { CreateItemFromRatiosUseCase } from '../../core/application/item/create-
     GetAllNutritionalEntitiesUseCase,
     CalculateNutritionalValuesUseCase,
     CreateItemFromRatiosUseCase,
+    CreateItemFromAbsoluteValuesUseCase,
   ],
 })
 export class HttpModule {}
