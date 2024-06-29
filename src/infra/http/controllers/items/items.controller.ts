@@ -5,12 +5,15 @@ import { CreateItemFromRatiosDto } from './dtos/create-item-from-ratios.dto';
 import { ItemSerializer } from '../../../../utils/serializers/item.serializer';
 import { CreateItemFromAbsoluteValuesUseCase } from '../../../../core/application/item/create-item-from-absolute-values.use-case';
 import { CreateItemFromAbsoluteValuesDto } from './dtos/create-item-from-absolute-values.dto';
+import { CreateCompositeItemUseCase } from '../../../../core/application/item/create-composite-item.use-case';
+import { CreateCompositeItemDto } from './dtos/create-composite-item.dto';
 
 @Controller('items')
 export class ItemsController {
   constructor(
     private createItemFromRatiosUseCase: CreateItemFromRatiosUseCase,
     private createItemFromAbsoluteValuesUseCase: CreateItemFromAbsoluteValuesUseCase,
+    private createCompositeItemUseCase: CreateCompositeItemUseCase,
   ) {}
 
   @Post('create-from-ratios')
@@ -28,6 +31,13 @@ export class ItemsController {
   ) {
     const item =
       await this.createItemFromAbsoluteValuesUseCase.execute(createItemDto);
+
+    return ItemSerializer.serialize(item);
+  }
+
+  @Post('create-from-composition')
+  async createCompositeItem(@Body() createItemDto: CreateCompositeItemDto) {
+    const item = await this.createCompositeItemUseCase.execute(createItemDto);
 
     return ItemSerializer.serialize(item);
   }

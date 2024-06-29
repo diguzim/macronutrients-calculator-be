@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { Item } from '../../domain/item/item.entity';
 import { ItemRepository } from '../../domain/item/item.repository';
 
@@ -10,6 +11,7 @@ type CreateCompositeItemInput = {
   finalWeight;
 };
 
+@Injectable()
 export class CreateCompositeItemUseCase {
   constructor(private readonly itemRepository: ItemRepository) {}
 
