@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
 import { CreateItemFromRatiosUseCase } from '../../../../core/application/item/create-item-from-ratios.use-case';
 import { MacroNutrientRatioGreaterThanOneExceptionFilter } from '../../exception-filters';
 import { CreateItemFromRatiosDto } from './dtos/create-item-from-ratios.dto';
@@ -7,6 +7,8 @@ import { CreateItemFromAbsoluteValuesUseCase } from '../../../../core/applicatio
 import { CreateItemFromAbsoluteValuesDto } from './dtos/create-item-from-absolute-values.dto';
 import { CreateCompositeItemUseCase } from '../../../../core/application/item/create-composite-item.use-case';
 import { CreateCompositeItemDto } from './dtos/create-composite-item.dto';
+import { GetItemsUseCase } from '../../../../core/application/item/get-items.use-case';
+import { GetItemsDto } from './dtos/get-items.dto';
 
 @Controller('items')
 export class ItemsController {
@@ -14,6 +16,7 @@ export class ItemsController {
     private createItemFromRatiosUseCase: CreateItemFromRatiosUseCase,
     private createItemFromAbsoluteValuesUseCase: CreateItemFromAbsoluteValuesUseCase,
     private createCompositeItemUseCase: CreateCompositeItemUseCase,
+    private getItemsUseCase: GetItemsUseCase,
   ) {}
 
   @Post('create-from-ratios')
@@ -40,5 +43,12 @@ export class ItemsController {
     const item = await this.createCompositeItemUseCase.execute(createItemDto);
 
     return ItemSerializer.serialize(item);
+  }
+
+  @Get()
+  async getItems(@Body() getItemsDto: GetItemsDto) {
+    const items = await this.getItemsUseCase.execute(getItemsDto);
+
+    return items.map(ItemSerializer.serialize);
   }
 }
