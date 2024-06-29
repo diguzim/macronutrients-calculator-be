@@ -70,4 +70,49 @@ describe('Item', () => {
       expect(item.kcalPerGram).toBe(10);
     });
   });
+
+  describe('createFromComposition', () => {
+    it('creates an instance of Item with correct ratios', () => {
+      const item = Item.createFromComposition(
+        'composite item',
+        [
+          {
+            item: new Item({
+              name: 'item 1',
+              type: ItemType.RAW,
+              proteinRatio: 0.1,
+              fatRatio: 0.1,
+              carbohydrateRatio: 0.1,
+              fiberRatio: 0.1,
+              kcalPerGram: 10,
+            }),
+            weight: 100,
+          },
+          {
+            item: new Item({
+              name: 'item 2',
+              type: ItemType.RAW,
+              proteinRatio: 0.4,
+              fatRatio: 0.4,
+              carbohydrateRatio: 0.4,
+              fiberRatio: 0.4,
+              kcalPerGram: 40,
+            }),
+            weight: 200,
+          },
+        ],
+        600,
+      );
+
+      expect(item).toBeInstanceOf(Item);
+
+      expect(item.name).toBe('composite item');
+      expect(item.type).toBe(ItemType.RECIPE);
+      expect(item.proteinRatio).toBe(0.15);
+      expect(item.fatRatio).toBe(0.15);
+      expect(item.carbohydrateRatio).toBe(0.15);
+      expect(item.fiberRatio).toBe(0.15);
+      expect(item.kcalPerGram).toBe(15);
+    });
+  });
 });
