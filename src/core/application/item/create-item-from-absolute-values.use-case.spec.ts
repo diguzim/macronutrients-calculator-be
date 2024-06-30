@@ -25,7 +25,6 @@ describe('CreateItemFromAbsoluteValuesUseCase', () => {
     };
 
     const expectedItem = Item.createFromAbsoluteValues(props);
-    console.log('expectedItem:', expectedItem);
 
     await createItemUseCase.execute(props);
 

@@ -10,6 +10,14 @@ export enum ItemType {
   RECIPE = 'recipe',
 }
 
+export type NutritionalSnapshot = {
+  protein: number;
+  fat: number;
+  carbohydrate: number;
+  fiber: number;
+  kcal: number;
+};
+
 export type ItemProps = {
   id?: string;
   name: string;
@@ -106,5 +114,21 @@ export class Item {
       fiberRatio,
       kcalPerGram,
     });
+  }
+
+  calculateNutritionalSnapshot(weight: number): NutritionalSnapshot {
+    const protein = this.proteinRatio * weight;
+    const fat = this.fatRatio * weight;
+    const carbohydrate = this.carbohydrateRatio * weight;
+    const fiber = this.fiberRatio * weight;
+    const kcal = this.kcalPerGram * weight;
+
+    return {
+      protein,
+      fat,
+      carbohydrate,
+      fiber,
+      kcal,
+    };
   }
 }
