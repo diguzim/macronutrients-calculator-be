@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
 import { CreateItemFromRatiosUseCase } from '../../../../core/application/item/create-item-from-ratios.use-case';
-import { MacroNutrientRatioGreaterThanOneExceptionFilter } from '../../exception-filters';
 import { CreateItemFromRatiosDto } from './dtos/create-item-from-ratios.dto';
 import { ItemSerializer } from '../../../../utils/serializers/item.serializer';
 import { CreateItemFromAbsoluteValuesUseCase } from '../../../../core/application/item/create-item-from-absolute-values.use-case';
@@ -28,7 +27,6 @@ export class ItemsController {
   ) {}
 
   @Post('create-from-ratios')
-  @UseFilters(MacroNutrientRatioGreaterThanOneExceptionFilter)
   async createItemFromRatios(@Body() createItemDto: CreateItemFromRatiosDto) {
     const item = await this.createItemFromRatiosUseCase.execute(createItemDto);
 
@@ -36,7 +34,6 @@ export class ItemsController {
   }
 
   @Post('create-from-absolute-values')
-  @UseFilters(MacroNutrientRatioGreaterThanOneExceptionFilter)
   async createItemFromAbsoluteValues(
     @Body() createItemDto: CreateItemFromAbsoluteValuesDto,
   ) {
