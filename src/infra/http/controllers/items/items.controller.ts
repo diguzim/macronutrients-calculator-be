@@ -1,9 +1,6 @@
 import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
 import { CreateItemFromRatiosUseCase } from '../../../../core/application/item/create-item-from-ratios.use-case';
-import {
-  MacroNutrientRatioGreaterThanOneExceptionFilter,
-  NutritionalEntityNotFoundExceptionFilter,
-} from '../../exception-filters';
+import { MacroNutrientRatioGreaterThanOneExceptionFilter } from '../../exception-filters';
 import { CreateItemFromRatiosDto } from './dtos/create-item-from-ratios.dto';
 import { ItemSerializer } from '../../../../utils/serializers/item.serializer';
 import { CreateItemFromAbsoluteValuesUseCase } from '../../../../core/application/item/create-item-from-absolute-values.use-case';
@@ -18,6 +15,7 @@ import {
   NutritionalValuesSerializer,
 } from '../../../../utils/serializers/nutritional-values.serializer';
 import { CalculateNutritionalValuesUseCase } from '../../../../core/application/item/calculate-nutritional-values.use-case';
+import { ItemNotFoundExceptionFilter } from '../../exception-filters/item-not-found.exception-filter';
 
 @Controller('items')
 export class ItemsController {
@@ -63,7 +61,7 @@ export class ItemsController {
   }
 
   @Post('calculate-nutritional-values')
-  @UseFilters(NutritionalEntityNotFoundExceptionFilter)
+  @UseFilters(ItemNotFoundExceptionFilter)
   async create(
     @Body()
     calculateNutritionalValuesDto: CalculateNutritionalValuesDto,
