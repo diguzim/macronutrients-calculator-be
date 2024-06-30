@@ -1,14 +1,14 @@
 import { runSeeders } from 'typeorm-extension';
 import { dataSource } from './data-source';
-// import RawIngredientSeeder from './seeds/raw-ingredient.seeder';
+import ItemsSeeder from './seeds/items.seeder';
 
 (async () => {
   dataSource;
   await dataSource.initialize();
 
   await runSeeders(dataSource, {
-    seeds: [
-      /* RawIngredientSeeder */
-    ],
+    seeds: [ItemsSeeder],
   });
+
+  await dataSource.destroy();
 })();
