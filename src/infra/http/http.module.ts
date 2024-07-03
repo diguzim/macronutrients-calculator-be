@@ -13,6 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { LoginUseCase } from '../../core/application/authentication/login.use-case';
 import { JwtStrategy } from '../../utils/guards/jwt-strategy';
+import { GetProfileUseCase } from '../../core/application/authentication/get-profile.use-case';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { JwtStrategy } from '../../utils/guards/jwt-strategy';
     CalculateNutritionalValuesUseCase,
     RegisterUseCase,
     LoginUseCase,
+    GetProfileUseCase,
   ],
 })
 export class HttpModule {}

@@ -15,12 +15,14 @@ import { LoginUseCase } from '../../../../core/application/authentication/login.
 import { LoginDto } from './dtos/login.dto';
 import { LoginExceptionFilter } from '../../exception-filters/login.exception-filter';
 import { JwtAuthGuard } from '../../../../utils/guards/jwt-auth.guard';
+import { GetProfileUseCase } from '../../../../core/application/authentication/get-profile.use-case';
 
 @Controller('auth')
 export class AuthenticationController {
   constructor(
     private registerUseCase: RegisterUseCase,
     private loginUseCase: LoginUseCase,
+    private getProfileUseCase: GetProfileUseCase,
   ) {}
 
   @Post('register')
@@ -42,6 +44,8 @@ export class AuthenticationController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   async getProfile(@Request() req) {
-    console.log('req:', req.user);
+    const user = await this.getProfileUseCase.execute({ userId: req.user.id });
+
+    return UserSerializer.serialize(user);
   }
 }
