@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from '../../domain/user/user.repository';
 import * as bcrypt from 'bcrypt';
+import { EmailAlreadyExistsError } from '../../../utils/errors/email-already-exists.error';
 
 type CreateUserParams = {
   name: string;
@@ -17,7 +18,7 @@ export class CreateUserUseCase {
       email: params.email,
     });
     if (existingUser) {
-      throw new Error('User already exists');
+      throw new EmailAlreadyExistsError(params.email);
     }
 
     const saltRounds = 10;

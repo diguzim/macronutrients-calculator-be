@@ -6,16 +6,19 @@ import { CreateItemFromAbsoluteValuesUseCase } from '../../core/application/item
 import { CreateCompositeItemUseCase } from '../../core/application/item/create-composite-item.use-case';
 import { GetItemsUseCase } from '../../core/application/item/get-items.use-case';
 import { CalculateNutritionalValuesUseCase } from '../../core/application/item/calculate-nutritional-values.use-case';
+import { CreateUserUseCase } from '../../core/application/user/create-user.use-case';
+import { UsersController } from './controllers/users/users.controller';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [ItemsController],
+  controllers: [ItemsController, UsersController],
   providers: [
     CreateItemFromRatiosUseCase,
     CreateItemFromAbsoluteValuesUseCase,
     CreateCompositeItemUseCase,
     GetItemsUseCase,
     CalculateNutritionalValuesUseCase,
+    CreateUserUseCase,
   ],
 })
 export class HttpModule {}

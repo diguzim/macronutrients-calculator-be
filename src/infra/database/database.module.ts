@@ -8,6 +8,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ItemSchema } from './typeorm/entities/item/typeorm-item.schema';
 import { ItemRepository } from '../../core/domain/item/item.repository';
 import { TypeormItemRepository } from './typeorm/entities/item/typeorm-item.repository';
+import { UserRepository } from '../../core/domain/user/user.repository';
+import { UserSchema } from './typeorm/entities/user/typeorm-user.schema';
+import { TypeormUserRepository } from './typeorm/entities/user/typeorm-user.repository';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const inMemoryProviders: Provider[] = [
@@ -46,6 +49,14 @@ const typeormProviders: Provider[] = [
     },
     inject: [getDataSourceToken()],
   },
+  {
+    provide: UserRepository,
+    useFactory: (dataSource) => {
+      const repository = dataSource.getRepository(UserSchema);
+      return new TypeormUserRepository(repository);
+    },
+    inject: [getDataSourceToken()],
+  },
 ];
 
 @Module({
@@ -64,7 +75,7 @@ const typeormProviders: Provider[] = [
         username: configService.getOrThrow('database.username'),
         password: configService.getOrThrow('database.password'),
         synchronize: false,
-        entities: [ItemSchema],
+        entities: [ItemSchema, UserSchema],
       }),
       inject: [ConfigService],
     }),
@@ -76,6 +87,6 @@ const typeormProviders: Provider[] = [
     // Have this uncommented to use the in-memory database
     // ...inMemoryProviders,
   ],
-  exports: [ItemRepository],
+  exports: [ItemRepository, UserRepository],
 })
 export class DatabaseModule {}
