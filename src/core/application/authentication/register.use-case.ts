@@ -10,7 +10,7 @@ type CreateUserParams = {
 };
 
 @Injectable()
-export class CreateUserUseCase {
+export class RegisterUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
   async execute(params: CreateUserParams) {

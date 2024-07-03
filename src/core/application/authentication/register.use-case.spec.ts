@@ -1,9 +1,9 @@
 import { mockedUser } from '../../../utils/test/mocked.entities';
-import { CreateUserUseCase } from './create-user.use-case';
+import { RegisterUseCase } from './register.use-case';
 import { UserRepository } from '../../domain/user/user.repository';
 
-describe('CreateUserUseCase', () => {
-  let createUserUseCase: CreateUserUseCase;
+describe('RegisterUseCase', () => {
+  let registerUseCase: RegisterUseCase;
 
   const userRepository: UserRepository = {
     create: jest.fn(),
@@ -11,7 +11,7 @@ describe('CreateUserUseCase', () => {
   };
 
   beforeEach(() => {
-    createUserUseCase = new CreateUserUseCase(userRepository);
+    registerUseCase = new RegisterUseCase(userRepository);
   });
 
   const params = {
@@ -30,7 +30,7 @@ describe('CreateUserUseCase', () => {
     });
 
     it('should throw an error', async () => {
-      await expect(createUserUseCase.execute(params)).rejects.toThrow(
+      await expect(registerUseCase.execute(params)).rejects.toThrow(
         'User already exists',
       );
     });
@@ -38,7 +38,7 @@ describe('CreateUserUseCase', () => {
 
   describe('when user does not exist', () => {
     it('should create a user with hashed password', async () => {
-      await createUserUseCase.execute(params);
+      await registerUseCase.execute(params);
 
       expect(userRepository.create).toHaveBeenCalledWith({
         name: 'John Doe',
