@@ -11,6 +11,7 @@ import { AuthenticationController } from './controllers/authentication/authentic
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { LoginUseCase } from '../../core/application/authentication/login.use-case';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ConfigService } from '@nestjs/config';
     GetItemsUseCase,
     CalculateNutritionalValuesUseCase,
     RegisterUseCase,
+    LoginUseCase,
   ],
 })
 export class HttpModule {}
