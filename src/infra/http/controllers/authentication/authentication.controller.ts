@@ -1,4 +1,12 @@
-import { Body, Controller, Post, UseFilters } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseFilters,
+  UseGuards,
+} from '@nestjs/common';
 import { RegisterUseCase } from '../../../../core/application/authentication/register.use-case';
 import { RegisterDto } from './dtos/register.dto';
 import { UserSerializer } from '../../../../utils/serializers/user.serializer';
@@ -6,6 +14,7 @@ import { EmailAlreadyExistsExceptionFilter } from '../../exception-filters/email
 import { LoginUseCase } from '../../../../core/application/authentication/login.use-case';
 import { LoginDto } from './dtos/login.dto';
 import { LoginExceptionFilter } from '../../exception-filters/login.exception-filter';
+import { JwtAuthGuard } from '../../../../utils/guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthenticationController {
@@ -28,5 +37,11 @@ export class AuthenticationController {
     const result = await this.loginUseCase.execute(loginDto);
 
     return result;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  async getProfile(@Request() req) {
+    console.log('req:', req.user);
   }
 }

@@ -12,6 +12,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { LoginUseCase } from '../../core/application/authentication/login.use-case';
+import { JwtStrategy } from '../../utils/guards/jwt-strategy';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { LoginUseCase } from '../../core/application/authentication/login.use-ca
   ],
   controllers: [ItemsController, AuthenticationController],
   providers: [
+    JwtStrategy,
     CreateItemFromRatiosUseCase,
     CreateItemFromAbsoluteValuesUseCase,
     CreateCompositeItemUseCase,
