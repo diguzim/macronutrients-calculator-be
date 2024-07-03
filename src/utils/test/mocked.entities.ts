@@ -1,5 +1,6 @@
 import { Item, ItemType } from '../../core/domain/item/item.entity';
 import { User } from '../../core/domain/user/user.entity';
+import * as bcrypt from 'bcrypt';
 
 export const mockedItem = new Item({
   name: 'Some item',
@@ -11,8 +12,11 @@ export const mockedItem = new Item({
   kcalPerGram: 5.1,
 });
 
+export const mockedUserPassword = 'expected_password';
+const saltRounds = 10;
+const hashedPassword = bcrypt.hashSync(mockedUserPassword, saltRounds);
 export const mockedUser = new User({
   name: 'John Doe',
   email: 'email@example.com',
-  password: 'hashedPassword',
+  password: hashedPassword,
 });

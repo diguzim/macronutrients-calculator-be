@@ -9,4 +9,5 @@ export const environmentVariablesValidationSchema = Joi.object({
   DB_USERNAME: Joi.string(),
   DB_PASSWORD: Joi.string(),
   MONGO_URL: Joi.string(),
+  JWT_SECRET: Joi.string(),
 });

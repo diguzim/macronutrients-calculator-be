@@ -1,6 +1,7 @@
 import { mockedUser } from '../../../utils/test/mocked.entities';
 import { RegisterUseCase } from './register.use-case';
 import { UserRepository } from '../../domain/user/user.repository';
+import { EmailAlreadyExistsError } from '../../../utils/errors/email-already-exists.error';
 
 describe('RegisterUseCase', () => {
   let registerUseCase: RegisterUseCase;
@@ -20,7 +21,7 @@ describe('RegisterUseCase', () => {
     password: 'password',
   };
 
-  describe('when user already exists', () => {
+  describe('when user with email already exists', () => {
     beforeAll(() => {
       userRepository.findBy = jest.fn().mockResolvedValue(mockedUser);
     });
@@ -31,7 +32,7 @@ describe('RegisterUseCase', () => {
 
     it('should throw an error', async () => {
       await expect(registerUseCase.execute(params)).rejects.toThrow(
-        'User already exists',
+        new EmailAlreadyExistsError(params.email),
       );
     });
   });
