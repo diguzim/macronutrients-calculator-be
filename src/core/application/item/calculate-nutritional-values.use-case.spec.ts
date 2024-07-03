@@ -9,11 +9,11 @@ describe('CalculateNutritionalValuesUseCase', () => {
   const input = {
     itemIdsWithWeights: [
       {
-        id: 'id1',
+        itemId: 'id1',
         weight: 100,
       },
       {
-        id: 'id2',
+        itemId: 'id2',
         weight: 200,
       },
     ],

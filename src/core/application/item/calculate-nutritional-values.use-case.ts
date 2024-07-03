@@ -6,7 +6,7 @@ import { NutritionalSnapshot } from '../../domain/item/item.entity';
 
 type CalculateNutritionalValuesInput = {
   itemIdsWithWeights: {
-    id: string;
+    itemId: string;
     weight: number;
   }[];
 };
@@ -22,7 +22,7 @@ export class CalculateNutritionalValuesUseCase {
 
     const nutritionalSnapshots = await Promise.all(
       itemIdsWithWeights.map(async (input) => {
-        const { id, weight } = input;
+        const { itemId: id, weight } = input;
 
         const item = await this.itemRepository.findBy({
           id,

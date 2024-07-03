@@ -3,7 +3,7 @@ import { IsArray, IsPositive, IsString, ValidateNested } from 'class-validator';
 
 class ItemIdWithWeightDto {
   @IsString()
-  id: string;
+  itemId: string;
 
   @IsPositive()
   weight: number;
