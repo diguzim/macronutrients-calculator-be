@@ -41,6 +41,7 @@ export class LoginUseCase {
 
     return {
       token,
+      user,
     };
   }
 }

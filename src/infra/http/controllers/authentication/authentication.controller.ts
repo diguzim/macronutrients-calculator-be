@@ -38,7 +38,10 @@ export class AuthenticationController {
   async login(@Body() loginDto: LoginDto) {
     const result = await this.loginUseCase.execute(loginDto);
 
-    return result;
+    return {
+      token: result.token,
+      user: UserSerializer.serialize(result.user),
+    };
   }
 
   @UseGuards(JwtAuthGuard)
