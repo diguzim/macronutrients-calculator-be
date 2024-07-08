@@ -1,3 +1,4 @@
+import { Item, ItemType } from '../item/item.entity';
 import { Meal } from './meal.entity';
 
 describe('Meal', () => {
@@ -41,6 +42,46 @@ describe('Meal', () => {
       });
 
       expect(meal).toBeInstanceOf(Meal);
+    });
+  });
+
+  describe('createFromItems', () => {
+    it('creates an instance of Meal with correct ratios', () => {
+      const meal = Meal.createFromItems('meal', [
+        {
+          item: new Item({
+            name: 'item 1',
+            type: ItemType.RAW,
+            proteinRatio: 0.1,
+            fatRatio: 0.1,
+            carbohydrateRatio: 0.1,
+            fiberRatio: 0.1,
+            kcalPerGram: 1,
+          }),
+          weight: 100,
+        },
+        {
+          item: new Item({
+            name: 'item 2',
+            type: ItemType.RECIPE,
+            proteinRatio: 0.4,
+            fatRatio: 0.4,
+            carbohydrateRatio: 0.4,
+            fiberRatio: 0.4,
+            kcalPerGram: 4,
+          }),
+          weight: 200,
+        },
+      ]);
+
+      expect(meal).toBeInstanceOf(Meal);
+
+      expect(meal.name).toBe('meal');
+      expect(meal.protein).toBe(90);
+      expect(meal.fat).toBe(90);
+      expect(meal.carbohydrate).toBe(90);
+      expect(meal.fiber).toBe(90);
+      expect(meal.kcal).toBe(900);
     });
   });
 });

@@ -1,3 +1,11 @@
+import { approximatelyParseFloat } from '../../../utils/math-utils/floating-point';
+import { Item } from '../item/item.entity';
+
+type ItemWithWeight = {
+  item: Item;
+  weight: number;
+};
+
 type MealProps = {
   id?: string;
   name: string;
@@ -23,5 +31,34 @@ export class Meal {
 
   constructor(props: MealProps) {
     Object.assign(this, props);
+  }
+
+  public static createFromItems(
+    name: string,
+    itemsWithWeights: ItemWithWeight[],
+  ): Meal {
+    let totalProtein = 0;
+    let totalFat = 0;
+    let totalCarbohydrate = 0;
+    let totalFiber = 0;
+    let totalKcal = 0;
+
+    itemsWithWeights.forEach((itemWithWeight) => {
+      totalProtein += itemWithWeight.item.proteinRatio * itemWithWeight.weight;
+      totalFat += itemWithWeight.item.fatRatio * itemWithWeight.weight;
+      totalCarbohydrate +=
+        itemWithWeight.item.carbohydrateRatio * itemWithWeight.weight;
+      totalFiber += itemWithWeight.item.fiberRatio * itemWithWeight.weight;
+      totalKcal += itemWithWeight.item.kcalPerGram * itemWithWeight.weight;
+    });
+
+    return new Meal({
+      name,
+      protein: approximatelyParseFloat(totalProtein),
+      fat: approximatelyParseFloat(totalFat),
+      carbohydrate: approximatelyParseFloat(totalCarbohydrate),
+      fiber: approximatelyParseFloat(totalFiber),
+      kcal: approximatelyParseFloat(totalKcal),
+    });
   }
 }

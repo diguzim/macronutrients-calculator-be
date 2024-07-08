@@ -1,4 +1,5 @@
 import { Item, ItemType } from '../../core/domain/item/item.entity';
+import { Meal } from '../../core/domain/meal/meal.entity';
 import { User } from '../../core/domain/user/user.entity';
 import * as bcrypt from 'bcrypt';
 
@@ -19,4 +20,13 @@ export const mockedUser = new User({
   name: 'John Doe',
   email: 'email@example.com',
   password: hashedPassword,
+});
+
+export const mockedMeal = new Meal({
+  name: 'Some meal',
+  protein: 10,
+  fat: 20,
+  carbohydrate: 30,
+  fiber: 40,
+  kcal: 1000,
 });
