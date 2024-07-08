@@ -18,7 +18,7 @@ export type NutritionalSnapshot = {
   kcal: number;
 };
 
-export type ItemProps = {
+type ItemProps = {
   id?: string;
   name: string;
   type: ItemType;
