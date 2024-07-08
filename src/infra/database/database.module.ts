@@ -11,6 +11,9 @@ import { TypeormItemRepository } from './typeorm/entities/item/typeorm-item.repo
 import { UserRepository } from '../../core/domain/user/user.repository';
 import { UserSchema } from './typeorm/entities/user/typeorm-user.schema';
 import { TypeormUserRepository } from './typeorm/entities/user/typeorm-user.repository';
+import { MealSchema } from './typeorm/entities/meal/typeorm-meal.schema';
+import { MealRepository } from '../../core/domain/meal/meal.repository';
+import { TypeormMealRepository } from './typeorm/entities/meal/typeorm-meal.repository';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const inMemoryProviders: Provider[] = [
@@ -57,6 +60,14 @@ const typeormProviders: Provider[] = [
     },
     inject: [getDataSourceToken()],
   },
+  {
+    provide: MealRepository,
+    useFactory: (dataSource) => {
+      const repository = dataSource.getRepository(MealSchema);
+      return new TypeormMealRepository(repository);
+    },
+    inject: [getDataSourceToken()],
+  },
 ];
 
 @Module({
@@ -75,7 +86,7 @@ const typeormProviders: Provider[] = [
         username: configService.getOrThrow('database.username'),
         password: configService.getOrThrow('database.password'),
         synchronize: false,
-        entities: [ItemSchema, UserSchema],
+        entities: [ItemSchema, UserSchema, MealSchema],
       }),
       inject: [ConfigService],
     }),
@@ -87,6 +98,6 @@ const typeormProviders: Provider[] = [
     // Have this uncommented to use the in-memory database
     // ...inMemoryProviders,
   ],
-  exports: [ItemRepository, UserRepository],
+  exports: [ItemRepository, UserRepository, MealRepository],
 })
 export class DatabaseModule {}
