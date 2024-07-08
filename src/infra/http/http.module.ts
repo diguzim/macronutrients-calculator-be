@@ -14,6 +14,8 @@ import { ConfigService } from '@nestjs/config';
 import { LoginUseCase } from '../../core/application/authentication/login.use-case';
 import { JwtStrategy } from '../../utils/guards/jwt-strategy';
 import { GetProfileUseCase } from '../../core/application/authentication/get-profile.use-case';
+import { CreateMealFromItemsUseCase } from '../../core/application/meal/create-meal-from-items.use-case';
+import { MealsController } from './controllers/meals/meals.controller';
 
 @Module({
   imports: [
@@ -27,7 +29,7 @@ import { GetProfileUseCase } from '../../core/application/authentication/get-pro
       inject: [ConfigService],
     }),
   ],
-  controllers: [ItemsController, AuthenticationController],
+  controllers: [ItemsController, AuthenticationController, MealsController],
   providers: [
     JwtStrategy,
     CreateItemFromRatiosUseCase,
@@ -38,6 +40,7 @@ import { GetProfileUseCase } from '../../core/application/authentication/get-pro
     RegisterUseCase,
     LoginUseCase,
     GetProfileUseCase,
+    CreateMealFromItemsUseCase,
   ],
 })
 export class HttpModule {}

@@ -19,23 +19,23 @@ export class CreateMeal1720471836319 implements MigrationInterface {
           },
           {
             name: 'kcal',
-            type: 'integer',
+            type: 'float',
           },
           {
             name: 'protein',
-            type: 'integer',
+            type: 'float',
           },
           {
             name: 'carbohydrate',
-            type: 'integer',
+            type: 'float',
           },
           {
             name: 'fat',
-            type: 'integer',
+            type: 'float',
           },
           {
             name: 'fiber',
-            type: 'integer',
+            type: 'float',
           },
           {
             name: 'createdAt',

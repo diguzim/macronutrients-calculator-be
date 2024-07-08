@@ -39,6 +39,7 @@ export class CreateMealFromItemsUseCase {
     );
 
     const meal = Meal.createFromItems(name, itemsWithWeights);
+    console.log('meal:', meal);
 
     return await this.mealRepository.create(meal);
   }
