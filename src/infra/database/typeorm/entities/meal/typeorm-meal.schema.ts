@@ -10,6 +10,9 @@ export const MealSchema = new EntitySchema<Meal>({
       primary: true,
       generated: 'uuid',
     },
+    userId: {
+      type: String,
+    },
     name: {
       type: String,
     },
@@ -35,6 +38,15 @@ export const MealSchema = new EntitySchema<Meal>({
     updatedAt: {
       type: Date,
       updateDate: true,
+    },
+  },
+  relations: {
+    user: {
+      type: 'many-to-one',
+      target: 'User',
+      joinColumn: true,
+      onDelete: 'CASCADE',
+      lazy: true,
     },
   },
 });

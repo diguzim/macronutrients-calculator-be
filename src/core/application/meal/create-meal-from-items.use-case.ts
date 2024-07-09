@@ -18,7 +18,7 @@ export class CreateMealFromItemsUseCase {
     private readonly mealRepository: MealRepository,
   ) {}
 
-  async execute(input: CreateMealFromItemsInput) {
+  async execute(input: CreateMealFromItemsInput, userId: string) {
     const { name, itemIdsWithWeights } = input;
 
     const itemsWithWeights = await Promise.all(
@@ -38,8 +38,7 @@ export class CreateMealFromItemsUseCase {
       }),
     );
 
-    const meal = Meal.createFromItems(name, itemsWithWeights);
-    console.log('meal:', meal);
+    const meal = Meal.createFromItems(name, itemsWithWeights, userId);
 
     return await this.mealRepository.create(meal);
   }

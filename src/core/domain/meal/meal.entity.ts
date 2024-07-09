@@ -1,5 +1,6 @@
 import { approximatelyParseFloat } from '../../../utils/math-utils/floating-point';
 import { Item } from '../item/item.entity';
+import { User } from '../user/user.entity';
 
 type ItemWithWeight = {
   item: Item;
@@ -8,6 +9,8 @@ type ItemWithWeight = {
 
 type MealProps = {
   id?: string;
+  userId?: string;
+  user?: User;
   name: string;
   protein: number;
   fat: number;
@@ -20,6 +23,8 @@ type MealProps = {
 
 export class Meal {
   id?: string;
+  userId: string;
+  user?: User;
   name: string;
   protein: number;
   fat: number;
@@ -36,6 +41,7 @@ export class Meal {
   public static createFromItems(
     name: string,
     itemsWithWeights: ItemWithWeight[],
+    userId: string,
   ): Meal {
     let totalProtein = 0;
     let totalFat = 0;
@@ -53,6 +59,7 @@ export class Meal {
     });
 
     return new Meal({
+      userId: userId,
       name,
       protein: approximatelyParseFloat(totalProtein),
       fat: approximatelyParseFloat(totalFat),

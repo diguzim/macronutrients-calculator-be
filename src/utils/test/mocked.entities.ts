@@ -4,6 +4,7 @@ import { User } from '../../core/domain/user/user.entity';
 import * as bcrypt from 'bcrypt';
 
 export const mockedItem = new Item({
+  id: 'mockedItemId',
   name: 'Some item',
   type: ItemType.RAW,
   proteinRatio: 0.2,
@@ -23,6 +24,7 @@ export const mockedUser = new User({
 });
 
 export const mockedMeal = new Meal({
+  userId: mockedUser.id,
   name: 'Some meal',
   protein: 10,
   fat: 20,

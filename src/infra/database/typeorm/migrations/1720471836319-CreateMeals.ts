@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateMeal1720471836319 implements MigrationInterface {
+export class CreateMeals1720471836319 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -12,6 +12,10 @@ export class CreateMeal1720471836319 implements MigrationInterface {
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
+          },
+          {
+            name: 'userId',
+            type: 'uuid',
           },
           {
             name: 'name',
@@ -46,6 +50,14 @@ export class CreateMeal1720471836319 implements MigrationInterface {
             name: 'updatedAt',
             type: 'timestamp',
             default: 'now()',
+          },
+        ],
+        foreignKeys: [
+          {
+            columnNames: ['userId'],
+            referencedTableName: 'users',
+            referencedColumnNames: ['id'],
+            onDelete: 'CASCADE',
           },
         ],
       }),
