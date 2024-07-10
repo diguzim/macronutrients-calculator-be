@@ -16,6 +16,7 @@ import { JwtStrategy } from '../../utils/guards/jwt-strategy';
 import { GetProfileUseCase } from '../../core/application/authentication/get-profile.use-case';
 import { CreateMealFromItemsUseCase } from '../../core/application/meal/create-meal-from-items.use-case';
 import { MealsController } from './controllers/meals/meals.controller';
+import { GetMealsUseCase } from '../../core/application/meal/get-meals.use-case';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { MealsController } from './controllers/meals/meals.controller';
     LoginUseCase,
     GetProfileUseCase,
     CreateMealFromItemsUseCase,
+    GetMealsUseCase,
   ],
 })
 export class HttpModule {}

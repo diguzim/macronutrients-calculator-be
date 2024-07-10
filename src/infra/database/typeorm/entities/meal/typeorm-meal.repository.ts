@@ -26,13 +26,31 @@ export class TypeormMealRepository implements MealRepository {
     );
 
     return result
-      ? this.toEntity({
-          ...result,
-          ...relations.reduce((acc, relation, index) => {
-            return { ...acc, [loadRelations[index]]: relation };
-          }, {}),
-        })
+      ? this.toEntity(
+          this.joinResultWithRelations(result, relations, loadRelations),
+        )
       : null;
+  }
+
+  async findAllBy(params: Partial<Meal>): Promise<Meal[]> {
+    const results = await this.mealRepository.find({
+      where: params as FindOptionsWhere<Meal>,
+    });
+
+    return results.map((result) => this.toEntity(result));
+  }
+
+  private joinResultWithRelations(
+    result: Meal,
+    relations: any[],
+    loadRelations: string[],
+  ) {
+    return {
+      ...result,
+      ...relations.reduce((acc, relation, index) => {
+        return { ...acc, [loadRelations[index]]: relation };
+      }, {}),
+    };
   }
 
   private toEntity(meal: Meal): Meal {
