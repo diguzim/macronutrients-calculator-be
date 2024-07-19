@@ -1,4 +1,4 @@
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { FindOptionsWhere, ILike, Repository } from 'typeorm';
 import { ItemRepository } from '../../../../../core/domain/item/item.repository';
 import { Item } from '../../../../../core/domain/item/item.entity';
 
@@ -18,9 +18,18 @@ export class TypeormItemRepository implements ItemRepository {
   }
 
   async findAllBy(params: Partial<Item>): Promise<Item[]> {
-    const result = await this.itemRepository.find({
-      where: params as FindOptionsWhere<Item>,
+    const where: FindOptionsWhere<Item> = {};
+
+    // For some fields in params, add a case-insensitive comparison
+    Object.entries(params).forEach(([key, value]) => {
+      if (key === 'name') {
+        where[key] = ILike(`%${value}%`);
+      } else {
+        where[key] = value;
+      }
     });
+
+    const result = await this.itemRepository.find({ where });
 
     return result.map(this.toEntity);
   }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
 import { CreateItemFromRatiosUseCase } from '../../../../core/application/item/create-item-from-ratios.use-case';
 import { CreateItemFromRatiosDto } from './dtos/create-item-from-ratios.dto';
 import { ItemSerializer } from '../../../../utils/serializers/item.serializer';
@@ -51,7 +51,7 @@ export class ItemsController {
   }
 
   @Get()
-  async getItems(@Body() getItemsDto: GetItemsDto) {
+  async getItems(@Query() getItemsDto: GetItemsDto) {
     const items = await this.getItemsUseCase.execute(getItemsDto);
 
     return items.map(ItemSerializer.serialize);
