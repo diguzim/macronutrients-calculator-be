@@ -13,6 +13,10 @@ export const ItemSchema = new EntitySchema<Item>({
     name: {
       type: String,
     },
+    isPublic: {
+      type: Boolean,
+      default: false,
+    },
     type: {
       type: 'enum',
       enum: ItemType,

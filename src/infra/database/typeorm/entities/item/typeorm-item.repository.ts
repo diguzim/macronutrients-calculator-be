@@ -1,6 +1,6 @@
 import { FindOptionsWhere, ILike, Repository } from 'typeorm';
-import { ItemRepository } from '../../../../../core/domain/item/item.repository';
 import { Item } from '../../../../../core/domain/item/item.entity';
+import { ItemRepository } from '../../../../../core/domain/item/item.repository';
 
 export class TypeormItemRepository implements ItemRepository {
   constructor(private readonly itemRepository: Repository<Item>) {}

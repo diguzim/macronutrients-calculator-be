@@ -21,6 +21,7 @@ export type NutritionalSnapshot = {
 type ItemProps = {
   id?: string;
   name: string;
+  isPublic?: boolean;
   type: ItemType;
   proteinRatio: number;
   fatRatio: number;
@@ -45,6 +46,7 @@ export type CreateFromAbsoluteValuesInput = {
 export class Item {
   id?: string;
   name: string;
+  isPublic: boolean = false;
   type: ItemType;
   proteinRatio: number;
   fatRatio: number;

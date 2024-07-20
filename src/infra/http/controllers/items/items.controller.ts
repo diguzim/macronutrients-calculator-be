@@ -1,20 +1,20 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
-import { CreateItemFromRatiosUseCase } from '../../../../core/application/item/create-item-from-ratios.use-case';
-import { CreateItemFromRatiosDto } from './dtos/create-item-from-ratios.dto';
-import { ItemSerializer } from '../../../../utils/serializers/item.serializer';
-import { CreateItemFromAbsoluteValuesUseCase } from '../../../../core/application/item/create-item-from-absolute-values.use-case';
-import { CreateItemFromAbsoluteValuesDto } from './dtos/create-item-from-absolute-values.dto';
+import { CalculateNutritionalValuesUseCase } from '../../../../core/application/item/calculate-nutritional-values.use-case';
 import { CreateCompositeItemUseCase } from '../../../../core/application/item/create-composite-item.use-case';
-import { CreateCompositeItemDto } from './dtos/create-composite-item.dto';
-import { GetItemsUseCase } from '../../../../core/application/item/get-items.use-case';
-import { GetItemsDto } from './dtos/get-items.dto';
-import { CalculateNutritionalValuesDto } from './dtos/calculate-nutritional-values.dto';
+import { CreateItemFromAbsoluteValuesUseCase } from '../../../../core/application/item/create-item-from-absolute-values.use-case';
+import { CreateItemFromRatiosUseCase } from '../../../../core/application/item/create-item-from-ratios.use-case';
+import { SearchPublicItemsUseCase } from '../../../../core/application/item/search-public-items.use-case';
+import { ItemSerializer } from '../../../../utils/serializers/item.serializer';
 import {
   NutritionalValuesSerialized,
   NutritionalValuesSerializer,
 } from '../../../../utils/serializers/nutritional-values.serializer';
-import { CalculateNutritionalValuesUseCase } from '../../../../core/application/item/calculate-nutritional-values.use-case';
 import { ItemNotFoundExceptionFilter } from '../../exception-filters/item-not-found.exception-filter';
+import { CalculateNutritionalValuesDto } from './dtos/calculate-nutritional-values.dto';
+import { CreateCompositeItemDto } from './dtos/create-composite-item.dto';
+import { CreateItemFromAbsoluteValuesDto } from './dtos/create-item-from-absolute-values.dto';
+import { CreateItemFromRatiosDto } from './dtos/create-item-from-ratios.dto';
+import { SearchPublicItemsDto } from './dtos/search-public-items.dto';
 
 @Controller('items')
 export class ItemsController {
@@ -22,7 +22,7 @@ export class ItemsController {
     private createItemFromRatiosUseCase: CreateItemFromRatiosUseCase,
     private createItemFromAbsoluteValuesUseCase: CreateItemFromAbsoluteValuesUseCase,
     private createCompositeItemUseCase: CreateCompositeItemUseCase,
-    private getItemsUseCase: GetItemsUseCase,
+    private searchPublicItemsUseCase: SearchPublicItemsUseCase,
     private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
   ) {}
 
@@ -50,9 +50,10 @@ export class ItemsController {
     return ItemSerializer.serialize(item);
   }
 
-  @Get()
-  async getItems(@Query() getItemsDto: GetItemsDto) {
-    const items = await this.getItemsUseCase.execute(getItemsDto);
+  @Get('search')
+  async searchPublicItems(@Query() searchPublicItemsDto: SearchPublicItemsDto) {
+    const items =
+      await this.searchPublicItemsUseCase.execute(searchPublicItemsDto);
 
     return items.map(ItemSerializer.serialize);
   }
