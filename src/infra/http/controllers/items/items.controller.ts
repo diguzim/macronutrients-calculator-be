@@ -1,8 +1,17 @@
-import { Body, Controller, Get, Post, Query, UseFilters } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseFilters,
+} from '@nestjs/common';
 import { CalculateNutritionalValuesUseCase } from '../../../../core/application/item/calculate-nutritional-values.use-case';
 import { CreateCompositeItemUseCase } from '../../../../core/application/item/create-composite-item.use-case';
 import { CreateItemFromAbsoluteValuesUseCase } from '../../../../core/application/item/create-item-from-absolute-values.use-case';
 import { CreateItemFromRatiosUseCase } from '../../../../core/application/item/create-item-from-ratios.use-case';
+import { GetItemUseCase } from '../../../../core/application/item/get-item.use-case';
 import { SearchPublicItemsUseCase } from '../../../../core/application/item/search-public-items.use-case';
 import { ItemSerializer } from '../../../../utils/serializers/item.serializer';
 import {
@@ -23,6 +32,7 @@ export class ItemsController {
     private createItemFromAbsoluteValuesUseCase: CreateItemFromAbsoluteValuesUseCase,
     private createCompositeItemUseCase: CreateCompositeItemUseCase,
     private searchPublicItemsUseCase: SearchPublicItemsUseCase,
+    private getItemUseCase: GetItemUseCase,
     private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
   ) {}
 
@@ -56,6 +66,14 @@ export class ItemsController {
       await this.searchPublicItemsUseCase.execute(searchPublicItemsDto);
 
     return items.map(ItemSerializer.serialize);
+  }
+
+  @Get(':id')
+  @UseFilters(ItemNotFoundExceptionFilter)
+  async getItem(@Param('id') id: string) {
+    const item = await this.getItemUseCase.execute({ id });
+
+    return ItemSerializer.serialize(item);
   }
 
   @Post('calculate-nutritional-values')
