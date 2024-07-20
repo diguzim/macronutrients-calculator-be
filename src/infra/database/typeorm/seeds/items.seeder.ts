@@ -23,6 +23,7 @@ export default class ItemsSeeder implements Seeder {
         kcal: 180,
       });
       riceItem.id = 'c64bbd58-2800-44d8-8bc6-db760801d88c';
+      riceItem.isPublic = true;
       await repository.save([riceItem]);
     }
 
@@ -42,6 +43,7 @@ export default class ItemsSeeder implements Seeder {
         kcal: 116,
       });
       lentilItem.id = '41486454-f6b2-4cde-8ef6-ce5323244f99';
+      lentilItem.isPublic = true;
       await repository.save([lentilItem]);
     }
 
@@ -60,6 +62,7 @@ export default class ItemsSeeder implements Seeder {
         kcalPerGram: 0.9975,
       });
       riceWithLentilItem.id = '7771946d-7d2c-4ed6-b7b2-90a660b58d8b';
+      riceWithLentilItem.isPublic = false;
       await repository.save([riceWithLentilItem]);
     }
   }
