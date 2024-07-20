@@ -7,6 +7,7 @@ describe('Item', () => {
 
       const item = new Item({
         id: '1',
+        isPublic: true,
         name: 'item',
         type: ItemType.RAW,
         proteinRatio: 0.1,
@@ -21,6 +22,7 @@ describe('Item', () => {
       expect(item).toBeInstanceOf(Item);
 
       expect(item.id).toBe('1');
+      expect(item.isPublic).toBe(true);
       expect(item.name).toBe('item');
       expect(item.proteinRatio).toBe(0.1);
       expect(item.fatRatio).toBe(0.2);
@@ -31,7 +33,7 @@ describe('Item', () => {
       expect(item.updatedAt).toBe(date);
     });
 
-    it('creates an instance of Item without id, createdAt, updatedAt', () => {
+    it('creates an instance of Item without id, isPublic, createdAt, updatedAt', () => {
       const item = new Item({
         name: 'item',
         type: ItemType.RECIPE,
@@ -43,6 +45,11 @@ describe('Item', () => {
       });
 
       expect(item).toBeInstanceOf(Item);
+
+      expect(item.id).toBeUndefined();
+      expect(item.isPublic).toBe(false);
+      expect(item.createdAt).toBeUndefined();
+      expect(item.updatedAt).toBeUndefined();
     });
   });
 

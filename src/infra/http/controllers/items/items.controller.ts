@@ -6,7 +6,7 @@ import { CreateItemFromAbsoluteValuesUseCase } from '../../../../core/applicatio
 import { CreateItemFromAbsoluteValuesDto } from './dtos/create-item-from-absolute-values.dto';
 import { CreateCompositeItemUseCase } from '../../../../core/application/item/create-composite-item.use-case';
 import { CreateCompositeItemDto } from './dtos/create-composite-item.dto';
-import { GetItemsUseCase } from '../../../../core/application/item/get-items.use-case';
+import { SearchPublicItemsUseCase } from '../../../../core/application/item/search-public-items.use-case';
 import { GetItemsDto } from './dtos/get-items.dto';
 import { CalculateNutritionalValuesDto } from './dtos/calculate-nutritional-values.dto';
 import {
@@ -22,7 +22,7 @@ export class ItemsController {
     private createItemFromRatiosUseCase: CreateItemFromRatiosUseCase,
     private createItemFromAbsoluteValuesUseCase: CreateItemFromAbsoluteValuesUseCase,
     private createCompositeItemUseCase: CreateCompositeItemUseCase,
-    private getItemsUseCase: GetItemsUseCase,
+    private getItemsUseCase: SearchPublicItemsUseCase,
     private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
   ) {}
 
