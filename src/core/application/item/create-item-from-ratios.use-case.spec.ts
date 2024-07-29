@@ -1,7 +1,10 @@
 import { mockedItem } from '../../../utils/test/mocked.entities';
 import { Item, ItemType } from '../../domain/item/item.entity';
 import { ItemRepository } from '../../domain/item/item.repository';
-import { CreateItemFromRatiosUseCase } from './create-item-from-ratios.use-case';
+import {
+  CreateItemFromRatiosInput,
+  CreateItemFromRatiosUseCase,
+} from './create-item-from-ratios.use-case';
 
 describe('CreateItemFromRatiosUseCase', () => {
   it('should create an item and save it with the repository', async () => {
@@ -11,8 +14,9 @@ describe('CreateItemFromRatiosUseCase', () => {
 
     const createItemUseCase = new CreateItemFromRatiosUseCase(itemRepository);
 
-    const props = {
+    const input: CreateItemFromRatiosInput = {
       name: 'Item',
+      userId: '1',
       type: ItemType.RAW,
       proteinRatio: 0.1,
       fatRatio: 0.2,
@@ -21,9 +25,9 @@ describe('CreateItemFromRatiosUseCase', () => {
       kcalPerGram: 10,
     };
 
-    await createItemUseCase.execute(props);
+    await createItemUseCase.execute(input);
 
     expect(itemRepository.create).toHaveBeenCalledTimes(1);
-    expect(itemRepository.create).toHaveBeenCalledWith(new Item(props));
+    expect(itemRepository.create).toHaveBeenCalledWith(new Item(input));
   });
 });

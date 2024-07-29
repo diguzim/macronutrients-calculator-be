@@ -2,13 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { Item } from '../../domain/item/item.entity';
 import { ItemRepository } from '../../domain/item/item.repository';
 
-type CreateCompositeItemInput = {
+export type CreateCompositeItemInput = {
   name: string;
   itemIdsWithWeights: {
     itemId: string;
     weight: number;
   }[];
   finalWeight;
+  userId: string;
 };
 
 @Injectable()
@@ -16,7 +17,7 @@ export class CreateCompositeItemUseCase {
   constructor(private readonly itemRepository: ItemRepository) {}
 
   async execute(input: CreateCompositeItemInput) {
-    const { name, itemIdsWithWeights, finalWeight } = input;
+    const { name, itemIdsWithWeights, finalWeight, userId } = input;
 
     const itemsWithWeights = await Promise.all(
       itemIdsWithWeights.map(async (itemIdWithWeight) => {
@@ -35,11 +36,12 @@ export class CreateCompositeItemUseCase {
       }),
     );
 
-    const compositeItem = Item.createFromComposition(
+    const compositeItem = Item.createFromComposition({
       name,
       itemsWithWeights,
       finalWeight,
-    );
+      userId,
+    });
 
     return await this.itemRepository.create(compositeItem);
   }

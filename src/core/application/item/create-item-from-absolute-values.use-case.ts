@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { Item, ItemType } from '../../domain/item/item.entity';
 import { ItemRepository } from '../../domain/item/item.repository';
 
-type CreateItemFromAbsoluteValuesInput = {
+export type CreateItemFromAbsoluteValuesInput = {
   name: string;
+  userId: string;
   type: ItemType;
   weight: number;
   protein: number;

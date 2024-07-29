@@ -1,7 +1,10 @@
 import { mockedItem } from '../../../utils/test/mocked.entities';
 import { Item, ItemType } from '../../domain/item/item.entity';
 import { ItemRepository } from '../../domain/item/item.repository';
-import { CreateItemFromAbsoluteValuesUseCase } from './create-item-from-absolute-values.use-case';
+import {
+  CreateItemFromAbsoluteValuesInput,
+  CreateItemFromAbsoluteValuesUseCase,
+} from './create-item-from-absolute-values.use-case';
 
 describe('CreateItemFromAbsoluteValuesUseCase', () => {
   it('should create an item and save it with the repository', async () => {
@@ -13,8 +16,9 @@ describe('CreateItemFromAbsoluteValuesUseCase', () => {
       itemRepository,
     );
 
-    const props = {
+    const input: CreateItemFromAbsoluteValuesInput = {
       name: 'Item',
+      userId: '1',
       type: ItemType.RAW,
       weight: 100,
       protein: 20,
@@ -24,14 +28,16 @@ describe('CreateItemFromAbsoluteValuesUseCase', () => {
       kcal: 400,
     };
 
-    const expectedItem = Item.createFromAbsoluteValues(props);
+    const expectedItem = Item.createFromAbsoluteValues(input);
 
-    await createItemUseCase.execute(props);
+    await createItemUseCase.execute(input);
 
     expect(itemRepository.create).toHaveBeenCalledTimes(1);
     expect(itemRepository.create).toHaveBeenCalledWith(expectedItem);
 
     expect(expectedItem).toBeInstanceOf(Item);
+    expect(expectedItem.name).toBe('Item');
+    expect(expectedItem.userId).toBe('1');
     expect(expectedItem.proteinRatio).toBe(0.2);
     expect(expectedItem.carbohydrateRatio).toBe(0.4);
     expect(expectedItem.fatRatio).toBe(0.3);

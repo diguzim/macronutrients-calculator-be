@@ -1,12 +1,15 @@
 import { mockedItem } from '../../../utils/test/mocked.entities';
 import { Item } from '../../domain/item/item.entity';
 import { ItemRepository } from '../../domain/item/item.repository';
-import { CreateCompositeItemUseCase } from './create-composite-item.use-case';
+import {
+  CreateCompositeItemInput,
+  CreateCompositeItemUseCase,
+} from './create-composite-item.use-case';
 
 describe('CreateCompositeItemUseCase', () => {
   describe('execute', () => {
     it('should create a composite item from items', async () => {
-      const input = {
+      const input: CreateCompositeItemInput = {
         name: 'name',
         itemIdsWithWeights: [
           {
@@ -19,11 +22,12 @@ describe('CreateCompositeItemUseCase', () => {
           },
         ],
         finalWeight: 600,
+        userId: '1',
       };
 
-      const expectedCompositeItem = Item.createFromComposition(
-        input.name,
-        [
+      const expectedCompositeItem = Item.createFromComposition({
+        name: input.name,
+        itemsWithWeights: [
           {
             item: mockedItem,
             weight: input.itemIdsWithWeights[0].weight,
@@ -33,8 +37,9 @@ describe('CreateCompositeItemUseCase', () => {
             weight: input.itemIdsWithWeights[1].weight,
           },
         ],
-        input.finalWeight,
-      );
+        finalWeight: input.finalWeight,
+        userId: input.userId,
+      });
 
       const itemRepository = {
         findBy: jest.fn(() => mockedItem),
