@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ItemRepository } from '../../domain/item/item.repository';
-import { User } from '../../domain/user/user.entity';
 
 export type SearchPrivateItemsUseCaseParams = {
   name: string;
-  userId: User;
+  userId: string;
 };
 
 @Injectable()
@@ -15,6 +14,7 @@ export class SearchPrivateItemsUseCase {
     return await this.itemRepository.findAllBy({
       name,
       isPublic: false,
+      userId,
     });
   }
 }
