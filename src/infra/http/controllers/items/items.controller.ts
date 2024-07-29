@@ -17,6 +17,7 @@ import { GetItemUseCase } from '../../../../core/application/item/get-item.use-c
 import { SearchPrivateItemsUseCase } from '../../../../core/application/item/search-private-items.use-case';
 import { SearchPublicItemsUseCase } from '../../../../core/application/item/search-public-items.use-case';
 import { JwtAuthGuard } from '../../../../utils/guards/jwt-auth.guard';
+import { RequestWithUser } from '../../../../utils/guards/jwt-request-with-user';
 import { ItemSerializer } from '../../../../utils/serializers/item.serializer';
 import {
   NutritionalValuesSerialized,
@@ -46,7 +47,7 @@ export class ItemsController {
   @Post('create-from-ratios')
   async createItemFromRatios(
     @Body() createItemDto: CreateItemFromRatiosDto,
-    @Request() req,
+    @Request() req: RequestWithUser,
   ) {
     const item = await this.createItemFromRatiosUseCase.execute({
       ...createItemDto,
@@ -60,7 +61,7 @@ export class ItemsController {
   @Post('create-from-absolute-values')
   async createItemFromAbsoluteValues(
     @Body() createItemDto: CreateItemFromAbsoluteValuesDto,
-    @Request() req,
+    @Request() req: RequestWithUser,
   ) {
     const item = await this.createItemFromAbsoluteValuesUseCase.execute({
       ...createItemDto,
@@ -74,7 +75,7 @@ export class ItemsController {
   @Post('create-from-composition')
   async createCompositeItem(
     @Body() createItemDto: CreateCompositeItemDto,
-    @Request() req,
+    @Request() req: RequestWithUser,
   ) {
     const item = await this.createCompositeItemUseCase.execute({
       ...createItemDto,
@@ -96,7 +97,7 @@ export class ItemsController {
   @Get('search-private')
   async searchPrivateItems(
     @Query() searchPrivateItemsDto: SearchPrivateItemsDto,
-    @Request() req,
+    @Request() req: RequestWithUser,
   ) {
     const items = await this.searchPrivateItemsUseCase.execute({
       name: searchPrivateItemsDto.name,
