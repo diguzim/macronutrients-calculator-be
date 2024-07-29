@@ -5,14 +5,18 @@ import {
   Param,
   Post,
   Query,
+  Request,
   UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { CalculateNutritionalValuesUseCase } from '../../../../core/application/item/calculate-nutritional-values.use-case';
 import { CreateCompositeItemUseCase } from '../../../../core/application/item/create-composite-item.use-case';
 import { CreateItemFromAbsoluteValuesUseCase } from '../../../../core/application/item/create-item-from-absolute-values.use-case';
 import { CreateItemFromRatiosUseCase } from '../../../../core/application/item/create-item-from-ratios.use-case';
 import { GetItemUseCase } from '../../../../core/application/item/get-item.use-case';
+import { SearchPrivateItemsUseCase } from '../../../../core/application/item/search-private-items.use-case';
 import { SearchPublicItemsUseCase } from '../../../../core/application/item/search-public-items.use-case';
+import { JwtAuthGuard } from '../../../../utils/guards/jwt-auth.guard';
 import { ItemSerializer } from '../../../../utils/serializers/item.serializer';
 import {
   NutritionalValuesSerialized,
@@ -23,6 +27,7 @@ import { CalculateNutritionalValuesDto } from './dtos/calculate-nutritional-valu
 import { CreateCompositeItemDto } from './dtos/create-composite-item.dto';
 import { CreateItemFromAbsoluteValuesDto } from './dtos/create-item-from-absolute-values.dto';
 import { CreateItemFromRatiosDto } from './dtos/create-item-from-ratios.dto';
+import { SearchPrivateItemsDto } from './dtos/search-private-items.dto';
 import { SearchPublicItemsDto } from './dtos/search-public-items.dto';
 
 @Controller('items')
@@ -32,6 +37,7 @@ export class ItemsController {
     private createItemFromAbsoluteValuesUseCase: CreateItemFromAbsoluteValuesUseCase,
     private createCompositeItemUseCase: CreateCompositeItemUseCase,
     private searchPublicItemsUseCase: SearchPublicItemsUseCase,
+    private searchPrivateItemsUseCase: SearchPrivateItemsUseCase,
     private getItemUseCase: GetItemUseCase,
     private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
   ) {}
@@ -64,6 +70,22 @@ export class ItemsController {
   async searchPublicItems(@Query() searchPublicItemsDto: SearchPublicItemsDto) {
     const items =
       await this.searchPublicItemsUseCase.execute(searchPublicItemsDto);
+
+    return items.map(ItemSerializer.serialize);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('search-private')
+  async searchPrivateItems(
+    @Query() searchPrivateItemsDto: SearchPrivateItemsDto,
+    @Request() req,
+  ) {
+    console.log('req.user:', req.user);
+
+    const items = await this.searchPrivateItemsUseCase.execute({
+      name: searchPrivateItemsDto.name,
+      userId: req.user.id,
+    });
 
     return items.map(ItemSerializer.serialize);
   }
