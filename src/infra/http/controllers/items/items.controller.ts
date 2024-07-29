@@ -42,26 +42,44 @@ export class ItemsController {
     private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
   ) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post('create-from-ratios')
-  async createItemFromRatios(@Body() createItemDto: CreateItemFromRatiosDto) {
-    const item = await this.createItemFromRatiosUseCase.execute(createItemDto);
+  async createItemFromRatios(
+    @Body() createItemDto: CreateItemFromRatiosDto,
+    @Request() req,
+  ) {
+    const item = await this.createItemFromRatiosUseCase.execute({
+      ...createItemDto,
+      userId: req.user.id,
+    });
 
     return ItemSerializer.serialize(item);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('create-from-absolute-values')
   async createItemFromAbsoluteValues(
     @Body() createItemDto: CreateItemFromAbsoluteValuesDto,
+    @Request() req,
   ) {
-    const item =
-      await this.createItemFromAbsoluteValuesUseCase.execute(createItemDto);
+    const item = await this.createItemFromAbsoluteValuesUseCase.execute({
+      ...createItemDto,
+      userId: req.user.id,
+    });
 
     return ItemSerializer.serialize(item);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('create-from-composition')
-  async createCompositeItem(@Body() createItemDto: CreateCompositeItemDto) {
-    const item = await this.createCompositeItemUseCase.execute(createItemDto);
+  async createCompositeItem(
+    @Body() createItemDto: CreateCompositeItemDto,
+    @Request() req,
+  ) {
+    const item = await this.createCompositeItemUseCase.execute({
+      ...createItemDto,
+      userId: req.user.id,
+    });
 
     return ItemSerializer.serialize(item);
   }
@@ -80,8 +98,6 @@ export class ItemsController {
     @Query() searchPrivateItemsDto: SearchPrivateItemsDto,
     @Request() req,
   ) {
-    console.log('req.user:', req.user);
-
     const items = await this.searchPrivateItemsUseCase.execute({
       name: searchPrivateItemsDto.name,
       userId: req.user.id,
