@@ -1,7 +1,7 @@
+import * as bcrypt from 'bcrypt';
 import { Item, ItemType } from '../../core/domain/item/item.entity';
 import { Meal } from '../../core/domain/meal/meal.entity';
 import { User } from '../../core/domain/user/user.entity';
-import * as bcrypt from 'bcrypt';
 
 export const mockedItem = new Item({
   id: 'mockedItemId',
@@ -17,6 +17,7 @@ export const mockedItem = new Item({
 export const mockedUserPassword = 'expected_password';
 const saltRounds = 10;
 const hashedPassword = bcrypt.hashSync(mockedUserPassword, saltRounds);
+
 export const mockedUser = new User({
   name: 'John Doe',
   email: 'email@example.com',

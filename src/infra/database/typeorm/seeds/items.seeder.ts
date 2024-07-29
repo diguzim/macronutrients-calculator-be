@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import { Seeder } from 'typeorm-extension';
-import { ItemSchema } from '../entities/item/typeorm-item.schema';
 import { Item, ItemType } from '../../../../core/domain/item/item.entity';
+import { ItemSchema } from '../entities/item/typeorm-item.schema';
 
 export default class ItemsSeeder implements Seeder {
   public async run(dataSource: DataSource): Promise<void> {

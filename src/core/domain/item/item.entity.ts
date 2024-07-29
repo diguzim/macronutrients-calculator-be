@@ -1,4 +1,5 @@
 import { approximatelyParseFloat } from '../../../utils/math-utils/floating-point';
+import { User } from '../user/user.entity';
 
 type ItemWithWeight = {
   item: Item;
@@ -21,6 +22,8 @@ export type NutritionalSnapshot = {
 type ItemProps = {
   id?: string;
   name: string;
+  userId?: string | null;
+  user?: User;
   isPublic?: boolean;
   type: ItemType;
   proteinRatio: number;
@@ -34,6 +37,7 @@ type ItemProps = {
 
 export type CreateFromAbsoluteValuesInput = {
   name: string;
+  userId?: string;
   type: ItemType;
   weight: number;
   protein: number;
@@ -43,9 +47,18 @@ export type CreateFromAbsoluteValuesInput = {
   kcal: number;
 };
 
+export type CreateFromCompositionInput = {
+  name: string;
+  itemsWithWeights: ItemWithWeight[];
+  finalWeight: number;
+  userId?: string | null;
+};
+
 export class Item {
   id?: string;
   name: string;
+  userId: string | null = null;
+  user?: User;
   isPublic: boolean = false;
   type: ItemType;
   proteinRatio: number;
@@ -57,18 +70,33 @@ export class Item {
   updatedAt?: Date;
 
   constructor(props: ItemProps) {
-    Object.assign(this, props);
+    const { userId } = props;
+
+    Object.assign(this, {
+      ...props,
+      userId: userId || null,
+    });
   }
 
   public static createFromAbsoluteValues(
     props: CreateFromAbsoluteValuesInput,
   ): Item {
-    const { name, type, protein, fat, carbohydrate, fiber, kcal, weight } =
-      props;
+    const {
+      name,
+      type,
+      protein,
+      fat,
+      carbohydrate,
+      fiber,
+      kcal,
+      weight,
+      userId = null,
+    } = props;
 
     const item = new Item({
-      name: name,
-      type: type,
+      name,
+      userId,
+      type,
       proteinRatio: approximatelyParseFloat(protein / weight),
       fatRatio: approximatelyParseFloat(fat / weight),
       carbohydrateRatio: approximatelyParseFloat(carbohydrate / weight),
@@ -79,11 +107,9 @@ export class Item {
     return item;
   }
 
-  public static createFromComposition(
-    name: string,
-    itemsWithWeights: ItemWithWeight[],
-    finalWeight: number,
-  ): Item {
+  public static createFromComposition(props: CreateFromCompositionInput): Item {
+    const { name, itemsWithWeights, finalWeight, userId = null } = props;
+
     let totalProtein = 0;
     let totalFat = 0;
     let totalCarbohydrate = 0;
@@ -109,6 +135,7 @@ export class Item {
 
     return new Item({
       name,
+      userId,
       type: ItemType.RECIPE,
       proteinRatio,
       fatRatio,

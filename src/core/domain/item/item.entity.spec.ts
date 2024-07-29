@@ -1,3 +1,4 @@
+import { mockedUser } from '../../../utils/test/mocked.entities';
 import { Item, ItemType } from './item.entity';
 
 describe('Item', () => {
@@ -9,6 +10,8 @@ describe('Item', () => {
         id: '1',
         isPublic: true,
         name: 'item',
+        userId: '1',
+        user: mockedUser,
         type: ItemType.RAW,
         proteinRatio: 0.1,
         fatRatio: 0.2,
@@ -24,6 +27,8 @@ describe('Item', () => {
       expect(item.id).toBe('1');
       expect(item.isPublic).toBe(true);
       expect(item.name).toBe('item');
+      expect(item.userId).toBe('1');
+      expect(item.user).toBe(mockedUser);
       expect(item.proteinRatio).toBe(0.1);
       expect(item.fatRatio).toBe(0.2);
       expect(item.carbohydrateRatio).toBe(0.3);
@@ -33,7 +38,7 @@ describe('Item', () => {
       expect(item.updatedAt).toBe(date);
     });
 
-    it('creates an instance of Item without id, isPublic, createdAt, updatedAt', () => {
+    it('creates an instance of Item without id, isPublic, userId, user, createdAt, updatedAt', () => {
       const item = new Item({
         name: 'item',
         type: ItemType.RECIPE,
@@ -48,6 +53,8 @@ describe('Item', () => {
 
       expect(item.id).toBeUndefined();
       expect(item.isPublic).toBe(false);
+      expect(item.userId).toBeNull();
+      expect(item.user).toBeUndefined();
       expect(item.createdAt).toBeUndefined();
       expect(item.updatedAt).toBeUndefined();
     });
@@ -57,6 +64,7 @@ describe('Item', () => {
     it('creates an instance of Item with correct ratios', () => {
       const item = Item.createFromAbsoluteValues({
         name: 'item',
+        userId: '1',
         type: ItemType.RAW,
         weight: 100,
         protein: 10,
@@ -69,6 +77,7 @@ describe('Item', () => {
       expect(item).toBeInstanceOf(Item);
 
       expect(item.name).toBe('item');
+      expect(item.userId).toBe('1');
       expect(item.type).toBe(ItemType.RAW);
       expect(item.proteinRatio).toBe(0.1);
       expect(item.fatRatio).toBe(0.2);
@@ -80,9 +89,9 @@ describe('Item', () => {
 
   describe('createFromComposition', () => {
     it('creates an instance of Item with correct ratios', () => {
-      const item = Item.createFromComposition(
-        'composite item',
-        [
+      const item = Item.createFromComposition({
+        name: 'composite item',
+        itemsWithWeights: [
           {
             item: new Item({
               name: 'item 1',
@@ -108,12 +117,14 @@ describe('Item', () => {
             weight: 200,
           },
         ],
-        600,
-      );
+        finalWeight: 600,
+        userId: '1',
+      });
 
       expect(item).toBeInstanceOf(Item);
 
       expect(item.name).toBe('composite item');
+      expect(item.userId).toBe('1');
       expect(item.type).toBe(ItemType.RECIPE);
       expect(item.proteinRatio).toBe(0.15);
       expect(item.fatRatio).toBe(0.15);

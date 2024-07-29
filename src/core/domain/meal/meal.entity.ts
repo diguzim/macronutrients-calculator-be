@@ -59,7 +59,7 @@ export class Meal {
     });
 
     return new Meal({
-      userId: userId,
+      userId,
       name,
       protein: approximatelyParseFloat(totalProtein),
       fat: approximatelyParseFloat(totalFat),
