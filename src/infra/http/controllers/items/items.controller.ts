@@ -50,7 +50,7 @@ export class ItemsController {
   ) {
     const item = await this.createItemFromRatiosUseCase.execute({
       ...createItemDto,
-      userId: req.user.id,
+      userId: req.user.userId,
     });
 
     return ItemSerializer.serialize(item);
@@ -64,7 +64,7 @@ export class ItemsController {
   ) {
     const item = await this.createItemFromAbsoluteValuesUseCase.execute({
       ...createItemDto,
-      userId: req.user.id,
+      userId: req.user.userId,
     });
 
     return ItemSerializer.serialize(item);
@@ -78,7 +78,7 @@ export class ItemsController {
   ) {
     const item = await this.createCompositeItemUseCase.execute({
       ...createItemDto,
-      userId: req.user.id,
+      userId: req.user.userId,
     });
 
     return ItemSerializer.serialize(item);
@@ -100,7 +100,7 @@ export class ItemsController {
   ) {
     const items = await this.searchPrivateItemsUseCase.execute({
       name: searchPrivateItemsDto.name,
-      userId: req.user.id,
+      userId: req.user.userId,
     });
 
     return items.map(ItemSerializer.serialize);

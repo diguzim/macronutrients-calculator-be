@@ -17,6 +17,10 @@ export const ItemSchema = new EntitySchema<Item>({
       type: Boolean,
       default: false,
     },
+    userId: {
+      type: String,
+      nullable: true,
+    },
     type: {
       type: 'enum',
       enum: ItemType,
