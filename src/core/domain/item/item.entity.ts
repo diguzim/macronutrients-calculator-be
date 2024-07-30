@@ -9,6 +9,8 @@ type ItemWithWeight = {
 export enum ItemType {
   RAW = 'raw',
   RECIPE = 'recipe',
+  COOKED = 'cooked',
+  FRIED = 'fried',
 }
 
 export type NutritionalSnapshot = {

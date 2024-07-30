@@ -5,65 +5,20 @@ import { ItemSchema } from '../entities/item/typeorm-item.schema';
 
 export default class ItemsSeeder implements Seeder {
   public async run(dataSource: DataSource): Promise<void> {
+    const items = await import('./items.json');
+    console.log('items:', items);
+
     const repository = dataSource.getRepository(ItemSchema);
 
-    let riceItem = await repository.findOne({
-      where: { name: 'Rice' },
+    const itemsToSeed = items.map((item) => {
+      const newItem = Item.createFromAbsoluteValues({
+        ...item,
+        type: item.type as ItemType,
+      });
+      newItem.isPublic = true;
+      return newItem;
     });
 
-    if (!riceItem) {
-      riceItem = Item.createFromAbsoluteValues({
-        name: 'Rice',
-        type: ItemType.RAW,
-        weight: 50,
-        protein: 3.6,
-        fat: 1,
-        carbohydrate: 39,
-        fiber: 2.4,
-        kcal: 180,
-      });
-      riceItem.id = 'c64bbd58-2800-44d8-8bc6-db760801d88c';
-      riceItem.isPublic = true;
-      await repository.save([riceItem]);
-    }
-
-    let lentilItem = await repository.findOne({
-      where: { name: 'Lentil' },
-    });
-
-    if (!lentilItem) {
-      lentilItem = Item.createFromAbsoluteValues({
-        name: 'Lentil',
-        type: ItemType.RAW,
-        weight: 50,
-        protein: 9,
-        fat: 0.4,
-        carbohydrate: 20,
-        fiber: 8,
-        kcal: 116,
-      });
-      lentilItem.id = '41486454-f6b2-4cde-8ef6-ce5323244f99';
-      lentilItem.isPublic = true;
-      await repository.save([lentilItem]);
-    }
-
-    let riceWithLentilItem = await repository.findOne({
-      where: { name: 'Rice with lentil' },
-    });
-
-    if (!riceWithLentilItem) {
-      riceWithLentilItem = new Item({
-        name: 'Rice with lentil',
-        type: ItemType.RECIPE,
-        proteinRatio: 0.045,
-        fatRatio: 0.004625,
-        carbohydrateRatio: 0.196875,
-        fiberRatio: 0.0375,
-        kcalPerGram: 0.9975,
-      });
-      riceWithLentilItem.id = '7771946d-7d2c-4ed6-b7b2-90a660b58d8b';
-      riceWithLentilItem.isPublic = false;
-      await repository.save([riceWithLentilItem]);
-    }
+    await repository.save(itemsToSeed);
   }
 }
