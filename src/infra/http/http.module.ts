@@ -9,7 +9,7 @@ import { CalculateNutritionalValuesUseCase } from '../../core/application/item/c
 import { CreateCompositeItemUseCase } from '../../core/application/item/create-composite-item.use-case';
 import { CreateItemFromAbsoluteValuesUseCase } from '../../core/application/item/create-item-from-absolute-values.use-case';
 import { CreateItemFromRatiosUseCase } from '../../core/application/item/create-item-from-ratios.use-case';
-import { GetItemUseCase } from '../../core/application/item/get-item.use-case';
+import { GetPublicItemUseCase } from '../../core/application/item/get-public-item.use-case';
 import { SearchPrivateItemsUseCase } from '../../core/application/item/search-private-items.use-case';
 import { SearchPublicItemsUseCase } from '../../core/application/item/search-public-items.use-case';
 import { CreateMealFromItemsUseCase } from '../../core/application/meal/create-meal-from-items.use-case';
@@ -40,7 +40,7 @@ import { MealsController } from './controllers/meals/meals.controller';
     CreateCompositeItemUseCase,
     SearchPublicItemsUseCase,
     SearchPrivateItemsUseCase,
-    GetItemUseCase,
+    GetPublicItemUseCase,
     CalculateNutritionalValuesUseCase,
     RegisterUseCase,
     LoginUseCase,

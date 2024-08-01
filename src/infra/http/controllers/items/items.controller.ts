@@ -13,7 +13,7 @@ import { CalculateNutritionalValuesUseCase } from '../../../../core/application/
 import { CreateCompositeItemUseCase } from '../../../../core/application/item/create-composite-item.use-case';
 import { CreateItemFromAbsoluteValuesUseCase } from '../../../../core/application/item/create-item-from-absolute-values.use-case';
 import { CreateItemFromRatiosUseCase } from '../../../../core/application/item/create-item-from-ratios.use-case';
-import { GetItemUseCase } from '../../../../core/application/item/get-item.use-case';
+import { GetPublicItemUseCase } from '../../../../core/application/item/get-public-item.use-case';
 import { SearchPrivateItemsUseCase } from '../../../../core/application/item/search-private-items.use-case';
 import { SearchPublicItemsUseCase } from '../../../../core/application/item/search-public-items.use-case';
 import { JwtAuthGuard } from '../../../../utils/guards/jwt-auth.guard';
@@ -39,7 +39,7 @@ export class ItemsController {
     private createCompositeItemUseCase: CreateCompositeItemUseCase,
     private searchPublicItemsUseCase: SearchPublicItemsUseCase,
     private searchPrivateItemsUseCase: SearchPrivateItemsUseCase,
-    private getItemUseCase: GetItemUseCase,
+    private getPublicItemUseCase: GetPublicItemUseCase,
     private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
   ) {}
 
@@ -107,10 +107,10 @@ export class ItemsController {
     return items.map(ItemSerializer.serialize);
   }
 
-  @Get(':id')
+  @Get('public/:id')
   @UseFilters(ItemNotFoundExceptionFilter)
-  async getItem(@Param('id') id: string) {
-    const item = await this.getItemUseCase.execute({ id });
+  async getPublicItem(@Param('id') id: string) {
+    const item = await this.getPublicItemUseCase.execute({ id });
 
     return ItemSerializer.serialize(item);
   }

@@ -1,12 +1,15 @@
 import { ItemNotFoundError } from '../../../utils/errors';
 import { mockedItem } from '../../../utils/test/mocked.entities';
 import { ItemRepository } from '../../domain/item/item.repository';
-import { GetItemUseCase, GetItemUseCaseParams } from './get-item.use-case';
+import {
+  GetPublicItemUseCase,
+  GetPublicItemUseCaseParams,
+} from './get-public-item.use-case';
 
-describe('GetItemUseCase', () => {
-  let useCase: GetItemUseCase;
+describe('GetPublicItemUseCase', () => {
+  let useCase: GetPublicItemUseCase;
 
-  const params: GetItemUseCaseParams = {
+  const params: GetPublicItemUseCaseParams = {
     id: 'itemId',
   };
 
@@ -15,7 +18,7 @@ describe('GetItemUseCase', () => {
   } as unknown as ItemRepository;
 
   beforeEach(() => {
-    useCase = new GetItemUseCase(itemRepository);
+    useCase = new GetPublicItemUseCase(itemRepository);
   });
 
   describe('when item is found', () => {
