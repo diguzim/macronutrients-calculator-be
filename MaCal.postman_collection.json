@@ -1,0 +1,463 @@
+{
+	"info": {
+		"_postman_id": "79563e45-bf8b-424c-9f43-7b087ae1c3cf",
+		"name": "MaCal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2564759"
+	},
+	"item": [
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Create from Ratios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Arroz\",\r\n    \"type\": \"recipe\",\r\n    \"proteinRatio\": 0.2,\r\n    \"fatRatio\": 0.1,\r\n    \"carbohydrateRatio\": 0.4,\r\n    \"fiberRatio\": 0.1,\r\n    \"kcalPerGram\": 5.1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/items/create-from-ratios",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items",
+								"create-from-ratios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create from Absolute Values",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Arroz\",\r\n    \"type\": \"recipe\",\r\n    \"weight\": 100,\r\n    \"protein\": 20,\r\n    \"fat\": 10,\r\n    \"carbohydrate\": 40,\r\n    \"fiber\": 10,\r\n    \"kcal\": 510\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/items/create-from-absolute-values",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items",
+								"create-from-absolute-values"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create from Composition",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Arroz com lentilha\",\r\n    \"itemIdsWithWeights\": [\r\n        {\r\n            \"itemId\": \"{{item_1_id}}\",\r\n            \"weight\": 50\r\n        },\r\n        {\r\n            \"itemId\": \"{{item_2_id}}\",\r\n            \"weight\": 60\r\n        }\r\n    ],\r\n    \"finalWeight\": 320\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/items/create-from-composition",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items",
+								"create-from-composition"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Public Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/items/search?name=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Private Items",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/items/search-private?name=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items",
+								"search-private"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public Item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/items/public/cbf9fe6e-5355-4ab4-b1c8-051170da90c9",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items",
+								"public",
+								"cbf9fe6e-5355-4ab4-b1c8-051170da90c9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Private Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/items/private/d21a9333-6bcd-4320-8e61-4279bd1c3563",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items",
+								"private",
+								"d21a9333-6bcd-4320-8e61-4279bd1c3563"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate Nutritional Values",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itemIdsWithWeights\": [\r\n        {\r\n            \"itemId\": \"{{item_1_id}}\",\r\n            \"weight\": 200\r\n        },\r\n        {\r\n            \"itemId\": \"{{item_2_id}}\",\r\n            \"weight\": 100\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/items/calculate-nutritional-values",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"items",
+								"calculate-nutritional-values"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Meals",
+			"item": [
+				{
+					"name": "Create from Items",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Arroz com lentilha\",\r\n    \"itemIdsWithWeights\": [\r\n        {\r\n            \"itemId\": \"{{raw_ingredient_1_id}}\",\r\n            \"weight\": 50\r\n        },\r\n        {\r\n            \"itemId\": \"{{raw_ingredient_2_id}}\",\r\n            \"weight\": 60\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/meals/create-from-items",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"meals",
+								"create-from-items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Meals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/meals/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"meals",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwtToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Rodrigo\",\r\n    \"email\": \"{{email2}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"responseJson = pm.response.json();\r",
+									"pm.environment.set(\"jwtToken\", responseJson.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/auth/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

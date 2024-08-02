@@ -13,6 +13,7 @@ import { CalculateNutritionalValuesUseCase } from '../../../../core/application/
 import { CreateCompositeItemUseCase } from '../../../../core/application/item/create-composite-item.use-case';
 import { CreateItemFromAbsoluteValuesUseCase } from '../../../../core/application/item/create-item-from-absolute-values.use-case';
 import { CreateItemFromRatiosUseCase } from '../../../../core/application/item/create-item-from-ratios.use-case';
+import { GetPrivateItemUseCase } from '../../../../core/application/item/get-private-item.use-case';
 import { GetPublicItemUseCase } from '../../../../core/application/item/get-public-item.use-case';
 import { SearchPrivateItemsUseCase } from '../../../../core/application/item/search-private-items.use-case';
 import { SearchPublicItemsUseCase } from '../../../../core/application/item/search-public-items.use-case';
@@ -40,6 +41,7 @@ export class ItemsController {
     private searchPublicItemsUseCase: SearchPublicItemsUseCase,
     private searchPrivateItemsUseCase: SearchPrivateItemsUseCase,
     private getPublicItemUseCase: GetPublicItemUseCase,
+    private getPrivateItemUseCase: GetPrivateItemUseCase,
     private calculateNutritionalValuesUseCase: CalculateNutritionalValuesUseCase,
   ) {}
 
@@ -111,6 +113,21 @@ export class ItemsController {
   @UseFilters(ItemNotFoundExceptionFilter)
   async getPublicItem(@Param('id') id: string) {
     const item = await this.getPublicItemUseCase.execute({ id });
+
+    return ItemSerializer.serialize(item);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('private/:id')
+  @UseFilters(ItemNotFoundExceptionFilter)
+  async getPrivateItem(
+    @Param('id') id: string,
+    @Request() req: RequestWithUser,
+  ) {
+    const item = await this.getPrivateItemUseCase.execute({
+      id,
+      userId: req.user.userId,
+    });
 
     return ItemSerializer.serialize(item);
   }
