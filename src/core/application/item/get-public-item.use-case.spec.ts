@@ -23,14 +23,14 @@ describe('GetPublicItemUseCase', () => {
 
   describe('when item is found', () => {
     it('should return item', async () => {
-      const items = await useCase.execute(params);
+      const item = await useCase.execute(params);
 
       expect(itemRepository.findBy).toBeCalledWith({
         id: params.id,
         isPublic: true,
       });
 
-      expect(items).toEqual(mockedItem);
+      expect(item).toEqual(mockedItem);
     });
   });
 
