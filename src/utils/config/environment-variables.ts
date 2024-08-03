@@ -8,9 +8,6 @@ export default () => ({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
   },
-  mongo: {
-    url: process.env.MONGO_URL,
-  },
   jwt: {
     secret: process.env.JWT_SECRET,
   },
