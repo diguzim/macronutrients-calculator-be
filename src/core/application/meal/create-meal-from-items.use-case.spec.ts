@@ -7,7 +7,7 @@ describe('CreateMealFromItemsUseCase', () => {
   let useCase: CreateMealFromItemsUseCase;
 
   const itemRepository = {
-    findBy: jest.fn(() => mockedItem),
+    findBy: jest.fn(() => Promise.resolve(mockedItem)),
   } as unknown as ItemRepository;
 
   const mealRepository = {
@@ -26,6 +26,7 @@ describe('CreateMealFromItemsUseCase', () => {
         weight: 200,
       },
     ],
+    userId: 'userId',
   };
 
   beforeEach(() => {
@@ -34,7 +35,11 @@ describe('CreateMealFromItemsUseCase', () => {
 
   describe('when could not find an item', () => {
     beforeAll(() => {
-      itemRepository.findBy = jest.fn(() => null);
+      itemRepository.findBy = jest.fn(() => Promise.resolve(null));
+    });
+
+    afterAll(() => {
+      itemRepository.findBy = jest.fn(() => Promise.resolve(mockedItem));
     });
 
     it('should throw an error', async () => {
@@ -59,6 +64,7 @@ describe('CreateMealFromItemsUseCase', () => {
         fiber: 30,
         kcal: 1530,
         protein: 60,
+        userId: input.userId,
       });
     });
   });

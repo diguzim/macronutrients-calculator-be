@@ -1,12 +1,12 @@
 import { JwtService } from '@nestjs/jwt';
+import { EmailNotFoundError } from '../../../utils/errors/email-not-found.error';
+import { InvalidPasswordError } from '../../../utils/errors/invalid-password.error';
 import {
   mockedUser,
   mockedUserPassword,
 } from '../../../utils/test/mocked.entities';
 import { UserRepository } from '../../domain/user/user.repository';
 import { LoginUseCase } from './login.use-case';
-import { EmailNotFoundError } from '../../../utils/errors/email-not-found.error';
-import { InvalidPasswordError } from '../../../utils/errors/invalid-password.error';
 
 describe('LoginUseCase', () => {
   let loginUseCase: LoginUseCase;
@@ -65,7 +65,7 @@ describe('LoginUseCase', () => {
       it('should sign with JWT and return a token', async () => {
         const result = await loginUseCase.execute(params);
 
-        expect(result).toEqual({ token: 'someToken' });
+        expect(result).toEqual({ token: 'someToken', user: mockedUser });
 
         expect(mockedJwtService.sign).toHaveBeenCalledWith({
           sub: mockedUser.id,

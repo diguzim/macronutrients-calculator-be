@@ -7,10 +7,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CreateMealFromItemsUseCase } from '../../../../core/application/meal/create-meal-from-items.use-case';
-import { CreateMealFromItemsDto } from './dtos/create-meal-from-items.dto';
-import { MealSerializer } from '../../../../utils/serializers/meal.serializer';
-import { JwtAuthGuard } from '../../../../utils/guards/jwt-auth.guard';
 import { GetMealsUseCase } from '../../../../core/application/meal/get-meals.use-case';
+import { JwtAuthGuard } from '../../../../utils/guards/jwt-auth.guard';
+import { MealSerializer } from '../../../../utils/serializers/meal.serializer';
+import { CreateMealFromItemsDto } from './dtos/create-meal-from-items.dto';
 import { GetMealsDto } from './dtos/get-meals.dto';
 
 @Controller('meals')
@@ -37,10 +37,10 @@ export class MealsController {
     @Body() createMealDto: CreateMealFromItemsDto,
     @Request() req,
   ) {
-    const meal = await this.createMealFromItemsUseCase.execute(
-      createMealDto,
-      req.user.userId,
-    );
+    const meal = await this.createMealFromItemsUseCase.execute({
+      ...createMealDto,
+      userId: req.user.userId,
+    });
 
     return MealSerializer.serialize(meal);
   }

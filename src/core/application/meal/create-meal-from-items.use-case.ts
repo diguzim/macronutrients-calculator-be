@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ItemRepository } from '../../domain/item/item.repository';
-import { MealRepository } from '../../domain/meal/meal.repository';
 import { Meal } from '../../domain/meal/meal.entity';
+import { MealRepository } from '../../domain/meal/meal.repository';
 
 type CreateMealFromItemsInput = {
   name: string;
@@ -9,6 +9,7 @@ type CreateMealFromItemsInput = {
     itemId: string;
     weight: number;
   }[];
+  userId: string;
 };
 
 @Injectable()
@@ -18,8 +19,8 @@ export class CreateMealFromItemsUseCase {
     private readonly mealRepository: MealRepository,
   ) {}
 
-  async execute(input: CreateMealFromItemsInput, userId: string) {
-    const { name, itemIdsWithWeights } = input;
+  async execute(input: CreateMealFromItemsInput) {
+    const { name, itemIdsWithWeights, userId } = input;
 
     const itemsWithWeights = await Promise.all(
       itemIdsWithWeights.map(async (itemIdWithWeight) => {
