@@ -21,9 +21,15 @@ export class CreateCompositeItemUseCase {
 
     const itemsWithWeights = await Promise.all(
       itemIdsWithWeights.map(async (itemIdWithWeight) => {
-        const item = await this.itemRepository.findBy({
-          id: itemIdWithWeight.itemId,
-        });
+        const item =
+          (await this.itemRepository.findBy({
+            id: itemIdWithWeight.itemId,
+            isPublic: true,
+          })) ||
+          (await this.itemRepository.findBy({
+            id: itemIdWithWeight.itemId,
+            userId,
+          }));
 
         if (!item) {
           throw new Error('Item not found');
