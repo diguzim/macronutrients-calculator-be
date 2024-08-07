@@ -1,19 +1,19 @@
 import { Module, Provider } from '@nestjs/common';
 // import { InMemoryRawIngredientRepository } from './in-memory/repositories/in-memory-raw-ingredient.repository';
 // import { InMemoryCookedDishRepository } from './in-memory/repositories/in-memory-cooked-dish.repository';
-import { getDataSourceToken, TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { getDataSourceToken, TypeOrmModule } from '@nestjs/typeorm';
 // import { MongooseRawIngredientRepository } from './mongoose/repositories/mongoose-raw-ingredient.repository';
 // import { MongooseCookedDishRepository } from './mongoose/repositories/mongoose-cooked-dish.repository';
-import { ItemSchema } from './typeorm/entities/item/typeorm-item.schema';
 import { ItemRepository } from '../../core/domain/item/item.repository';
-import { TypeormItemRepository } from './typeorm/entities/item/typeorm-item.repository';
-import { UserRepository } from '../../core/domain/user/user.repository';
-import { UserSchema } from './typeorm/entities/user/typeorm-user.schema';
-import { TypeormUserRepository } from './typeorm/entities/user/typeorm-user.repository';
-import { MealSchema } from './typeorm/entities/meal/typeorm-meal.schema';
 import { MealRepository } from '../../core/domain/meal/meal.repository';
+import { UserRepository } from '../../core/domain/user/user.repository';
+import { TypeormItemRepository } from './typeorm/entities/item/typeorm-item.repository';
+import { ItemSchema } from './typeorm/entities/item/typeorm-item.schema';
 import { TypeormMealRepository } from './typeorm/entities/meal/typeorm-meal.repository';
+import { MealSchema } from './typeorm/entities/meal/typeorm-meal.schema';
+import { TypeormUserRepository } from './typeorm/entities/user/typeorm-user.repository';
+import { UserSchema } from './typeorm/entities/user/typeorm-user.schema';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const inMemoryProviders: Provider[] = [
@@ -80,6 +80,9 @@ const typeormProviders: Provider[] = [
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
+        ssl: {
+          rejectUnauthorized: false,
+        },
         host: configService.getOrThrow('database.host'),
         port: configService.getOrThrow('database.port'),
         database: configService.getOrThrow('database.name'),
