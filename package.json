@@ -11,7 +11,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -25,7 +25,8 @@
     "db:seed": "npx ts-node src/infra/database/typeorm/seeder.ts",
     "db:reset": "npm run db:drop && npm run db:create && npm run db:migrate && npm run db:seed",
     "db:generate-migration": "npx typeorm-ts-node-commonjs migration:generate -d src/infra/database/typeorm/data-source.ts",
-    "db:create-migration": "npx typeorm-ts-node-commonjs migration:create"
+    "db:create-migration": "npx typeorm-ts-node-commonjs migration:create",
+    "heroku-postbuild": "NODE_ENV=dev npm install --omit --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "@nestjs/common": "^10.2.7",
