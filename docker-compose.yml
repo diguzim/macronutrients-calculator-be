@@ -1,6 +1,17 @@
 version: '3.1'
 
 services:
+  app:
+    build: .
+    container_name: macal-app
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/macal
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
   postgres:
     image: postgres
     container_name: macal-postgres
