@@ -5,8 +5,7 @@ services:
     build: .
     container_name: macal-app
     environment:
-      - NODE_ENV=production
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/macal
+      - NODE_ENV=${ENV}
     ports:
       - "3000:3000"
     depends_on:

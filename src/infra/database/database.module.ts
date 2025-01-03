@@ -80,9 +80,7 @@ const typeormProviders: Provider[] = [
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        ssl: {
-          rejectUnauthorized: false,
-        },
+        ssl: false,
         host: configService.getOrThrow('database.host'),
         port: configService.getOrThrow('database.port'),
         database: configService.getOrThrow('database.name'),
