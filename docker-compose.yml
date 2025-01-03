@@ -4,12 +4,16 @@ services:
   app:
     build: .
     container_name: macal-app
-    environment:
-      - NODE_ENV=${ENV}
+    env_file:
+      - .env
     ports:
-      - "3000:3000"
+      - "${PORT}:3001"
     depends_on:
       - postgres
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - macal-network
 
   postgres:
     image: postgres
@@ -22,7 +26,11 @@ services:
       - 5432:5432
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    networks:
+      - macal-network
 
 volumes:
   postgres-data:
 
+networks:
+  macal-network:
