@@ -1,6 +1,7 @@
 import * as Joi from 'joi';
 
 export const environmentVariablesValidationSchema = Joi.object({
+  NODE_ENV: Joi.string(),
   ENV: Joi.string(),
   PORT: Joi.number(),
   DB_HOST: Joi.string(),
